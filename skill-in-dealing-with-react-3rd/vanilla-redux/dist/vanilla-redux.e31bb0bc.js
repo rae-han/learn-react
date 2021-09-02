@@ -963,7 +963,6 @@ var store = (0, _redux.createStore)(reducer);
 
 var render = function render() {
   var state = store.getState();
-  console.log(state);
 
   if (state.toggle) {
     divToggle.classList.add('active');
@@ -978,7 +977,7 @@ render();
 store.subscribe(render);
 
 divToggle.onclick = function () {
-  store.dispatch(toggleSwitch);
+  store.dispatch(toggleSwitch());
 };
 
 btnIncrease.onclick = function () {

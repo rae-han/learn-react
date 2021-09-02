@@ -46,7 +46,6 @@ const store = createStore(reducer);
 
 const render = () => {
   const state = store.getState();
-  console.log(state)
 
   if(state.toggle) {
     divToggle.classList.add('active');
@@ -62,7 +61,7 @@ render();
 store.subscribe(render);
 
 divToggle.onclick = () => {
-  store.dispatch(toggleSwitch);
+  store.dispatch(toggleSwitch());
 }
 btnIncrease.onclick = () => {
   store.dispatch(increase(2));
