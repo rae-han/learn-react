@@ -118,7 +118,69 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"index.js":[function(require,module,exports) {
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 console.log('hello parcel');
+var divToggle = document.querySelector('.toggle');
+var counter = document.querySelector('h1');
+var btnIncrease = document.querySelector('#increase');
+var btnDecrease = document.querySelector('#decrease');
+var TOGGLE_SWITCH = 'TOGGLE_SWITCH';
+var INCREASE = 'INCREASE';
+var DECREASE = 'DECREASE';
+
+var toggleSwitch = function toggleSwitch() {
+  return {
+    type: TOGGLE_SWITCH
+  };
+};
+
+var increase = function increase() {
+  return {
+    type: INCREASE,
+    difference: difference
+  };
+};
+
+var decrease = function decrease() {
+  return {
+    type: DECREASE
+  };
+};
+
+var initialState = {
+  toggle: false,
+  counter: 0
+};
+
+function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case TOGGLE_SWITCH:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        toggle: !state.toggle
+      });
+
+    case INCREASE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        counter: state.counter + (action.difference || 1)
+      });
+
+    case DECREASE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        counter: state.counter - 1
+      });
+
+    default:
+      return state;
+  }
+}
 },{}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
