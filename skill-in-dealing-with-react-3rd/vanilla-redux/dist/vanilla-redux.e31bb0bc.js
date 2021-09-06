@@ -905,10 +905,12 @@ console.log('hello parcel');
 var divToggle = document.querySelector('.toggle');
 var counter = document.querySelector('h1');
 var btnIncrease = document.querySelector('#increase');
-var btnDecrease = document.querySelector('#decrease');
+var btnDecrease = document.querySelector('#decrease'); // 액션 타입
+
 var TOGGLE_SWITCH = 'TOGGLE_SWITCH';
 var INCREASE = 'INCREASE';
-var DECREASE = 'DECREASE';
+var DECREASE = 'DECREASE'; // 액션 생성 함수
+// type 값은 필수이며 참고하고 싶은 값은 자유
 
 var toggleSwitch = function toggleSwitch() {
   return {
@@ -927,12 +929,16 @@ var decrease = function decrease() {
   return {
     type: DECREASE
   };
-};
+}; // 초기값 설정
+
 
 var initialState = {
   toggle: false,
   counter: 0
-};
+}; // 리듀서 함수 정의
+// 변화를 일이키는 함수.
+// 함수의 파라미터로 state, action 을 받아온다.
+// 리듀스 함수가 처음 호출 될 때는 state 값이 undefined이다.
 
 function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -957,9 +963,11 @@ function reducer() {
     default:
       return state;
   }
-}
+} // 스토어 만들기
 
-var store = (0, _redux.createStore)(reducer);
+
+var store = (0, _redux.createStore)(reducer); // render 함수 만들기
+// 리액트의 render와 다르게 이미 html을 사용하여 만들어진 ui의 속성을 상태에 따라 변경
 
 var render = function render() {
   var state = store.getState();
@@ -973,8 +981,11 @@ var render = function render() {
   counter.innerText = state.counter;
 };
 
-render();
-store.subscribe(render);
+render(); // 구독하기
+// 스토어의 상태가 바뀔 때마다 render함수가 호출되게 해준다.
+// 파라미터로 함수 형태의 값을 준다.
+
+store.subscribe(render); // 액션 발생 시키기
 
 divToggle.onclick = function () {
   store.dispatch(toggleSwitch());
