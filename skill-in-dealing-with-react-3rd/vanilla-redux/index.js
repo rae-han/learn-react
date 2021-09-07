@@ -29,6 +29,8 @@ const initialState = {
 // 함수의 파라미터로 state, action 을 받아온다.
 // 리듀스 함수가 처음 호출 될 때는 state 값이 undefined이다.
 function reducer(state = initialState, action) {
+  console.log('Func reducer');
+
   switch (action.type) {
     case TOGGLE_SWITCH:
       return {
@@ -51,11 +53,13 @@ function reducer(state = initialState, action) {
 }
 
 // 스토어 만들기
+console.log('Before create store')
 const store = createStore(reducer);
 
 // render 함수 만들기
 // 리액트의 render와 다르게 이미 html을 사용하여 만들어진 ui의 속성을 상태에 따라 변경
 const render = () => {
+  console.log('Func render')
   const state = store.getState();
 
   if(state.toggle) {
@@ -72,10 +76,12 @@ render();
 // 구독하기
 // 스토어의 상태가 바뀔 때마다 render함수가 호출되게 해준다.
 // 파라미터로 함수 형태의 값을 준다.
+console.log('Before subscribe')
 store.subscribe(render);
 
 // 액션 발생 시키기
 divToggle.onclick = () => {
+  console.log('Action!!')
   store.dispatch(toggleSwitch());
 }
 btnIncrease.onclick = () => {
@@ -84,3 +90,5 @@ btnIncrease.onclick = () => {
 btnDecrease.onclick = () => {
   store.dispatch(decrease());
 }
+
+console.log('######## Complete render ########')

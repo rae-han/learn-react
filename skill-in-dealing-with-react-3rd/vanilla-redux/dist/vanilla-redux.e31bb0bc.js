@@ -943,6 +943,7 @@ var initialState = {
 function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  console.log('Func reducer');
 
   switch (action.type) {
     case TOGGLE_SWITCH:
@@ -966,10 +967,12 @@ function reducer() {
 } // 스토어 만들기
 
 
+console.log('Before create store');
 var store = (0, _redux.createStore)(reducer); // render 함수 만들기
 // 리액트의 render와 다르게 이미 html을 사용하여 만들어진 ui의 속성을 상태에 따라 변경
 
 var render = function render() {
+  console.log('Func render');
   var state = store.getState();
 
   if (state.toggle) {
@@ -985,9 +988,11 @@ render(); // 구독하기
 // 스토어의 상태가 바뀔 때마다 render함수가 호출되게 해준다.
 // 파라미터로 함수 형태의 값을 준다.
 
+console.log('Before subscribe');
 store.subscribe(render); // 액션 발생 시키기
 
 divToggle.onclick = function () {
+  console.log('Action!!');
   store.dispatch(toggleSwitch());
 };
 
@@ -998,6 +1003,8 @@ btnIncrease.onclick = function () {
 btnDecrease.onclick = function () {
   store.dispatch(decrease());
 };
+
+console.log('######## Complete render ########');
 },{"redux":"node_modules/redux/es/redux.js"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
