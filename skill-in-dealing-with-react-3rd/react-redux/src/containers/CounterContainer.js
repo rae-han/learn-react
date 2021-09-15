@@ -27,4 +27,3 @@ export default connect(
 )(CounterContainer);
 
 // export default CounterContainer;
-
