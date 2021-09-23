@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   decrease: () => {
     console.log('decrease');
   }
-})
+})  
 
 export default connect(
   mapStateToProps,
@@ -27,3 +27,4 @@ export default connect(
 )(CounterContainer);
 
 // export default CounterContainer; 
+)
