@@ -1,0 +1,27 @@
+// @import './styles/utils.scss';
+@import 'utils.scss';
+
+.SassComponent {
+  display: flex;
+
+  .box {
+    background: black;
+    cursor: pointer;
+
+    &.red {
+      background: $red;
+      @include square(1) 
+    }
+    &.blue {
+      background: $blue;
+      @include square(2) 
+    }
+    &.yellow {
+      background: $yellow;
+      @include square(3) 
+    }
+    &:hover {
+      background: white;
+    }
+  }
+}

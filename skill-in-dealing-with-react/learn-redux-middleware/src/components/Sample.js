@@ -1,0 +1,37 @@
+import React from 'react';
+
+const Sample = ({ loadingPost, loadingUsers, post, users }) => {
+  console.log(loadingPost)
+
+  return (
+    <div>
+      <section>
+        <h1>포스트 {`- ${loadingPost}`}</h1>
+        { loadingPost && `로딩 중...` }
+        { !loadingPost && post && (
+          <div>
+            <h3>{post.title}</h3>
+            <h3>{post.body}</h3>
+          </div>
+        )}
+      </section>
+      <hr />
+      <section>
+        <h1>사용자 목록 {loadingUsers}</h1>
+        {loadingUsers && `로딩 중...`}
+        {!loadingUsers && users && (
+          <ul>
+            {users.map(user=>(
+              <li key={user.id}>
+                <span>{user.username}</span>
+                <span>{user.email}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    </div>
+  );
+};
+
+export default Sample;

@@ -1,0 +1,9 @@
+$red: #fa5252;
+$blue: #339af0;
+$yellow: #fcc419;
+
+@mixin square($size) {
+  $calculated: 32px * $size;
+  width: $calculated;
+  height: $calculated;
+}
