@@ -3,6 +3,10 @@ import AppClass from './AppClass';
 import MyComponentFunc1 from './components/MyComponentFunc1';
 import MyComponentFunc2 from './components/MyComponentFunc2';
 
+import Counter1 from './components/Counter1';
+import Counter2 from './components/Counter2';
+import Counter3 from './components/Counter3';
+
 function App() {
   return (
     <div className="App">
@@ -21,6 +25,10 @@ function App() {
       <MyComponentFunc1 name={"이름"}>자식으로 넘기기</MyComponentFunc1>
       <MyComponentFunc2 name="이름">자식으로 넘기기</MyComponentFunc2>
       <MyComponentFunc2></MyComponentFunc2>
+
+      <Counter1></Counter1>
+      <Counter2></Counter2>
+      <Counter3></Counter3>
     </div>
   );
 }
