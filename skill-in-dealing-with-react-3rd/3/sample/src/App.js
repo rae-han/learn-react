@@ -1,11 +1,14 @@
 import AppFunction from './AppFunction';
 import AppClass from './AppClass';
+
 import MyComponentFunc1 from './components/MyComponentFunc1';
 import MyComponentFunc2 from './components/MyComponentFunc2';
 
 import Counter1 from './components/Counter1';
 import Counter2 from './components/Counter2';
 import Counter3 from './components/Counter3';
+
+import MyComponent1 from './components/MyComponent1'
 
 function App() {
   return (
@@ -29,6 +32,8 @@ function App() {
       <Counter1></Counter1>
       <Counter2></Counter2>
       <Counter3></Counter3>
+
+      <MyComponent1></MyComponent1>
     </div>
   );
 }
