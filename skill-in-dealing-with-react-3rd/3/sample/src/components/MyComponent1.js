@@ -20,20 +20,32 @@ const MyComponent = () => {
     setArr(arr.concat(4))
   }
 
-  return (
-    <div>
+  const NumberComponent = () => {
+    return (
       <div>
         <h3>{num}</h3>
         <button onClick={() => setNum(num+1)}>+1</button>
         <button onClick={increaseNum}>+1</button>
         {/* <button onClick={setNum(num+1)}>+1</button> */}
       </div>
+    )
+  }
+
+  function ArrayComponent() {
+    return (
       <div>
         <h3>{arr}</h3>
         <button onClick={appendArr1}>appendArr</button>
         <button onClick={appendArr2}>appendArr</button>
         <button onClick={appendArr3}>appendArr</button>
       </div>
+    )
+  }
+
+  return (
+    <div>
+      <NumberComponent></NumberComponent>
+      <ArrayComponent></ArrayComponent>
     </div>
   );
 };
