@@ -11,13 +11,14 @@ const MyComponent = () => {
 
   const appendArr1 = () => {
     arr.push(2);
-    console.log(arr)
+    console.log(arr);
+    setArr(arr);
   }  
   const appendArr2 = () => {
     setArr([...arr, 3]);
   }
   const appendArr3 = () => {
-    setArr(arr.concat(4))
+    setArr(arr.concat(4));
   }
 
   const NumberComponent = () => {
