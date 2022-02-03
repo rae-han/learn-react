@@ -2,69 +2,78 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Tailwind
 
-In the project directory, you can run:
+1. 리액트 프로젝트 생성
+먼저 create-react-app 을 이용해서 새로운 리액트 프로젝트를 만들어준다.
 
-### `npm start`
+npx create-react-app my-project
+cd my-project
+2. tailwind설치
+그런 다음 npm을 이용하여 Tailwind를 설치한다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+3. craco
+create-react-app은 PostCSS configuration을 기본적으로 오버라이드 할 수 없으므로 Tailwind를 구성하기 위해 craco를 설치해야한다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+npm install @craco/craco
+CRACO란 Create React App Configuration Override의 약자로 create-react-app을 위한 configuration layer이다.
 
-### `npm test`
+- 여기서 에러 나면 react-script 버전을 4로 낮추면 된다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Craco를 설치한 후 package.json에서 scripts 부분에서 react-scripts 대신 craco를 사용하여 아래와 같이 변경해준다.
 
-### `npm run build`
+{
+    // ...
+    "scripts": {
+     "start": "craco start",
+     "build": "craco build",
+     "test": "craco test",
+      "eject": "react-scripts eject"
+    },
+  }
+그리고 프로젝트의 루트에 craco.config.js 파일을 생성하고 아래와 같이 작성한다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// craco.config.js
+module.exports = {
+  style: {
+    postcss: {
+      plugins: [
+        require('tailwindcss'),
+        require('autoprefixer'),
+      ],
+    },
+  },
+}
+4. tailwind configuration 파일 생성
+tailwind.config.js 파일을 생성하기 위해 아래의 명령어를 실행해준다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+npx tailwindcss-cli@latest init
+그러면 아래와 같은 파일이 저장된다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// tailwind.config.js
+module.exports = {
+  purge: [],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+darkMode
+media - 유저의 시스템 설정에 따라 자동으로 적용. 즉 내가 Chrome에서 다크모드를 사용하고 있으면 자동으로 다크모드 UI를 보여준다.
+class - 시스템 설정에 의존하지 않고 다크모드 토글링을 지원하고 싶다면 사용.
 
-### `npm run eject`
+purge
+아래와 같이 모든 프로젝트의 template 파일 경로 array를 추가할 것을 권장한다. 그 이유는 production 과정에서 사용하지 않는 스타일들을 자동으로 제거해서 최종 빌드 사이즈를 최적화해주기 때문이다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+5. CSS 파일에 Tailwind 추가하기
+이제 create-react-app이 자동으로 생성한 디폴트 파일인 ./src/index.css 파일에 아래와 같이 추가하면 모든 준비가 끝났다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
