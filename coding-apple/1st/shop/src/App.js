@@ -1,13 +1,15 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import DefaultLayout from './layouts/DefaultLayout'
-import NavBars from './layouts/NavBars'
+import NavBar from './components/NavBar'
+import Jumbotron from './components/Jumbotron'
+import List from './layouts/List'
 
 function App() {
   return (
     <div className="App">
-      <NavBars></NavBars>
+      <NavBar></NavBar>
+      <Jumbotron></Jumbotron>
+      <List></List>
     </div>
   );
 }
