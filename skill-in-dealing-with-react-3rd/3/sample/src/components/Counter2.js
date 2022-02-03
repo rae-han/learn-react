@@ -17,8 +17,8 @@ export default class Counter2 extends Component {
         <h1>{fixedNumber}</h1>
         <button
           onClick={async () => {
-            this.setState({ number: this.state.number + 1 })
-            this.setState({ number: this.state.number + 1 }) 
+            this.setState({ number: this.state.number + 1 });
+            this.setState({ number: this.state.number + 1 });
             // await this.setState({ number: this.state.number + 1 })
             // await this.setState({ number: this.state.number + 1 }) 
             // 2개를 해도 +1 만 된다. 
