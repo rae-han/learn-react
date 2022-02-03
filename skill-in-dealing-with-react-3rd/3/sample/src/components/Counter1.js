@@ -14,11 +14,12 @@ export default class Counter1 extends Component {
 
     return (
       <div>
+        <h1># Counter 1 Component</h1>
         <h1>{number}</h1>
         <h1>{fixedNumber}</h1>
         <button
           onClick={() => {
-            this.setState({ number: number + 1 }) // 내부 적으로 원래 객체 다른 내용을 저장?
+            this.setState({ number: number + 1 }) // 내부적으로 원래 객체 다른 내용을 저장
           }}
         >++</button>
       </div>
