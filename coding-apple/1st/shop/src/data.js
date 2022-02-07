@@ -16,5 +16,5 @@ export default [
     title : "Grey Yordan",
     content : "Born in the States",
     price : 130000
-  }
+  },
 ];

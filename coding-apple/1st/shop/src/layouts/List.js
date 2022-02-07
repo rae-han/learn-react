@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import ListItem from '../components/ListItem'
-import listData from '../data'
 
-const List = () => {
-  const [list, setList] = useState(listData);
-
+const List = ({ list }) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -77,3 +77,19 @@ purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+# SASS
+
+node 16 버전 이상에서는 그냥 node-sass 만 설치하면 된다.
+
+# LifeCycle
+componentDidMount() - 컴포넌트 첫 랜더링 후 실행할 코드
+componentWillUnmount() - 컴포넌트가 사라지기 전 실행할 코드
+
+
+# useEffect
+컴포넌트가 첫 등장해서 로딩이 끝난 후에(mount 끝난 후)
+컴포넌트가 재렌더링 되고난 후 때(update 되고 난 후)
+

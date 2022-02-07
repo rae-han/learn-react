@@ -1,6 +1,34 @@
+// 1.
+$mainColor: red;
+
+// 2.
+@import './index.scss';
+
+// 4.
+.styles {
+  background: red;
+  height: 8px;
+}
+
+// 3. nesting
 .App {
   text-align: center;
+
+  .test {
+    // 4.
+    @extend .styles;
+  }
 }
+
+@mixin func() {
+  background: blue;
+  height: 8px;
+}
+
+.list {
+  @include func();
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -35,4 +63,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.testinput {
+  background: grey;
 }
