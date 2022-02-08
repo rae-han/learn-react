@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './App.scss';
@@ -10,12 +10,19 @@ import Jumbotron from './components/Jumbotron'
 import List from './layouts/List'
 import Detail from './components/Detail'
 
+const countContext = React.createContext(); 
+// 같은 값을 공유하는 범위 생성
+// createContext라는 함수를 이용해 변수를 만드는데 그 변수는 특별한 컴포넌트가 된다.
+// 이 컴포넌트의 value 에 공유할 state를 집어넣으면 된다.
+// useContext - 재고 값을 사용 가능
+
 function App() {
   const [list, setList] = useState(listData);
   const [moreIdx, setMoreIdx] = useState(2);
   const [isMore, setIsMore] = useState(true);
   const [testarea, setTestarea] = useState(true);
   const [testtext, setTesttext] = useState('');
+  const [count, setCount] = useState([11, 12, 13]);
 
 
   const inputText = e => {
@@ -53,8 +60,10 @@ function App() {
     <div className="App">
       <NavBar></NavBar>
       <Jumbotron></Jumbotron>
-      <Route path="/" exact={true} component={() => <List list={list}></List>}></Route>
-      <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+      <countContext.Provider value={count}> 
+        <Route path="/" exact={true} component={() => <List list={list}></List>}></Route>
+        <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+      </countContext.Provider>
       {isMore && <button onClick={fetchList}>더보기</button>}
       <input className="testinput" type="text" onChange={inputText} value={testtext}/>
       { testarea && <>
@@ -65,6 +74,8 @@ function App() {
   );
 }
 
-//
+export {
+  countContext
+}
 
 export default App;

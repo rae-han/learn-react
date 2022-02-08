@@ -93,3 +93,31 @@ componentWillUnmount() - 컴포넌트가 사라지기 전 실행할 코드
 컴포넌트가 첫 등장해서 로딩이 끝난 후에(mount 끝난 후)
 컴포넌트가 재렌더링 되고난 후 때(update 되고 난 후)
 
+두번째 인수인 배열에 값을 넣어주면
+컴포넌트가 로드 될때, 해당 값이 변경이 될 때만 실행된다.
+
+만값 배열에 값을 하나도 안넣는다면 컴포넌트 로드할 때 딱 한번만 실행할수 있다.
+
+# 배포
+
+- 뒤에 /shop 처럼 하위 경로에 배포하고 싶다면 package.json 파일에서 큰 object에 homepage라는 key 값을 추가한 후 배포할 사이트 경로를 추가하면 된다.
+- ex. "homepage": "https://www.googole.com/shop",
+- 만약 리액트 라우터가 설치되어 있다면 라우터가 제공하는 basename="" 속성을 추가하는게 좋다.
+  - https://create-react-app.dev/docs/deployment/#building-for-relative-paths
+
+- npm run build or yarn build 명령어를 통해 build or dist 폴더를 말한다.
+
+- github pages 에 배포하는 방법
+  1. github 로그인 후 New repository 한다.
+  2. 그 후 Repository name 은 왼쪽 Owner 에 있는 아이디.github.io 로 한다 
+   - ex. raehan.github.io
+  3. README 파일 생성 체크한 뒤 생성
+  4. 생성 되었다면 리액트로 생성한 파일을 올린다. build에 있는 파일들을 깃헙에 드래그앤드롭 해도 된다.
+  5. 만약 여러 레포지토리를 동시에 호스팅 해주고 싶다면?
+     1. 위에서 만든 이름.github.io 를 지우면 안된다.
+     2. 레파지토리를 새로 만드는데 이름은 마음대로 해도 된다.
+     3. 위 처럼 원하는 HTML, CSS, JS파일 업로드하고 확인 누른다.
+     4. repository setting 메뉴에 들어가서 github pages 부분을 찾는다.
+     5. source 부분을 None이 아니라 main 같은 걸로 바꾸고 저장한다.
+     6. 그 후 아이디.github.io/[repo name]/ 들어가면 확인 가능하다.
+
