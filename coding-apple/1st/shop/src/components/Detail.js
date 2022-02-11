@@ -13,6 +13,8 @@ const Detail = ({ list }) => {
   const item = list.find(i => i.id === parseInt(id, 10));
 
   const toggleCategory = id => {
+    if(id === category) return '변화 없는 경우';
+
     setToggle(false);
     setCategory(id);
   }

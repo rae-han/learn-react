@@ -9,6 +9,7 @@ import NavBar from './components/NavBar'
 import Jumbotron from './components/Jumbotron'
 import List from './layouts/List'
 import Detail from './components/Detail'
+import Cart from './components/Cart'
 
 const countContext = React.createContext(); 
 // 같은 값을 공유하는 범위 생성
@@ -63,6 +64,7 @@ function App() {
       <countContext.Provider value={count}> 
         <Route path="/" exact={true} component={() => <List list={list}></List>}></Route>
         <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+        <Route path="/cart" component={() => (<Cart></Cart>)}></Route>
       </countContext.Provider>
       {isMore && <button onClick={fetchList}>더보기</button>}
       <input className="testinput" type="text" onChange={inputText} value={testtext}/>

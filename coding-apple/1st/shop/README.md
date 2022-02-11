@@ -121,3 +121,96 @@ componentWillUnmount() - 컴포넌트가 사라지기 전 실행할 코드
      5. source 부분을 None이 아니라 main 같은 걸로 바꾸고 저장한다.
      6. 그 후 아이디.github.io/[repo name]/ 들어가면 확인 가능하다.
 
+# React transition group
+
+- npm install react-transition-group
+
+<CSSTransition in={toggle} classNames="wow" timeout={500}>
+<!-- toggle true false 왔다갔다 하면서 트랜지션을 준다. -->
+<!-- classNames 는 css에서 쓰일 클래스 이름 -->
+  <TabContent category={category} setToggle={setToggle}></TabContent>
+  <!-- 
+    useEffect(() => {
+      setToggle(true)
+    });
+
+    useEffect 로 새 컴포넌트로 오면 애니메이션을 준다.
+  -->
+</CSSTransition>
+
+
+# Redux
+
+npm i redux react-redux
+
+// index.js
+import { Provider } from 'react-redux';
+
+let store = createStore(() => {
+  return [{ id: 0, name: '신발', quan: 2 }]
+})
+
+<Provider store={store}>
+  <App />
+</Provider>
+
+// Cart.js
+import { connect } from 'react-redux';
+
+function propsfyOfState(state) { ->  redux store 데이터 가져와서 props로 변환해주는 함수
+  return {
+    thisComponentState: state
+  }
+}
+
+export default connect(propsfyOfState)(Cart);
+-> ()() 는 첫번째 함수에서 함수르 리턴하기 때문. 그냥 라이브러리 문법.
+
+props에 thisComponentState 값이 들어온다.
+
+오늘 총정리를 하자면
+
+- redux는 props 전송 귀찮을 때 사용합니다.
+
+- 일단 redux를 설치부터 하고 셋팅까지 완료합니다.
+
+ 
+
+셋팅은
+
+1. index.js에 <Provider>를 import 해오신 다음
+
+2. state 값공유를 원하는 컴포넌트를 감싸면 됩니다.
+
+3. createStore를 import 해오신 다음 사용법에 의해 state를 만들어 let store라는 변수에 저장합니다.
+
+4. <Provider store={store}> 이렇게 store를 등록하면
+
+이제 Provider로 감싼 컴포넌트는 전부 store안에 있던 값을 props없이 공유 가능합니다.
+
+ 
+
+ 
+
+store안에 있던 state 사용은
+
+원하는 컴포넌트 파일 가셔서
+
+1. 하단에 function state를props화() 를 하나 만들어주고 state를 props로 등록합니다.
+
+2. 그리고 또 하단에 export default connect(state를props화)(Cart); 
+
+이렇게 사용하시면 이제 아까 만들어둔 state가 props로 등록이 된 것입니다. 
+
+props.state이름 이렇게 저장된 state를 자유롭게 사용할 수 있습니다.
+
+ 
+
+
+
+
+
+
+
+
+
