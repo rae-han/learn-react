@@ -7,9 +7,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-let store = createStore(() => {
-  return [{ id: 0, name: '신발', quan: 2 }]
-})
+let initialState = [{ id: 0, name: '신발', quan: 2 }]
+
+function reducer(state = initialState, action) {
+  if(action.type === 'INCREMENT') {
+    console.log('수량증가')
+    return state;
+  } else {
+    return state;
+  }
+}
+
+let store = createStore(reducer);
+
+
 
 ReactDOM.render(
   <React.StrictMode>

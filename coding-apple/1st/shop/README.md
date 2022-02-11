@@ -204,8 +204,41 @@ store안에 있던 state 사용은
 
 props.state이름 이렇게 저장된 state를 자유롭게 사용할 수 있습니다.
 
- 
+const Cart = (props) => {
+  console.log(props.reduxState)
+  const loadState = props.reduxState;
+  
+  ...
 
+   {loadState.map((cart) => (
+
+  ...
+
+  function propsfyOfState(state) {
+  return {
+    reduxState: state
+  }
+}
+
+ 
+# 리듀서 초기 세팅
+function reducer() {
+  return [{ id: 0, name: '신발', quan: 2 }]
+}
+
+let store = createStore(reducer);
+
+or
+
+let initialState = [{ id: 0, name: '신발', quan: 2 }]
+
+function reducer(state = initialState, action) {
+  return state;
+}
+
+let store = createStore(reducer);
+
+# 리듀서에 데이터 수정방법 정의
 
 
 
