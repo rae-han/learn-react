@@ -11,10 +11,17 @@ const EventPractice1 = () => {
   let textInput = useRef();
 
   const onChange = e => {
-    console.log(e);
+    console.log(e.target.name);
+    console.log(e.target.dataset.name)
+    console.log(e.currentTarget.dataset.name)
     console.log(e.target.value);
-    let value = e.target.value;
-    setCurrentValue(value);
+
+    const nextForm = {
+      ...form,
+      [e.target.name]: e.target.value
+    };
+
+    setForm(nextForm);
   }
 
   const SyntheticChange = e => {
@@ -41,8 +48,8 @@ const EventPractice1 = () => {
           <span>Native</span>
           <input />
         </p> */}
-        <input type="text" name="username" value={username} onChange={onChange} />
-        <input type="text" name="message" value={message} onChange={onChange} />
+        <input type="text" name="username" value={username} onChange={onChange} data-name="username" />
+        <input type="text" name="message" value={message} onChange={onChange} data-name="message" />
       </div>
     </div>
   );
