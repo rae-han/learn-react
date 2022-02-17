@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 const Cart = (props) => {
   console.log(props.reduxState)
   const loadState = props.reduxState;
+  console.log(loadState)
 
   return (
     <div className="flex flex-col">
@@ -60,13 +61,18 @@ const Cart = (props) => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cart.role}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button onClick={() => { loadState.dispatch({ 'type': 'INCREMENT' })}}>+</button>
+                      <button onClick={() => { props.dispatch({ type: "INCREMENT" })}}>+</button>
                       <button>-</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            { props.isAlert === true ? 
+            <div>
+              <p>지금 구매하면 20% 할인</p>
+              <button>닫기</button>
+            </div> : null }
           </div>
         </div>
       </div>
@@ -75,8 +81,11 @@ const Cart = (props) => {
 };
 
 function propsfyOfState(state) {
+  console.log(state)
   return {
     reduxState: state
+    // reduxState: state.reducer,
+    // isAlert: state.reducer2
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
@@ -18,7 +18,13 @@ function reducer(state = initialState, action) {
   }
 }
 
+let initialAlert = true;
+function reducer2(state = initialAlert, action) {
+  return state;
+}
+
 let store = createStore(reducer);
+// let store = createStore(combineReducers({ reducer, reducer2 }))
 
 
 
