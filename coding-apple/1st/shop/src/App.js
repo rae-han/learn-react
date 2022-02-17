@@ -25,6 +25,13 @@ function App() {
   const [testtext, setTesttext] = useState('');
   const [count, setCount] = useState([11, 12, 13]);
 
+  const [currentCategory, setCurrentCategory] = useState('info');
+  const categories = ['info', 'shipping', 'refund']
+
+  const setRandomComponent = () => {
+    setCurrentCategory(categories[Math.floor(Math.random()*3)]);
+  }
+
 
   const inputText = e => {
     setTesttext(e.target.value);
@@ -72,6 +79,16 @@ function App() {
         <div className="test"></div>
         <div className="list"></div>
       </>}
+      <div>
+        <p><button onClick={setRandomComponent}>랜덤 컴포넌트 보여주기</button></p>
+        {
+          {
+            info: <div>상품정보</div>,
+            shipping: <div>배송관련</div>,
+            refund: <div>환불약관</div>,
+          }[currentCategory]
+        }
+      </div>
     </div>
   );
 }

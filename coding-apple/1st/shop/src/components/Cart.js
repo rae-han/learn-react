@@ -1,10 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 const Cart = (props) => {
-  console.log(props.reduxState)
-  const loadState = props.reduxState;
-  console.log(loadState)
+  // const loadState = props.reduxState;
+  let dispatch = useDispatch();
+  let state = useSelector(state => state);
+  let loadState = state.reducer;
+  let isAlert = state.reducer2;
 
   return (
     <div className="flex flex-col">
@@ -61,17 +64,17 @@ const Cart = (props) => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cart.role}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button onClick={() => { props.dispatch({ type: "INCREMENT" })}}>+</button>
+                      <button onClick={() => { dispatch({ type: "INCREMENT" })}}>+</button>
                       <button>-</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            { props.isAlert === true ? 
+            { isAlert === true ? 
             <div>
               <p>지금 구매하면 20% 할인</p>
-              <button>닫기</button>
+              <button onClick={() => { dispatch({ type: 'HIDE' })}}>닫기</button>
             </div> : null }
           </div>
         </div>
@@ -83,10 +86,11 @@ const Cart = (props) => {
 function propsfyOfState(state) {
   console.log(state)
   return {
-    reduxState: state
-    // reduxState: state.reducer,
-    // isAlert: state.reducer2
+    // reduxState: state,
+    reduxState: state.reducer,
+    isAlert: state.reducer2
   }
 }
 
-export default connect(propsfyOfState)(Cart); 
+// export default connect(propsfyOfState)(Cart); 
+export default Cart;

@@ -257,8 +257,192 @@ function reducer(state = initialState, action) {
 // UserComponent.js
 <button onClick={() => { props.dispatch({ type: "INCREMENT" })}}>+</button>
 
+# 리듀서가 여러개일때
+// index.js 
+// 하나 더 정의
+let initialAlert = true;
+function reducer2(state = initialAlert, action) {
+  return state;
+}
+
+// redux의 combineReducers 메서드를 이용해 리듀서를 합쳐준다.
+// let store = createStore(reducer);
+let store = createStore(combineReducers({ reducer, reducer2 }))
+
+// UserComponent
+// 수정
+function propsfyOfState(state) {
+  console.log(state)
+  return {
+    // reduxState: state,
+    reduxState: state.reducer,
+    isAlert: state.reducer2
+  }
+}
+
+// action 추가
+// index.js
+function reducer2(state = initialAlert, action) {
+  if(action.type === "HIDE") {
+    return false;
+  } else {
+    return state;
+  }
+}
+
+// or
+
+function reducer2(state = initialAlert, action) {
+  if(action.type === "HIDE") {
+    state = false;
+    return state;
+  } else {
+    return state;
+  }
+}
+
+// UserComponent
+{ props.isAlert }
+<button onClick={() => { props.dispatch({ type: 'HIDE' })}}>닫기</button>
+
+# 모든 데이터를 리덕스에 옮길 필요는 없다.
+
+# redux 는 꽤 복잡하다.
+### react effector, react recoil 같은 라이브러리도 있다.
+### react recoil 은 페북 개발자들이 만드는 것
+
+# 리듀서로 값 보내기
+// index.js
+function reducer(state = initialState, action) {
+  if(action.type === 'INCREMENT') {
+    console.log('수량증가')
+    return state;
+  } else if(action.type === "ADD") {
+    console.log(action);
+    const newState = state.concat({ id: state.length, name: action.payload.title, quan: 1 })
+    return newState;
+  } else {
+    return state;
+  }
+}
+
+// UserComponent.js
+const Detail = (props) => {
+
+...
+
+<button onClick={() => props.dispatch({ type: 'ADD', payload: item }) }>주문하기</button>
+
+...
+
+function propsfyOfState(state) {
+  return {
+    // reduxState: state,
+    reduxState: state.reducer,
+    isAlert: state.reducer2
+  }
+}
+
+export default connect(propsfyOfState)(Detail);
+
+# redux 사용 이유
+1. 모든 컴포넌트가 props 없어도 state 사용 가능
+2. state  버그 관리가 용이하다.
+  - state는 수정하려면 reducer를 밀 정의해 놔야하는데 범인을 여기에서 쉽게 찾을수 있다.
+
+# useSelecotr
+// UserComponent
+import { useSelector } from 'react-redux';
+
+let state = useSelector(state => state);
+let loadState = state.reducer;
+let isAlert = state.reducer2;
+
+{ isAlert === true ? 
+
+// 다시 원래대로
+export default Cart;
+
+# useDispatch
+// UserComponent
+import { useDispatch } from 'react-redux';
+let dispatch = useDispatch();
+
+<button onClick={() => { dispatch({ type: "INCREMENT" })}}>+</button>
+<button onClick={() => { dispatch({ type: 'HIDE' })}}>닫기</button>
+
+# 리듀서를 더 예쁘게
+function reducer(state, 액션){
+  
+  if (액션.type === '수량증가'){
+    return 수량증가된state
+  } else if (액션.type === '수량감소'){
+    return 수량감소된state
+  } else {
+    return state
+  }
+}
+
+function reducer(state, 액션){
+  
+  switch (액션.type) {
+    case '수량증가' :
+      return 수량증가된state;
+    case '수량감소' : 
+      return 수량감소된state;
+    default : 
+      return state
+  }
+
+}
+
+# 여러 컴포넌트중 하나 보여줄 때 오브젝트 자료형을 응용한 enum을 사용하면 좋다.
 
 
+  const [currentCategory, setCurrentCategory] = useState('info');
+  const categories = ['info', 'shipping', 'refund']
+
+  const setRandomComponent = () => {
+    setCurrentCategory(categories[Math.floor(Math.random()*3)]);
+  }
+
+<p><button onClick={setRandomComponent}>랜덤 컴포넌트 보여주기</button></p>
+{
+  {
+    info: <div>상품정보</div>,
+    shipping: <div>배송관련</div>,
+    refund: <div>환불약관</div>,
+  }[currentCategory] // -> 이걸 그냥 볌수로 분리해도 무방
+}
+
+# 리액트 setState 함수 특징
+- setTimeout 처럼 비동기적으로실행된다.
+- 모았다가 한번에 실행된다.
+- 가장 좋은 방법은 useEffect 를 사용하여 특정 state가 변경될 때 useEffect를 실행할 수 있게 한다.
+
+- 예를 들면 count, age 가 useState로 있고 count를 먼저 증가 시킨 후 특정 카운트 이하일때만 age를 실행 시켜주면 특정 카운트가 됐을때 count가 아직 변하지 않는 걸로 읽혀 age가 올라간다.
+- ex
+setCount(count+1);
+if ( count < 3 ) {
+  setAge(age+1);
+}
+
+useEffect(()=>{
+  if ( count < 3 ) {
+    setAge(age+1)
+  }
+ }, [count]) 
+
+// 하지만 useEffect를 위 처럼 써도 첫 페이지 로드될 때 한번 실행되기 때문에 코드를 막아줘야한다. 
+// 처음 페이지 로드시 useEffect 실행을 막는 코드를 사용하던가 아래 코드를 사용해도 된다.
+useEffect(()=>{
+  if ( count != 0 && count < 3 ) {
+    setAge(age+1)
+  }
+ }, [count]) 
+
+// 혹은 count, age를 한 state에 array, object 자료형을 써도 된다.
+// 또는 굳이 state로 만들지 않고 일반 변수로..??
 
 
 

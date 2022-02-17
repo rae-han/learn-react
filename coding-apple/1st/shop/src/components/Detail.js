@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
+import { connect } from 'react-redux';
+
+
 import './Detail.scss';
 
-const Detail = ({ list }) => {
+const Detail = (props) => {
+  const { list } = props;
   let history = useHistory();
   let { id } = useParams();
   let [category, setCategory] = useState(1);
@@ -21,7 +25,7 @@ const Detail = ({ list }) => {
 
   return (
     <div>
-      <button>주문하기</button>
+      <button onClick={() => props.dispatch({ type: 'ADD', payload: item }) }>주문하기</button>
       <button onClick={() => history.goBack()}>뒤로가기</button>
       <div className="grid grid-cols-2">
         <img src="https://via.placeholder.com/400" alt="img" />
@@ -61,5 +65,12 @@ function TabContent({ category, setToggle }) {
   )
 }
 
-export default Detail;
+function propsfyOfState(state) {
+  return {
+    // reduxState: state,
+    reduxState: state.reducer,
+    isAlert: state.reducer2
+  }
+}
 
+export default connect(propsfyOfState)(Detail);
