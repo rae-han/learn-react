@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './App.scss';
@@ -8,14 +8,24 @@ import listData from './data'
 import NavBar from './components/NavBar'
 import Jumbotron from './components/Jumbotron'
 import List from './layouts/List'
-import Detail from './components/Detail'
-import Cart from './components/Cart'
+import Cart from './components/Cart';
+// import Detail from './components/Detail';
+const Detail = lazy(() => { return import('./components/Detail') });
 
 const countContext = React.createContext(); 
 // 같은 값을 공유하는 범위 생성
 // createContext라는 함수를 이용해 변수를 만드는데 그 변수는 특별한 컴포넌트가 된다.
 // 이 컴포넌트의 value 에 공유할 state를 집어넣으면 된다.
 // useContext - 재고 값을 사용 가능
+
+const style = {
+  backgroundColor: 'red',
+  position: 'fixed',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+}
 
 function App() {
   const [list, setList] = useState(listData);
@@ -70,7 +80,9 @@ function App() {
       <Jumbotron></Jumbotron>
       <countContext.Provider value={count}> 
         <Route path="/" exact={true} component={() => <List list={list}></List>}></Route>
-        <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+        <Suspense fallback={ <div style={style}>로딩중입니다~!</div> }>
+          <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+        </Suspense>
         <Route path="/cart" component={() => (<Cart></Cart>)}></Route>
       </countContext.Provider>
       {isMore && <button onClick={fetchList}>더보기</button>}

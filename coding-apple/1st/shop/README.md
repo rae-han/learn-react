@@ -444,7 +444,43 @@ useEffect(()=>{
 // 혹은 count, age를 한 state에 array, object 자료형을 써도 된다.
 // 또는 굳이 state로 만들지 않고 일반 변수로..??
 
+1. 함수나 오브젝트는 변수에 담아 쓰는게 좋다.
+- 리액트적인 개념은 아니고 그냥 메모리 공간을 아낄 수 있는 JS 코딩 관습
 
+function UserComponent() {
+  return (
+    <div style={{ color: 'red' }}></div>
+  )
+}
+
+->
+
+const style = { color: 'red' }; // 컴포넌트 밖에
+
+function UserComponent() {
+  return (
+    <div style={style}></div>
+  )
+}
+
+이유는 컴포넌트가 재랜더링될 때 변수에 저장되지 않은 이름없는 object, function 류의 자료형들은 매번 새로운 메모리 영역을 할당해줘야하기 때문에 성능상 불리하다.
+만약 class로 만든 컴포넌트는 class 안에 함수 집어넣는 공간에 사용하면 된다.
+
+2. 애니메이션 줄 때 레이아웃 변경 애니메이션은 좋지 않음
+windth, height, margin, padding, left, right, top. bottom 같은 값을 자바스크립트나 transition을 이용해 변경시키는건 브라우저 입장에서 부담이 된다. (자세한건 CSS 렌더링 단계를 찾아보자.)
+애니메이셔을 넣어도 성능에 큰 지장이 없도록 transform, opacity같은 css속성을 이용한다.
+transform은 사이즈 변경, 좌표이동, 회전 전부 가능한 좋은 속성이다.
+
+# lazy loading
+
+// App.js
+import React, { lazy, Suspense } from 'react';
+
+const Detail = lazy(() => { return import('./components/Detail') });
+
+<Suspense fallback={ <div>로딩중입니다~!</div> }>
+  <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+</Suspense>
 
 
 
