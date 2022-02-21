@@ -524,8 +524,40 @@ memo로 감싼 컴포넌트는 헛되게 재렌더링을 안시키려고 기존 
 props가 크고 복잡하면 이거 자체로도 부담이 될 수 있다.
 쓸지 말지 평가하려면 리액트 개발자도우게엇 렌더링 속도를 측정해보자.
 
+# PWA
+구글이 밀고있는 웹사이트를 앱처럼 사용할 수 있게 만드는 기술
 
 
+### 장점
+- 스마트폰, 태블릿 바탕화면에 웹사이트를 설치 가능.
+- 오프라인에서도 동작할 수 있다.
+  - service-worker.js 파일과 브라우저의 Cache storage 덕분
+  - 자바스크립트로 게임 같은거 만들때 유용
+- 설치 유도 비용이 매우 적다.
+  - 앱설치를 유도하는 마케팅 비용이 적게 든다.
+  - 구글플레이스토어 방문해서 앱 설치하고 다운받게 하는건 항상 매우 높은 마케팅비용이 든다.
+  - PWA라면 웹사이트 방문자들에게 간단한 팝업을 띄워서 설치유도할 수 있다.
 
 
+### npx create-react-app 프로젝트명 --template cra-template-pwa
+- 기존 프로젝트를 pwa로 만드려면 프로젝트를 새로 만들어서 복붙하는게 더 낫다.
 
+그 후 index.js 하단을
+serviceWorkerRegistration.unregister(); 에서
+serviceWorkerRegistration.register(); 로 변경
+
+그 후 yarn build, npm run build 하면 manifest, service-worker.js 파일이 자동으로 생성된다.
+
+# manifest
+- 아이콘
+- 처음 앱을 켰을때 주소
+- 앱을 켰을때 상단바를 켤껀지 끌껀지
+
+# service worker
+앱은 자원을 미리 설치해서 사용하는데 그걸 도와주는 설정
+
+- 위 두 파일이 있으면 자동으로 브라우저가 PWA로 인식한다.
+- 그리고 HTTPS 사이트여야 한다.
+
+# 개발자도구로 PWA 디버깅하기
+build 후 사이트를 호스틍받아 올리거나 live-server를 build 폴더에(dist) 있는 index.html 를 올려본다.
