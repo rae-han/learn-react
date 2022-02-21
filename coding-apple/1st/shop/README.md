@@ -482,6 +482,43 @@ const Detail = lazy(() => { return import('./components/Detail') });
   <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
 </Suspense>
 
+# 재렌더링을 막는 memo
+
+// App.js
+const [name, setName] = useState('이름');
+
+<Parent name={name} age="20"></Parent>
+<button onClick={() => setName(name + '0')}>이름 추가</button>
+
+// Parent.js
+const Parent = (props) => {
+  return (
+    <div>
+      <Child1 name={props.name}></Child1>
+      <Child2 age={props.age}></Child2>
+    </div>
+  );
+};
+
+const Child1 = (props) => {
+  useEffect(() => console.log('Child1 렌더링'));
+  
+  return <div>1111 {props.name}</div>
+}
+
+const Child2 = (props) => {
+  useEffect(() => console.log('Child2 렌더링'));
+  
+  return <div>2222 {props.age}</div>
+}
+
+이런 코드에서 App.js에 Parent 속성은 이름값만 변경 돼도 부모 컴포넌트와 자식 컴포넌트 전체가 재렌더링 된다.
+부모가 재렌더링 되면 아래에 있는 자식도 다 같이 재렌더링 되기 때문.
+
+이때 memo를 써서 불필요한 재렌더링을 막을수 있다.
+
+
+
 
 
 

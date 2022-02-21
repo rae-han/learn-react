@@ -9,6 +9,7 @@ import NavBar from './components/NavBar'
 import Jumbotron from './components/Jumbotron'
 import List from './layouts/List'
 import Cart from './components/Cart';
+import Parent from './components/Parent';
 // import Detail from './components/Detail';
 const Detail = lazy(() => { return import('./components/Detail') });
 
@@ -34,6 +35,7 @@ function App() {
   const [testarea, setTestarea] = useState(true);
   const [testtext, setTesttext] = useState('');
   const [count, setCount] = useState([11, 12, 13]);
+  const [name, setName] = useState('이름');
 
   const [currentCategory, setCurrentCategory] = useState('info');
   const categories = ['info', 'shipping', 'refund']
@@ -101,6 +103,8 @@ function App() {
           }[currentCategory]
         }
       </div>
+      <Parent name={name} age="20"></Parent>
+      <button onClick={() => setName(name + '0')}>이름 추가</button>
     </div>
   );
 }
