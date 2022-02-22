@@ -41,3 +41,25 @@ app.get('/react', (req, res) => {
 서버 미리보기 띄우던 localhost:?? 로 설정해주면 된다.
 그럼 리액트에서 서버로 ajax 요청 잘된다.
 https://create-react-app.dev/docs/proxying-api-requests-in-development/
+
+HTML5 이후에 추가된 웹개발 기본 기술들을 소개하자면 
+
+- FileReader API 
+
+- 로컬스토리지
+
+- IndexedDB
+
+- Web worker
+
+- Geolocation
+
+- Canvas
+
+- drag & drop & touch 이벤트 
+
+- fetch API
+
+- CSS grid, flex 레이아웃  
+
+- Web audio/video
