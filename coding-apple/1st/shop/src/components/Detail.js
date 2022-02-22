@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import './Detail.scss';
 
 const Detail = (props) => {
-  const { list } = props;
+  const { list, setLatest } = props;
   let history = useHistory();
   let { id } = useParams();
   let [category, setCategory] = useState(1);
@@ -22,6 +22,18 @@ const Detail = (props) => {
     setToggle(false);
     setCategory(id);
   }
+
+  useEffect(() => {
+    let latest = JSON.parse(localStorage.getItem('latest'));
+    // setLatest(latest);
+    
+    let myLatest = new Set(latest === null ? [] : latest);
+
+    myLatest.delete(id)
+    myLatest.add(id);
+
+    localStorage.setItem('latest', JSON.stringify([...myLatest]))
+  }, [])
 
   return (
     <div>

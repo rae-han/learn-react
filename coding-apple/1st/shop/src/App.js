@@ -10,6 +10,8 @@ import Jumbotron from './components/Jumbotron'
 import List from './layouts/List'
 import Cart from './components/Cart';
 import Parent from './components/Parent';
+import Latest from './components/Latest';
+
 // import Detail from './components/Detail';
 const Detail = lazy(() => { return import('./components/Detail') });
 
@@ -36,9 +38,11 @@ function App() {
   const [testtext, setTesttext] = useState('');
   const [count, setCount] = useState([11, 12, 13]);
   const [name, setName] = useState('이름');
-
+  
   const [currentCategory, setCurrentCategory] = useState('info');
   const categories = ['info', 'shipping', 'refund']
+  
+  const [latest, setLatest] = useState([1, 2]);
 
   const setRandomComponent = () => {
     setCurrentCategory(categories[Math.floor(Math.random()*3)]);
@@ -76,6 +80,11 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    let latest = JSON.parse(localStorage.getItem('latest'));
+    setLatest(latest)
+  }, [])
+
   return (
     <div className="App">
       <NavBar></NavBar>
@@ -83,7 +92,7 @@ function App() {
       <countContext.Provider value={count}> 
         <Route path="/" exact={true} component={() => <List list={list}></List>}></Route>
         <Suspense fallback={ <div style={style}>로딩중입니다~!</div> }>
-          <Route path="/detail/:id" component={() => (<Detail list={list}></Detail>)}></Route>
+          <Route path="/detail/:id" component={() => (<Detail list={list} setLatest={setLatest}></Detail>)}></Route>
         </Suspense>
         <Route path="/cart" component={() => (<Cart></Cart>)}></Route>
       </countContext.Provider>
@@ -105,6 +114,7 @@ function App() {
       </div>
       <Parent name={name} age="20"></Parent>
       <button onClick={() => setName(name + '0')}>이름 추가</button>
+      <Latest latest={latest} list={list}></Latest>
     </div>
   );
 }
