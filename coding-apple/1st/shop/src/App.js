@@ -83,7 +83,9 @@ function App() {
   useEffect(() => {
     let latest = JSON.parse(localStorage.getItem('latest'));
     setLatest(latest)
-  }, [])
+  }, []);
+
+  const setGlobalLastest = latest => setLatest(latest)
 
   return (
     <div className="App">
@@ -92,7 +94,7 @@ function App() {
       <countContext.Provider value={count}> 
         <Route path="/" exact={true} component={() => <List list={list}></List>}></Route>
         <Suspense fallback={ <div style={style}>로딩중입니다~!</div> }>
-          <Route path="/detail/:id" component={() => (<Detail list={list} setLatest={setLatest}></Detail>)}></Route>
+          <Route path="/detail/:id" component={() => (<Detail list={list} setLatest={setGlobalLastest}></Detail>)}></Route>
         </Suspense>
         <Route path="/cart" component={() => (<Cart></Cart>)}></Route>
       </countContext.Provider>
