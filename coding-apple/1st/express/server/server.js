@@ -12,6 +12,11 @@ app.use(express.static(path.join(dirClient)));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(dirClient, 'index.html'))
+});
+
+app.post('/', (req, res) => {
+  console.log('server root post')
+  res.send({ ok: true });
 })
 
 const server = http.createServer(app);

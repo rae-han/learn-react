@@ -1,12 +1,26 @@
+import axios from 'axios';
+
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const onClick = async () => {
+    console.log('onClick');
+
+    const config = {
+      method: 'post',
+      url: '/'
+    };
+
+    const res = await axios(config);
+    console.log(res)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        <p onClick={onClick}>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
