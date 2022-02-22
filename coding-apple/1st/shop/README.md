@@ -560,4 +560,16 @@ serviceWorkerRegistration.register(); 로 변경
 - 그리고 HTTPS 사이트여야 한다.
 
 # 개발자도구로 PWA 디버깅하기
-build 후 사이트를 호스틍받아 올리거나 live-server를 build 폴더에(dist) 있는 index.html 를 올려본다.
+build 후 사이트를 호스틍받아 올리거나 live-server를 build 폴더에(dist 폴더 같은) 있는 index.html 를 올려본다.
+
+# ./pwa.md
+
+# localStorage
+
+.setItem('데이터 이름', 데이터) : 추가
+.getItem('데이터 이름) : 읽기
+.removeItem('데이터 이름') : 삭제
+
+localStorage는 텍스트 자료형만 저장할수 있다.
+객체와 배열은 JSON.stringfy 를 사용하여 문자처럼 인식 가능한 JSON 자료로 바꿔준다.
+가져올땐 JSON.parse()를 사용한다.
