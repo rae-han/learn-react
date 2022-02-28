@@ -1,10 +1,11 @@
-import logo from './logo.svg';
+import middleware1 from './lib/redux/middleware1'
+
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      ㄱㄷ  옅
+      <button onClick={() => middleware1.dispatch({ type: 'someAction' })}>의미 없는 액션 일으키기</button>
     </div>
   );
 }

@@ -168,13 +168,13 @@ CRA에서는 css 파일 이름 접미사에 .module.css 를 사용하면 컴포�
   - 각 액션은 고유한 type 속성값을 사용해야 하기에 접두사를 붙이는 방법이 많이 사용된다.
 ```js
 // todo.js
-const ADD = { type: 'ADD', title: 'react', priority: 'high' };
-const REMOVE = { type: 'REMOVE', id: 123 };
-const REMOVE_ALL = { type: 'REMOVE_ALL' };
+store.dispatch({ type: 'ADD', title: 'react', priority: 'high' });
+store.dispatch({ type: 'REMOVE', id: 123 });
+store.dispatch({ type: 'REMOVE_ALL' });
 
-const ADD = { type: 'todo/ADD', title: 'react', priority: 'high' };
-const REMOVE = { type: 'todo/REMOVE', id: 123 };
-const REMOVE_ALL = { type: 'todo/REMOVE_ALL' };
+store.dispatch({ type: 'todo/ADD', title: 'react', priority: 'high' });
+store.dispatch({ type: 'todo/REMOVE', id: 123 });
+store.dispatch({ type: 'todo/REMOVE_ALL' });
 
 store.dispatch(ADD);
 ```
@@ -182,6 +182,7 @@ store.dispatch(ADD);
   - dispatch 메서드를 호출할 때 직접 액션 객체를 입력하는 방법은 사용하지 않는게 좋다
     - ex. dispatch({ type: 'ADD', title: 'react', priority: 'high' });
   - todo/ADD 액션의 경우 title, priority 속성 값이 항상 존재하도록 강제할 필요가 있는데 생성자 함수를 이용해 해결할 수 있다.
+  - 이 경우 나중에 액션 객체의 구조를 변경할 때도 액션 생성자 함수만 수정하면 된다.
 ```js
 function addTodo({ title, priority }) {
   return { type: 'todo/ADD', title, priority };
@@ -189,3 +190,25 @@ function addTodo({ title, priority }) {
 
 store.dispatch(addTodo({ title: '영화보기', priority: 'high' }));
 ```
+
+  - type 속성값은 리듀서에서 액션 객체를 구분할 때도 사용되기 때문에 상수 변수로 만드는 게 좋다.
+```js
+export const ADD = 'todo/ADD';
+
+export function addTodo({ title, priority }) {
+  return { type: ADD, title, priority };
+}
+```
+  - type 이름을 상수 변수로 만들었다. 이 변수는 리듀서에서도 필요하기 때문에 export 키워드로 외부에 노출시킨다.
+  - 액션 생성자 함수도 마찮가지다.
+  - 앞의 리덕스 세 가지 원칙에 위배되지 않으므로 액션 생성자 함수에서는 부수 효과를 발생시켜도 된다.
+    - 예를 들면 addTodo 함수에서 새로운 할일을 서버에 저장하기 위해 API 호출을 할 수 있다.
+
+2. 미들웨어.
+  - 미들웨어는 리듀서가 액션을 처리하기 전에 실행되는 함수.
+  - 더버깅 목적으로 상탯값 변경 시 로그를 출력하건, 리듀서에서 발생한 예외를 서버로 전송하는 등의 목적으로 활용할 수 있다.
+  - 리덕스 사용 시 특별히 미들웨어를 설정하지 않았다면 발생한 액션은 곧바로 리듀서로 보내진다.
+  - 미들 웨어의 기본 구조는 const middleware = store => next => action => next(action) 이다.
+  - 구조에서 알수 있듯 미들웨어는 스토어와 액션 객체를 기반으로 필요한 작업을 수행할 수 있다.
+  - next 함수를 호출하면 다른 미들웨어 함수가 호출되고 최종적으로 리듀서 함수가 호출된다.
+  - 6redux/src/lib/redux/middleware1.js
