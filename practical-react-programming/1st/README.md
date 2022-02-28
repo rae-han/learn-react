@@ -162,4 +162,30 @@ CRA에서는 css 파일 이름 접미사에 .module.css 를 사용하면 컴포�
 |   <-------------- 뷰 <----------------- |
 -------------------------------------------
 
+1. 액션
+  - type 속성 값을 가진 자바스크립트 객체
+  - dispatch 메서드에 넣어서 호출하면 상탯값을 변경하기 위한 과정을 수행한다.
+  - 각 액션은 고유한 type 속성값을 사용해야 하기에 접두사를 붙이는 방법이 많이 사용된다.
+```js
+// todo.js
+const ADD = { type: 'ADD', title: 'react', priority: 'high' };
+const REMOVE = { type: 'REMOVE', id: 123 };
+const REMOVE_ALL = { type: 'REMOVE_ALL' };
 
+const ADD = { type: 'todo/ADD', title: 'react', priority: 'high' };
+const REMOVE = { type: 'todo/REMOVE', id: 123 };
+const REMOVE_ALL = { type: 'todo/REMOVE_ALL' };
+
+store.dispatch(ADD);
+```
+
+  - dispatch 메서드를 호출할 때 직접 액션 객체를 입력하는 방법은 사용하지 않는게 좋다
+    - ex. dispatch({ type: 'ADD', title: 'react', priority: 'high' });
+  - todo/ADD 액션의 경우 title, priority 속성 값이 항상 존재하도록 강제할 필요가 있는데 생성자 함수를 이용해 해결할 수 있다.
+```js
+function addTodo({ title, priority }) {
+  return { type: 'todo/ADD', title, priority };
+}
+
+store.dispatch(addTodo({ title: '영화보기', priority: 'high' }));
+```
