@@ -5,8 +5,9 @@ import { getPost, getUsers } from '../store/sample'
 function Sample(props) {
   const { 
     post, users, 
-    loading: { GET_POST: loadingPost, GET_USERS: loadingUsers }
+    // loading: { GET_POST: loadingPost, GET_USERS: loadingUsers }
   } = useSelector(state => state.sample);
+  const { 'sample/GET_POST': loadingPost, 'sample/GET_USERS': loadingUsers } = useSelector(state => state.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
