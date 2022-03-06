@@ -1,5 +1,6 @@
 const loggerMiddleware = store => next => action => {
-  console.group(action && action.type);
+  console.groupCollapsed(action && action.type);
+  // console.group(action && action.type);
   console.log('store.getState()', store.getState());
   console.log('action', action);
   next(action);

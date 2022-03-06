@@ -15,10 +15,14 @@ export const getPost = id => async dispatch => {
   try {
     const response = await api.getPost(id);
 
-    dispatch({
+    setTimeout(() => dispatch({
       type: GET_POST_SUCCESS,
       payload: response.data
-    });
+    }), 4000)
+    // dispatch({
+    //   type: GET_POST_SUCCESS,
+    //   payload: response.data
+    // });
   } catch (error) {
     dispatch({
       type: GET_POST_FAILURE,
@@ -94,7 +98,7 @@ const smaple = handleActions({
       ...state.loading,
       GET_USERS: false
     },
-    USERS: action.payload
+    users: action.payload
   }),
   [GET_USERS_FAILURE]: (state, action) => ({
     ...state,
