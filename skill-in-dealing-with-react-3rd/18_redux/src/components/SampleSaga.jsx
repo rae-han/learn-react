@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPost, getUsers } from '../store/sample'
+import { getPost, getUsers } from '../store/sampleSaga'
 
-function Sample(props) {
+function SampleSaga(props) {
   const { 
     post, users, 
     // loading: { GET_POST: loadingPost, GET_USERS: loadingUsers }
-  } = useSelector(state => state.sample);
-  const { 'sample/GET_POST': loadingPost, 'sample/GET_USERS': loadingUsers } = useSelector(state => state.loading);
+  } = useSelector(state => state.sample2);
+  const { 'SampleSaga/GET_POST': loadingPost, 'SampleSaga/GET_USERS': loadingUsers } = useSelector(state => state.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,4 +44,4 @@ function Sample(props) {
   );
 }
 
-export default Sample;
+export default SampleSaga;
