@@ -11,8 +11,10 @@ function SampleSaga(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPost(1));
     dispatch(getUsers(1));
+    dispatch(getPost(1));
+
+    console.log(post, users);
   }, [dispatch])
 
   return (
