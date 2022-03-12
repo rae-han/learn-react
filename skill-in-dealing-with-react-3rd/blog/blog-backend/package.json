@@ -4,17 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
-    "start:dev": "nodemon --watch src/ src/index.js",
+    "start": "node -r esm src",
+    "start:dev": "nodemon --watch src/ -r esm src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "esm": "^3.2.25",
+    "joi": "^17.6.0",
     "koa": "^2.13.4",
-    "koa-router": "^10.1.1"
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.1.1",
+    "mongoose": "^6.2.6"
   },
   "devDependencies": {
     "eslint": "^8.10.0",
