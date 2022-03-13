@@ -16,7 +16,7 @@ function App() {
       <Route path="/write" element={<WritePage />}></Route>
       <Route path="/@:username" element={<PostPage />}>
         <Route index element={<PostListPage />}></Route>
-        <Route path=":postId" element={<PostPAge />} ></Route>
+        <Route path=":postId" element={<PostPage />} ></Route>
       </Route>
     </Routes>
   );
