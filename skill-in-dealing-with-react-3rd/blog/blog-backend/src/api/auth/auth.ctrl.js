@@ -92,5 +92,7 @@ export const check = async ctx => {
 };
 
 export const logout = async ctx => {
-
+  console.log('logout')
+  ctx.cookies.set('access_token');
+  ctx.status = 204;
 };
