@@ -1,9 +1,10 @@
 import React from 'react';
+import Button from '../components/common/Button'
 
 function PostListPage(props) {
   return (
     <div>
-      post list
+      <Button>Button</Button>
     </div>
   );
 }
