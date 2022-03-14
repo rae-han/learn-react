@@ -4,8 +4,6 @@ import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 
-
-
 /**
  * 회원가입 또는 로그인 폼을 보여줍니다.
  */
@@ -70,17 +68,17 @@ const ErrorMessage = styled.div`
  margin-top: 1rem;
 `;
 
-function AuthForm({ type }) {
+function AuthForm({ type, form, onChange, onSubmit }) {
   const text = textMap[type];
 
   return (
     <AuthFormBlock>
       <h3>{text}</h3>
-      <form>
-        <StyledInput autoComplete="username" name="username" placeholder="아이디" />
-        <StyledInput autoComplete="new-password" name="password" placeholder="비밀번호" type="password" />
+      <form onSubmit={onSubmit}>
+        <StyledInput autoComplete="username" name="username" placeholder="아이디" onChange={onChange} value={form.username} />
+        <StyledInput autoComplete="new-password" name="password" placeholder="비밀번호" type="password" onChange={onChange} value={form.password} />
         { type === 'register' && (
-          <StyledInput autoComplete="new-password" name="passwordConfirm" placeholder="비밀번호 확인" type="password" />
+          <StyledInput autoComplete="new-password" name="passwordConfirm" placeholder="비밀번호 확인" type="password" onChange={onChange} value={form.passwordConfirm} />
         )}
         <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>로그인</ButtonWithMarginTop>
       </form>
