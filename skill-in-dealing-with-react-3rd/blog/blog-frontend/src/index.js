@@ -10,10 +10,11 @@ import createSagaMiddleware from 'redux-saga';
 import reportWebVitals from './reportWebVitals';
 
 import rootReducer, { rootSaga } from './modules';
+import loggerMiddleware from './lib/loggerMiddleware';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware(sagaMiddleware)
+  applyMiddleware(loggerMiddleware, sagaMiddleware)
 ));
 
 sagaMiddleware.run(rootSaga);
