@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import rootReducer, { rootSaga } from './store';
 
 // Middleware
@@ -14,7 +15,7 @@ import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, ReduxThunk, sagaMiddleware));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(loggerMiddleware, ReduxThunk, sagaMiddleware)));
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(

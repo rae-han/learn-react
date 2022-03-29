@@ -81,7 +81,7 @@ function AuthForm({ type, form, onChange, onSubmit, error }) {
           <StyledInput autoComplete="new-password" name="passwordConfirm" placeholder="비밀번호 확인" type="password" onChange={onChange} value={form.passwordConfirm} />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>로그인</ButtonWithMarginTop>
+        <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>{{ login: '로그인', register: '회원가입' }[type]}</ButtonWithMarginTop>
       </form>
       <Footer>
         {type === 'login' ? (

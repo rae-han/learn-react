@@ -31,10 +31,14 @@ const initialState = {
 }
 
 const sample2 = handleActions({
-  [GET_POST_SUCCESS]: (state, action) => ({
-    ...state,
-    post: action.payload
-  }),
+  [GET_POST_SUCCESS]: (state, action) => {
+    console.log(123123123123)
+    console.log(11111, action)
+    return ({
+      ...state,
+      post: action.payload
+    })
+  },
   [GET_USERS_SUCCESS]: (state, action) => ({
     ...state,
     users: action.payload

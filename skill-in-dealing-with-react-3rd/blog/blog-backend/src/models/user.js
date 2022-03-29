@@ -7,12 +7,16 @@ const UserSchema = new Schema({
   hashedPassword: String,
 });
 
-UserSchema.methods.setPassword = async function(password) {
+UserSchema.methods.setPassword = async function(password) { // 비밀번호를 파라미터로 받아 계정의 hashedPassword 값을 설정
+  console.log('#### setPassword')
+  console.log(password);
   const hash = await bcrypt.hash(password, 10);
+  console.log(hash)
   this.hashedPassword = hash;
 }
 
-UserSchema.methods.checkPassword = async function(password) {
+UserSchema.methods.checkPassword = async function(password) { // 비밀번호가 해당 계정의 비밀번호와 일치하는지 검증
+  console.log('#### checkPassword')
   const result = await bcrypt.compare(password, this.hashedPassword);
   return  result;
 }
@@ -22,7 +26,10 @@ UserSchema.statics.findByUsername = function(username) {
 }
 
 UserSchema.methods.serialize = function() {
+  console.log('#### serialize')
+  console.log(this);
   const data = this.toJSON();
+  console.log(data)
   delete data.hashedPassword;
   return data;
 }
