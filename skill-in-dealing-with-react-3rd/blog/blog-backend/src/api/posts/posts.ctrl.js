@@ -16,14 +16,14 @@ export const checkObjectId = (ctx, next) => {
 export  const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
   if(!ObjectId.isValid(id)) {
-    ctx.status = 400;
+    ctx.status = 400; // bad request
     return;
   }
 
   try {
     const post = await Post.findById(id);
     if(!post) {
-      ctx.status = 404;
+      ctx.status = 404; // not found
       return;
     }
     ctx.state.post = post;

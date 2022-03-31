@@ -40,7 +40,7 @@ export const register = async ctx => {
 
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {
-      maxAge: 1000*60*60*24*7,
+      maxAge: 1000*60*60*24*7, // 7 days
       httpOnly: true,
     });
   } catch (e) {
