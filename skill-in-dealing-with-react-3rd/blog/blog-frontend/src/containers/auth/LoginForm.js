@@ -49,12 +49,6 @@ function LoginForm(props) {
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
-    if(user) {
-      navigate('/');
-    }
-  }, [navigate, user])
-
-  useEffect(() => {
     if (user) {
       navigate('/');
 
