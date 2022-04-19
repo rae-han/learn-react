@@ -11,13 +11,33 @@ import reportWebVitals from './reportWebVitals';
 
 import rootReducer, { rootSaga } from './modules';
 import loggerMiddleware from './lib/loggerMiddleware';
+import { tempSetUser, check } from './modules/user';
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware(loggerMiddleware, sagaMiddleware)
-));
+const store = createStore(
+  rootReducer, 
+  composeWithDevTools(
+    applyMiddleware(loggerMiddleware, sagaMiddleware)
+  )
+);
 
 sagaMiddleware.run(rootSaga);
+
+// before render
+// loadUser
+(() => {
+  try {
+    const user = localStorage.getItem('user');
+
+    console.log(user)
+    if(!user) return;
+
+    store.dispatch(tempSetUser(JSON.parse(user)));
+    store.dispatch(check());
+  } catch (e) {
+    console.log('localStorage is not working!')
+  }
+})();
 
 ReactDOM.render(
   <React.StrictMode>

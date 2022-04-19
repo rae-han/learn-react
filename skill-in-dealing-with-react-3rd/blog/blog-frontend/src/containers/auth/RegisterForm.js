@@ -68,12 +68,6 @@ function RegisterForm(props) {
 
   useEffect(() => {
     if (user) {
-      navigate('/')
-    }
-  }, [navigate, user]);
-
-  useEffect(() => {
-    if (user) {
       navigate('/');
 
       try {
