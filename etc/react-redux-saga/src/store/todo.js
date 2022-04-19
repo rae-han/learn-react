@@ -16,7 +16,7 @@ export const remove = id => ({ type: REMOVE, id });
 const initialState = {
   input: '',
   todos: [
-    { id: 1, text: 'test text', done: true },
+    { id: 0, text: 'test text', done: true },
   ]
 }
 
