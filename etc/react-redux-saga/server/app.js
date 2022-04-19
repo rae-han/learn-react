@@ -10,7 +10,7 @@ const todos = [
 
 router.get('/', (req, res) => {
   console.log('GET todo')
-  res.status(500).json({});
+  res.status(200).json({ notation: 'hi' });
 })
 
 app.use('/todo', router)

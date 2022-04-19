@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { changeInput, insert, toggle, remove } from '../store/todo';
+import { changeInput, insert, toggle, remove, fetch } from '../store/todo';
 
 const listStyle = {
   
@@ -35,6 +35,10 @@ const SampleReactReduxSaga = () => {
   const removeTodo = id => {
     dispatch(remove(id));
   }
+
+  useEffect(() => {
+    dispatch(fetch());
+  }, [dispatch])
 
   return (
     <div>
