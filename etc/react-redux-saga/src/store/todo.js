@@ -1,20 +1,20 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 import * as todoAPI from '../api/todo';
 
-let id = 1;
+const createActionType = type => ([type, `${type}_SUCCESS`, `${type}_FAILURE`]);
 
 const CHANGE_INPUT = 'todo/CHANGE_INPUT';
 const FETCH = 'todo/FETCH'
 const FETCH_SUCCESS = 'todo/FETCH_SUCCESS'
 const FETCH_FAILURE = 'todo/FETCH_FAILURE'
-const INSERT = 'todo/INSERT';
+const [INSERT, INSERT_SUCCESS, INSERT_FAILURE] = createActionType('todo/INSERT')
 const TOGGLE = 'todo/TOGGLE';
 const REMOVE = 'todo/REMOVE';
 
 export const changeInput = input => ({ type: CHANGE_INPUT, input });
 export const fetch = () => ({ type: FETCH })
-export const insert = text => ({ type: INSERT, todo: {  id: id++, text, done: false} });
+export const insert = text => ({ type: INSERT, text });
 export const toggle = id => ({ type: TOGGLE, id });
 export const remove = id => ({ type: REMOVE, id });
 
@@ -29,6 +29,12 @@ const fetchTodoSaga = function*(action) {
       type: FETCH_SUCCESS,
       payload: response.data
     })
+
+    console.log('call', call(todoAPI.listTodo));
+    console.log('put',  put({type: FETCH_SUCCESS, payload: response.data}));
+    console.log('takeLatest', takeLatest(FETCH, fetchTodoSaga))
+    console.log('takeEvery', takeEvery(INSERT, insertTodoSaga))
+    console.log('fork', fork(INSERT, insertTodoSaga))
   } catch (error) {
     yield put({
       type: FETCH_FAILURE,
@@ -38,8 +44,38 @@ const fetchTodoSaga = function*(action) {
   }
 }
 
+const insertTodoSaga = function*(action) {
+  console.log(action);
+
+  try {
+    const response = yield call(todoAPI.insert, { text: action.text }, 1, 2);
+    console.log(response);
+
+    yield put({
+      type: INSERT_SUCCESS,
+      payload: response.data
+    })
+  } catch (error) {
+    yield put({
+      type: INSERT_FAILURE,
+      payload: error,
+      error: true
+    })
+  }
+}
+
+const test = () => {
+  return 'test';
+}
+
+console.log('c1', call(test, 1));
+console.log('c2', call(test, 1, 2));
+console.log('c3', call(test, [1, 2]));
+console.log('c4', call(test, { a: 1, b: 2}));
+
 export function* todoSaga() {
   yield takeLatest(FETCH, fetchTodoSaga);
+  yield takeEvery(INSERT, insertTodoSaga);
 }
 
 const initialState = {
@@ -61,15 +97,25 @@ function todo(state = initialState, action) {
       console.log(action)
       return state;
     case FETCH_SUCCESS:
-      console.log(action);
-      return state;
+      console.log(action)
+      return {
+        ...state,
+        todos: action.payload
+      };
     case FETCH_FAILURE:
       console.log(action);
       return state;
     case INSERT:
+      console.log(action)
       return {
         ...state,
-        todos: state.todos.concat(action.todo)
+        // todos: state.todos.concat(action.todo)
+      }
+    case INSERT_SUCCESS:
+      console.log(action.payload)
+      return {
+        ...state,
+        todos: action.payload
       }
     case TOGGLE:
       return {

@@ -17,10 +17,13 @@ const SampleReactReduxSaga = () => {
   const handleChangeInput = e => dispatch(changeInput(e.target.value));
 
   const handleEnterInput = e => {
-    if(e.key === 'Enter') {
-      e.preventDefault();
+    // console.log(e.key)
+    // console.log(e.nativeEvent.isComposing)
+    if(e.key === 'Enter' && e.nativeEvent.isComposing === false) {
       insertTodo();
+      dispatch(changeInput(''))
     }
+    
   }
 
   const insertTodo = () => {
@@ -38,13 +41,13 @@ const SampleReactReduxSaga = () => {
 
   useEffect(() => {
     dispatch(fetch());
-  }, [dispatch])
+  }, [])
 
   return (
     <div>
       <h1>ToDo List</h1>
       <div>
-        <form action="">
+        <form onSubmit={e => e.preventDefault()} onKeyP>
           <input type="text" value={todoInput} onChange={handleChangeInput} onKeyDown={handleEnterInput}/>
           <button>++</button>
         </form>
