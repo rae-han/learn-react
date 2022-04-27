@@ -15,7 +15,7 @@ return 안에서 바뀐 부분이 있다면 리턴 전체를 다시 그리는 �
 리랜더링 됐을때 이전 컴포넌트와 지금 컴포넌트의 버추얼 돔을 비교하고 버추얼 돔에서 바뀐 부분을 리액트에 알려주고
 그 부분만 다시 그린다.
 
-
+### <a href="https://github/rae-han" target="_blank" rel="noreferrer noopener" ></a>
 
 
 http://www.xgif.cc/gif/severallankyblackfish/
