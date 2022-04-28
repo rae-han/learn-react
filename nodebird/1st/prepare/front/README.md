@@ -17,5 +17,26 @@ return 안에서 바뀐 부분이 있다면 리턴 전체를 다시 그리는 �
 
 ### <a href="https://github/rae-han" target="_blank" rel="noreferrer noopener" ></a>
 
+#
+
+리랜더링이 된다고해서 무조건 성능에 문제가 되는게 아니다.
+그냥 컴포넌트 자체(함수) 내부가 실행되는게 리렌더링인데 return 안의 값이 바뀌어야 실제로 화면을 다시 그린다.
+리렌더링을 하면 화면을 다시 그리지 않지만 함수 자체를 실행된다.
+
+크림 웹스토어
+react developer tools
+redux devTools
+MobX Developer Tools
+
+개발자 모드에서
+컴포넌트 메뉴가 생긴다. 그 안에 들어가면 개발자가 만든 그대로의 컴포넌트가 보인다.
+세팅가서 하이라이트 덥데이트 웬 컴포넌트~ 하면 리렌더링 되는게 보인다.
+
+
+
+
+
+
+
 
 http://www.xgif.cc/gif/severallankyblackfish/
