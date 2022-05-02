@@ -32,11 +32,4 @@ MobX Developer Tools
 컴포넌트 메뉴가 생긴다. 그 안에 들어가면 개발자가 만든 그대로의 컴포넌트가 보인다.
 세팅가서 하이라이트 덥데이트 웬 컴포넌트~ 하면 리렌더링 되는게 보인다.
 
-
-
-
-
-
-
-
 http://www.xgif.cc/gif/severallankyblackfish/
