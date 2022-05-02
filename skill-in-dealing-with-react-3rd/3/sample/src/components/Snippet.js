@@ -4,6 +4,8 @@
 // $1 $0
 // ${1:${TM_FILENAME_BASE}}
 
+//https://code.visualstudio.com/docs/editor/userdefinedsnippets
+
 import React from 'react';
 
 
