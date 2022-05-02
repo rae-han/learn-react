@@ -12,14 +12,9 @@ const SearchInput = styled(Input.Search)`
 `;
 
 function AppLayout({ children }) {
-<<<<<<< HEAD
-  
-=======
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const SearchInputStyle = useMemo(() => ({ verticalAlign: 'middle' }), [])
-
->>>>>>> 6c9934d4604f4752ec500152438ee2a3e8c1c2ea
 
   return (
     <div>
@@ -48,11 +43,7 @@ function AppLayout({ children }) {
           {children}
         </Col>
         <Col xs={24} md={6}>
-<<<<<<< HEAD
-          <a href="https://github/rae-han" target="_blank" rel ></a>
-=======
           <a href="https://github/rae-han" target="_blank" rel="noreferrer noopener" ></a>
->>>>>>> 6c9934d4604f4752ec500152438ee2a3e8c1c2ea
         </Col>
       </Row>
     </div>
