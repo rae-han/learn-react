@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Menu, Input, Row, Col } from 'antd'
 
 function AppLayout({ children }) {
+  
+
   return (
     <div>
       <Menu mode="horizontal">
@@ -29,7 +31,7 @@ function AppLayout({ children }) {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a href="https://github/rae-han" target="_blank" rel="" ></a>
+          <a href="https://github/rae-han" target="_blank" rel ></a>
         </Col>
       </Row>
     </div>

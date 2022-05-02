@@ -5,6 +5,7 @@ import Head from 'next/head';
 import 'antd/dist/antd.css';
 
 const CommonComponent = ({ Component }) => {
+
   return (
     <div>
       <Head>
