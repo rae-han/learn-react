@@ -15,7 +15,9 @@
     "@emotion/styled": "^11.8.1",
     "antd": "^4.20.1",
     "next": "^12.1.5",
-    "prop-types": "^15.8.1"
+    "next-redux-wrapper": "^7.0.5",
+    "prop-types": "^15.8.1",
+    "redux": "^4.2.0"
   },
   "devDependencies": {
     "eslint": "^8.14.0",

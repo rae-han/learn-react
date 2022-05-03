@@ -1,3 +1,9 @@
+
+npm i next-redux-wrapper
+npm i redux
+
+#
+
 react 에서 태그 안에 style 속성을 이용해서 스타일 객체를 정의하면 안좋다.
 왜냐면 자바스크립트에서는 {} === {} 는 false  이고
 버추얼 돔으로 검사하면 인라인 스타일 부분에 있는 객체가 다르다고 판단하고 리렌더링 해버린다.
@@ -33,3 +39,8 @@ MobX Developer Tools
 세팅가서 하이라이트 덥데이트 웬 컴포넌트~ 하면 리렌더링 되는게 보인다.
 
 http://www.xgif.cc/gif/severallankyblackfish/
+
+#
+
+hook 은 컴포넌트 안에 뎁스가 1일때만 사용 가능한데 유일한 예외가 커스텀 훅을 만들때이다.
+

@@ -25,10 +25,10 @@ function AppLayout({ children }) {
         <Menu.Item key="profile">
         <Link href="/profile"><a>profile</a></Link>
         </Menu.Item>
-        <Menu.Item key="user-:username">
+        <Menu.Item key="user-username">
           <Link href="/user/user"><a>user</a></Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item key="search-input">
           <SearchInput enterButton style={SearchInputStyle} />
         </Menu.Item>
         <Menu.Item key="user-signup">
