@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styled from '@emotion/styled'
@@ -12,7 +13,8 @@ const SearchInput = styled(Input.Search)`
 `;
 
 function AppLayout({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+  const { isLoggedIn } = useSelector((state) => state.user)
 
   const SearchInputStyle = useMemo(() => ({ verticalAlign: 'middle' }), [])
 
@@ -37,13 +39,13 @@ function AppLayout({ children }) {
       </Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
+          {isLoggedIn ? <UserProfile /> : <LoginForm />}
         </Col>
         <Col xs={24} md={12}>
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a href="https://github/rae-han" target="_blank" rel="noreferrer noopener" ></a>
+          <a href="https://github.com/rae-han" target="_blank" rel="noreferrer noopener" >Raehan's Github page</a>
         </Col>
       </Row>
     </div>

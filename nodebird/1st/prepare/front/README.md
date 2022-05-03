@@ -1,6 +1,7 @@
 
-npm i next-redux-wrapper
 npm i redux
+npm i react-redux
+npm i next-redux-wrapper
 
 #
 
@@ -43,4 +44,108 @@ http://www.xgif.cc/gif/severallankyblackfish/
 #
 
 hook 은 컴포넌트 안에 뎁스가 1일때만 사용 가능한데 유일한 예외가 커스텀 훅을 만들때이다.
+
+#
+
+리덕스 몹엑스 가볍다면 컨텍스트API 그래프큐엘
+
+리덕스 에러 날 일 없음. 간단해서.
+코드량이 많아진다.
+
+몹엑스는 코드는 줄지만 실수 했을때 트랙킹이 어렵다.
+
+컨텍스트API vs 나머지
+컨텍스트API는 비동기를 제대로 지원 안한다.
+비동기 3단계
+데이터 보내줘 요청, 성공, 실패
+
+#
+
+리덕스의 원리
+리듀스에서 이름을 따왔다.
+
+데이터 중앙 저장소가 있다고 치자
+{
+  name: 'raehan',
+  age: 30,
+  password: 'password',
+  posts: [],
+} - 중앙 저장소
+
+데이터를 삽입, 수정, 삭제 해야하는데 데이터를 바꾸려면 액션을 통해서 한다.
+{
+  type: 'CHANGE_NAME',
+  data: 'hanrae',
+}
+
+이 액션을 디스패치 하면 중앙 저장소가 바뀐다.
+dispatch(action_object);
+
+이렇게 바꾸면 중앙 저장소 데이터를 쓰는 모든 뷰가 데이터를 바꾼다.
+
+----
+여기서 생략된게 리듀서 라는 개념
+액션을 디스패치한다고해서 자바스크립트에서 알아서 네임을 raehan 에서 hanrae로 바꾸는 것이 아니다.
+자바스크립트에서는 이해를 못한다.
+그래서 개발자가 일일히 어떻게 바꿔야 하는지 적어줘야한다 리듀서에서.
+
+switch(action.type) {
+  case 'CHANGE_NAME':
+    return {
+      ...state,
+      name: action.data,
+    }
+  (...)
+}
+
+결국 리듀서에 적어준 대로 바뀐다.
+단점이 데이터 하나 처리할때도 저장소에 추가하고 여러가지 액션과 리듀서가 필요하다.
+특히 스위치문이 엄청 길어진다.
+장점이 액션 하나하나가 리덕스에 기록이 돼서 버그 잡기가 편하다.
+그리고 히스토리가 쭈르륵 있으면 거꾸로 거슬러 올라갈수 있다.(시간 여행, 타임머신)
+
+액션을 직접 만들어주는 이유는 기록에 남기기 위해서.
+스위치에서 리턴을 저런식으로 하는 이유는 불변성을 위해서
+{} === {} // false - 이렇게 해야 변화를 감지하고 변경 내역이 추적된다.
+const a = {};
+const b = a;
+a === b // true
+
+리덕스가 아닌 리액트 자체에서도 불변성이 중요하다.
+
+const prev = { name: 'raehan' };
+const next = { name: 'newName' };
+
+1. 위에서 객체를 새로 만들어서 next 값을 선언했다면 prev로 쉽게 갈수 있다.
+2. const next = prev; next.name = 'newName' 으로하면 prev 값도 의도치 않게 변경 된다.
+
+전체 안적고 ...state 를 하는 이유는 타자도 길어지지만 메모리를 아끼기 위해서.
+예를들면
+{
+  ...state,
+  name: action.data,
+}
+
+를 하면 name 을 제외한 나머지는 참조 관계를 유지하면서 데이터를 가져오지만 
+아예 객체를 처음부터 새로 만들면 똑같이 객체를 새로 만드는 것이지만 액션 하나마다 새로운 객체가 계속 생겨서 메모리를 많이 잡아먹는다.
+{ a: 'b' } === { a: 'b' } 까지 굳이 false가 나올 필요는 없다.
+
+개발모드일때는 메모리 정리가 안된다.
+왜냐하면 히스토리를 모두 가지고 있기 때문에.
+배포에서는 계속적으로 메모리 정리를 해준다.
+
+객체에서 가장 겉의 껍데기가 다르면 서로 다른 데이터라 생각을 하기 때문에 안쪽 데이터들은 재사용을 해줘도 된다.
+
+비구조화 할당(...data) 를 하면 새로 만들어지는 것이 아니다.
+
+const store = createStore(rootReducer);
+store 는 state와 reducer를 포함하는 개념
+
+# redux middleware
+
+npm i @redux-devtools/extension
+
+hydrate가 생긴 이유
+get initialProps가 거의 안생기고 get staticProps와 get server side props로 바껴서 서버사이드 랜더링이 기존과 달라졌다.
+
 
