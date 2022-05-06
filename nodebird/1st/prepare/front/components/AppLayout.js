@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import Link from 'next/link';
@@ -45,7 +45,7 @@ function AppLayout({ children }) {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a href="https://github.com/rae-han" target="_blank" rel="noreferrer noopener" >Raehan's Github page</a>
+          <a href="https://github.com/rae-han" target="_blank" rel="noreferrer noopener"> Raehan&apos;s Github page</a>
         </Col>
       </Row>
     </div>
