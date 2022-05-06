@@ -2,6 +2,7 @@
 export const initialState = {
   isLoggedIn: false,
   user: null,
+  me: null,
   signUpDate: {},
   loginData: {},
 }
