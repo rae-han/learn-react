@@ -19,6 +19,23 @@ export const initialState = {
         { User: { nickname: 'man' }, content: 'hello!!' },
         { User: { nickname: 'woman' }, content: 'wow hi!!' },
       ],
+    },
+    { 
+      id: 2, 
+      User: {
+        id: 2,
+        nickname: 'raehan',
+      },
+      content: '두 번째 게시글 #해시태그 #익스프레스',
+      Images: [{
+        src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
+      }, {
+        src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
+      }],
+      Comments: [
+        { User: { nickname: 'man' }, content: 'hello!!' },
+        { User: { nickname: 'woman' }, content: 'wow hi!!' },
+      ],
     }
   ],
   // 소문자와 대문자가 혼용돼서 사용되는 이유.
