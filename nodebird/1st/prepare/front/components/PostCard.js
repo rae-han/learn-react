@@ -8,7 +8,7 @@ import PostImages from "./PostImages";
 import CommentForm from "./CommentForm";
 
 const PostCard = ({ post }) => {
-  console.log('post', post)
+  // console.log('post', post)
   const { me } = useSelector(state => ({
     me: state.user
   }))
