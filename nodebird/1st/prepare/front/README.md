@@ -148,4 +148,26 @@ npm i @redux-devtools/extension
 hydrate가 생긴 이유
 get initialProps가 거의 안생기고 get staticProps와 get server side props로 바껴서 서버사이드 랜더링이 기존과 달라졌다.
 
+#
+
+// ` 는 자바스크립트 문법
+// func() 도 함수 호출이지만 func``도 함수 호출이다.
+// styled.div 가 함수이다.
+// 그렇다고 일반 함수와 완전히 동일하게 호출하진 않는다.
+// 태그드 템플릿 리터럴 - 백틱이 템플릿 리터럴
+
+#
+
+transform 안에 position fixed를 사용하면 적용되지 않는 유명한 버그가 있다.
+
+#
+
+https://regexr.com
+
+how to find hashtag with split
+
+#
+
+뭔가 반복을 할때 무조건 key를 붙여줘야 하는데 그때 Index 값을 사용하지 안흔ㄴ게 좋다.
+
 

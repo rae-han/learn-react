@@ -25,7 +25,7 @@ function AppLayout({ children }) {
           <Link href="/"><a>home</a></Link>
         </Menu.Item>
         <Menu.Item key="profile">
-        <Link href="/profile"><a>profile</a></Link>
+          <Link href="/profile"><a>profile</a></Link>
         </Menu.Item>
         <Menu.Item key="user-username">
           <Link href="/user/user"><a>user</a></Link>
