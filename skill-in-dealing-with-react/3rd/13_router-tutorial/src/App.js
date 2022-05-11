@@ -48,9 +48,9 @@ function App() {
           <Route path="" element={<div>not selected</div>}></Route>
         </Route>
         {/* <Route path={['about', 'info']} element={<AboutPage />} /> */}
-        {/* // ? 여러개 어떻게 매칭 시키지? */}
+        {/* // ! v6에서는 문자열'만' 받는다. */}
         <Route path="/profile/*" element={<ProfilePage />}></Route>
-      </Routes>
+      </Routes>  
     </div>
   );
 }

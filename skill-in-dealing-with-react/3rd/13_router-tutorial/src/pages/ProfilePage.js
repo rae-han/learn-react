@@ -16,14 +16,14 @@ const ProfileComponent = ({ content }) => {
 }
 
 const ProfilePage = () => {
-  const { content = '정보 없음' } = useQuery();
+  const { content: asdf = '정보 없음' } = useQuery();
   const { state } = useLocation();
   console.log(state)
 
   return (
     <Routes>
       <Route path="/*" element={<div>유저 정보가 없습니다.</div>} />
-      <Route path="/:username" element={<ProfileComponent content={content} />} />
+      <Route path="/:username" element={<ProfileComponent content={asdf} />} />
     </Routes>
   );
 };
