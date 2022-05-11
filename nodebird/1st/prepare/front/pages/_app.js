@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import wrapper from '../store/configureStore';
-console.log(wrapper)
 
 import 'antd/dist/antd.css';
 

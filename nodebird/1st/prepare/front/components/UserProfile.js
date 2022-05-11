@@ -18,7 +18,7 @@ const UserProfile = () => {
         <div key="followers">팔로워</div>,
       ]}
     >
-      <Card.Meta 
+      <Card.Meta
         avatar={<Avatar>RH</Avatar>}
         title="Raehan"
       />
@@ -26,5 +26,7 @@ const UserProfile = () => {
     </Card>
   );
 };
+
+console.log()
 
 export default UserProfile;

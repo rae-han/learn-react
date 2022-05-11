@@ -148,4 +148,12 @@ npm i @redux-devtools/extension
 hydrate가 생긴 이유
 get initialProps가 거의 안생기고 get staticProps와 get server side props로 바껴서 서버사이드 랜더링이 기존과 달라졌다.
 
+# redux middleware
+리덕스의 기능을 향상
+
+thunk - 프로그래밍 용어
+지연된 함수
+
+1개의 액션에 디스패치를 여러번
+1개의 비동기에 여러 동기 액션을 넣을수 있다.
 

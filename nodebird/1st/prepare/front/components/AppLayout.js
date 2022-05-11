@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { useRouter } from "next/router";
 import styled from '@emotion/styled'
 import { Menu, Input, Row, Col } from 'antd'
 
@@ -13,6 +14,7 @@ const SearchInput = styled(Input.Search)`
 `;
 
 function AppLayout({ children }) {
+  const router = useRouter();
   // const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const { isLoggedIn } = useSelector((state) => state.user)
 
@@ -20,7 +22,21 @@ function AppLayout({ children }) {
 
   return (
     <div>
-      <Menu mode="horizontal">
+      <Menu 
+        mode="horizontal"
+        // selectedKeys={[router.pathname]}
+        // items={[
+        //   { label: <Link href="/"><a>노드버드</a></Link>, key: '/' },
+        //   { label: <Link href="/profile"><a>프로필</a></Link>, key: '/profile' },
+        //   { label: <SearchInput
+        //     enterButton
+        //     value={searchInput}
+        //     onChange={onChangeSearchInput}
+        //     onSearch={onSearch}
+        //   />, 
+        //   key: '/search' },
+        // ]}
+      >
         <Menu.Item key="index">
           <Link href="/"><a>home</a></Link>
         </Menu.Item>

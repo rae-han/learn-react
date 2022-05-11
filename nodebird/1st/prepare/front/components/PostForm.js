@@ -14,6 +14,12 @@ const PostForm = () => {
     dispatch(addPost())
   }, [])
 
+  console.log(123)
+
+  fetch(``, {}).then(() => {})
+    .then()
+    .catch()
+
   return (
     <Form 
       style={{ margin: '10px 0 20px' }}

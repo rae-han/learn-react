@@ -28,6 +28,7 @@ export const initialState = {
   postAdded: false,
 }
 
+
 const ADD_POST = 'post/ADD_POST';
 
 let id = 2;
@@ -40,14 +41,18 @@ const dummyPost = {
   },
   Images: [],
   Comments: [],
-}
+} 
+// TODO: 
+// = asdfasdf
+// - 
+// = 
+// ! asdf
+// # header
 
 export const addPost = () => ({
   type: ADD_POST,
   data: dummyPost,
 })
-
-
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
