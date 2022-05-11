@@ -1,18 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { addPost } from "../reducers/post";
 
 const PostForm = () => {
   const dispatch = useDispatch();
-  const { imagePaths } = useSelector(state => state.post)
-  const [text, setText] = useState('')
+  const { imagePaths } = useSelector(state => state.post);
+  const [text, setText] = useState('');
+  const imageInput = useRef();
 
   const onChangeText = useCallback(e => setText(e.target.value), []);
 
   const onSubmit = useCallback(() => {
-    dispatch(addPost())
+    dispatch(addPost());
+    setText('');
   }, [])
+  
+  const onClickImageUpload = useCallback(() => {
+    imageInput.current.click();
+  }, [imageInput.current])
 
   console.log(123)
 
@@ -33,8 +39,8 @@ const PostForm = () => {
         placeholder="어떤 신기한 일이 있었나요?"
       />
       <div>
-        <input type="file" multiple hidden />
-        <Button>이미지 업로드</Button>
+        <input type="file" multiple hidden ref={imageInput}/>
+        <Button onClick={onClickImageUpload}>이미지 업로드</Button>
         <Button type="primary" style={{ float: 'right' }} htmlType="submit">짹짹</Button>
       </div>
       <div>

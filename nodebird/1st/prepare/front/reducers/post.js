@@ -5,6 +5,7 @@ export const initialState = {
       id: 1, 
       User: {
         id: 1,
+        nickname: 'raehan',
       },
       content: '첫 번째 게시글 #해시태그 #익스프레스',
       Images: [{
@@ -13,6 +14,23 @@ export const initialState = {
         src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
       }, {
         src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
+      }],
+      Comments: [
+        { User: { nickname: 'man' }, content: 'hello!!' },
+        { User: { nickname: 'woman' }, content: 'wow hi!!' },
+      ],
+    },
+    { 
+      id: 2, 
+      User: {
+        id: 2,
+        nickname: 'raehan',
+      },
+      content: '두 번째 게시글 #해시태그 #익스프레스',
+      Images: [{
+        src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
+      }, {
+        src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
       }],
       Comments: [
         { User: { nickname: 'man' }, content: 'hello!!' },
