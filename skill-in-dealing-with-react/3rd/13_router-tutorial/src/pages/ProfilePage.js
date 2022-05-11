@@ -1,17 +1,30 @@
 import React from 'react';
-import { useParams, useLocation } from 'react-router-dom'
-import qs from 'qs';
+import { Routes, Route, useParams, useLocation } from 'react-router-dom'
+
+// # Hooks
 import useQuery from "../hooks/useQuery";
 
-const ProfilePage = () => {
+const ProfileComponent = ({ content }) => {
   const { username } = useParams();
-  const { content } = useQuery();
 
   return (
-    <div>
+    <>
       <div>username: {username}</div>
       <div>content: {content}</div>
-    </div>
+    </>
+  )
+}
+
+const ProfilePage = () => {
+  const { content = '정보 없음' } = useQuery();
+  const { state } = useLocation();
+  console.log(state)
+
+  return (
+    <Routes>
+      <Route path="/*" element={<div>유저 정보가 없습니다.</div>} />
+      <Route path="/:username" element={<ProfileComponent content={content} />} />
+    </Routes>
   );
 };
 
