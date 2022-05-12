@@ -60,12 +60,6 @@ const dummyPost = {
   Images: [],
   Comments: [],
 } 
-// TODO: 
-// = asdfasdf
-// - 
-// = 
-// ! asdf
-// # header
 
 export const addPost = () => ({
   type: ADD_POST,
