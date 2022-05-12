@@ -1,9 +1,10 @@
 import { createWrapper } from 'next-redux-wrapper';
 import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from "@redux-saga/core";
 import { composeWithDevTools } from '@redux-devtools/extension';
-import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from "../reducers";
+import rootSaga from '../sagas'
 
 const loggerMiddleware = ({ dispatch, getState }) => next => action => {
   // if(typeof action === 'function') { // action은 객체이지만 thunk 함수일 경우 지연함수이기 때문에 나중에 실행지켜준다.
@@ -14,7 +15,8 @@ const loggerMiddleware = ({ dispatch, getState }) => next => action => {
 }
 
 const configureStore = () => {
-  const middleares = [thunkMiddleware, loggerMiddleware];
+  const sagaMiddleware = createSagaMiddleware();
+  const middleares = [sagaMiddleware, loggerMiddleware];
 
   // const enhancer = process.env.NODE_ENV === 'production'
   //   ? compose(applyMiddleware([]))
@@ -28,6 +30,9 @@ const configureStore = () => {
   //   type: 'CHANGE_NAME',
   //   name: 'hanrae'
   // })
+
+  store.sagaTask = sagaMiddleware.run(rootSaga)
+
   return store;
 };
 
