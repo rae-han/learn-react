@@ -16,7 +16,8 @@ const loggerMiddleware = ({ dispatch, getState }) => next => action => {
 
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
-  const middleares = [sagaMiddleware, loggerMiddleware];
+  // const middleares = [sagaMiddleware, loggerMiddleware];
+  const middleares = [sagaMiddleware];
 
   // const enhancer = process.env.NODE_ENV === 'production'
   //   ? compose(applyMiddleware([]))
@@ -25,7 +26,7 @@ const configureStore = () => {
     ? compose(applyMiddleware(...middleares))
     : composeWithDevTools(applyMiddleware(...middleares)); 
 
-  const store = createStore(rootReducer, enhancer);
+    const store = createStore(rootReducer, enhancer);
   // store.dispatch({
   //   type: 'CHANGE_NAME',
   //   name: 'hanrae'

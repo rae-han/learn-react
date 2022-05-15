@@ -15,7 +15,7 @@ const CommonComponent = ({ Component }) => {
         <meta charset="utf-8"></meta>
         <title>내 프로필 | NordBird</title>
       </Head>
-        <div>공통</div>
+      <div>공통</div>
       <Component />
     </div>
   )

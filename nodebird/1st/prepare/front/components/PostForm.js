@@ -20,12 +20,6 @@ const PostForm = () => {
     imageInput.current.click();
   }, [imageInput.current])
 
-  console.log(123)
-
-  fetch(``, {}).then(() => {})
-    .then()
-    .catch()
-
   return (
     <Form 
       style={{ margin: '10px 0 20px' }}
