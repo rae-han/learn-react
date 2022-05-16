@@ -38,7 +38,8 @@ function AppLayout({ children }) {
             />, 
             key: '/search' 
           },
-          { label: <Link href="/user/signup"><a>signup</a></Link> }
+          { label: <Link href="/user/signup"><a>signup</a></Link> },
+          { label: <Link href="/test"><a>test</a></Link> },
         ]}
       >
         {/* <Menu.Item key="index">

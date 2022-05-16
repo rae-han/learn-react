@@ -5,6 +5,7 @@ import { combineReducers } from "redux";
 import user from './user';
 import post from './post';
 // 3-3. 분리 한걸 일단 가지고 온다.
+import todo from './todo'
 
 const initialState = {
   name: 'raehan',
@@ -85,7 +86,7 @@ const rootReducer = combineReducers({
   index: (state = {}, action) => { // HYDRATE를 위해서 index 리듀서를 하나 추가 서버사이드 랜더링을 위해서.
     switch (action.type) {
       case HYDRATE:
-        console.log('HYDRATE', action);
+        // console.log('HYDRATE', action);
         return { ...state, ...action.payload };
       default:
         return state;
@@ -93,6 +94,7 @@ const rootReducer = combineReducers({
   },
   user,
   post,
+  todo,
 })
 // user와 post의 initialState는 combineReducers가 알아서 합처서 넣어준다.
 
