@@ -86,7 +86,7 @@ const rootReducer = combineReducers({
   index: (state = {}, action) => { // HYDRATE를 위해서 index 리듀서를 하나 추가 서버사이드 랜더링을 위해서.
     switch (action.type) {
       case HYDRATE:
-        // console.log('HYDRATE', action);
+        console.log('HYDRATE', action);
         return { ...state, ...action.payload };
       default:
         return state;
