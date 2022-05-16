@@ -44,4 +44,3 @@ const todoReducer = (state = initialState, action) => {
 };
 
 export default todoReducer;
-
