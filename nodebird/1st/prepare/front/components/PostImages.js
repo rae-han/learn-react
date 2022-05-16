@@ -56,6 +56,10 @@ function PostImages({ images }) {
   );
 }
 
-PostImages.propTypes = {}
+PostImages.propTypes = {
+  images: {
+    src: PropTypes.string,
+  }
+}
 
 export default PostImages;
