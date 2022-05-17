@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export const initialState = {
-  isLoggingIn: false, // 로그인 시도중
   isLoggedIn: false, // 로그인 돼 있는지
-  isLoggingOut: false, // 로그아웃 시도중
+  logInLoading: false, // 로그인 시도중
+  logOutLoading: false, // 로그아웃 시도중
   user: null,
   me: null,
   signUpDate: {},
@@ -47,13 +47,13 @@ export const loginAction = (data) => {
 
     dispatch(loginRequestAction());
 
-    axios.post('/api/login')
-      .then(res => {
-        dispatch(loginSuccessAction(res.data))
-      })
-      .catch(err => {
-        dispatch(loginFailureAction(err))
-      })
+    // axios.post('/api/login')
+    //   .then(res => {
+    //     dispatch(loginSuccessAction(res.data))
+    //   })
+    //   .catch(err => {
+    //     dispatch(loginFailureAction(err))
+    //   })
   }
 }
 // thunk는 이게 끝이다.
@@ -80,40 +80,39 @@ const reducer = (state = initialState, action) => {
     case 'LOG_IN_REQUEST': // 3-2. 이때 조심해야할 것이 user 객체에 있는 내용을 initialState에 바로 넣었기 때문에 뎁스가 1단계 줄었다.
       return {
         ...state,
-        isLoggingIn: true,
-        isLoggedIn: true,
+        logInLoading: true,
+        isLoggedIn: false,
       }
     case 'LOG_IN_SUCCESS': 
       console.log('reducer login success')
       return {
         ...state,
-        isLoggingIn: false,
+        logInLoading: false,
         isLoggedIn: true,
         me: { ...action.data, nickname: 'temp_nickname' }, // 지금 닉네임을 따로 안넣어주기 때문에.
       }
     case 'LOG_IN_FAILURE':
       return {
         ...state,
-        isLoggingIn: false,
+        logInLoading: false,
         isLoggedIn: false,
       }
     case 'LOG_OUT_REQUEST':
       return {
         ...state,
-        isLoggingOut: true,
-        isLoggedIn: false,           
+        logOutLoading: true,
       }
     case 'LOG_OUT_SUCCESS':
       return {
         ...state,
-        isLoggingOut: false,
+        logOutLoading: false,
         isLoggedIn: false,
         me: null
       }
     case 'LOG_OUT_FAILURE':
       return {
         ...state,
-        isLoggingOut: false,
+        logOutLoading: false,
       }
     default:
       return state;

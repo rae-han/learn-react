@@ -11,10 +11,10 @@ function logOutAPI(data, a, b) {
 
 function* logIn(action) { 
   try {
-    delay(2000);
+    yield delay(2000);
     yield put({
       type: 'LOG_IN_SUCCESS',
-      data: { ...action.data }
+      data: action.data,
     })
   } catch (err) {
     console.log(err)
@@ -27,8 +27,7 @@ function* logIn(action) {
 
 function* logOut(action) { 
   try {
-    delay(2000);
-    
+    yield delay(2000);
     yield put({
       type: 'LOG_OUT_SUCCESS',
     })
