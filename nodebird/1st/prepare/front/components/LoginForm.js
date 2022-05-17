@@ -17,8 +17,8 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { isLoggingIn } = useSelector(({ user }) => ({
-    isLoggingIn: user.isLoggingIn
+  const { logInLoading } = useSelector(({ user }) => ({
+    logInLoading: user.logInLoading
   }))
   const [id, onChangeId] = useInput('This_is_ID');
   const [password, onChangePassword] = useInput('asdf');
@@ -45,7 +45,7 @@ const LoginForm = () => {
         <Input name="user-password" value={password} onChange={onChangePassword} type="password" required />
       </div>
       <ButtonWrapper style={ButtonWrapperStyle}>
-        <Button type="primary" htmlType="submit" loading={isLoggingIn}>로그인</Button>
+        <Button type="primary" htmlType="submit" loading={logInLoading}>로그인</Button>
         <Link href="/signup"><a><Button>회원가입</Button></a></Link>
       </ButtonWrapper>
     </FormWrapper>

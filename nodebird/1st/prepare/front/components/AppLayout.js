@@ -28,6 +28,7 @@ function AppLayout({ children }) {
         items={[
           { label: <Link href="/"><a>노드버드</a></Link>, key: '/' },
           { label: <Link href="/profile"><a>프로필</a></Link>, key: '/profile' },
+          { label: <Link href="/test"><a>test</a></Link> },
           { 
             label: <SearchInput
               enterButton
@@ -38,7 +39,7 @@ function AppLayout({ children }) {
             />, 
             key: '/search' 
           },
-          { label: <Link href="/user/signup"><a>signup</a></Link> }
+          { label: <Link href="/user/signup"><a>signup</a></Link> },
         ]}
       >
         {/* <Menu.Item key="index">
