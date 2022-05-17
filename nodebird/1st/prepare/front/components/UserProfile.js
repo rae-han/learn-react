@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, Avatar, Button } from 'antd';
 
@@ -14,6 +14,10 @@ const UserProfile = () => {
     dispatch(logoutRequestAction());
   }, []);
 
+  useEffect(() => {
+    console.log(me)
+  }, [me])
+
   return (
     <Card
       actions={[
@@ -23,14 +27,12 @@ const UserProfile = () => {
       ]}
     >
       <Card.Meta
-        // avatar={<Avatar>{me.nickname}</Avatar>}
-        // title={me.nickname}
+        avatar={<Avatar>{me.nickname}</Avatar>}
+        title={me.nickname}
       />
       <Button onClick={onLogout} loading={logOutLoading} >로그아웃</Button>
     </Card>
   );
 };
-
-console.log()
 
 export default UserProfile;
