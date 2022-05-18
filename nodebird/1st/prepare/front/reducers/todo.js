@@ -24,10 +24,13 @@ export const toggleTodoAction = id => ({
 });
 
 const todoReducer = (state = initialState, action) => {
-  console.log(action);
-
   switch(action.type) {
     case ADD_TODO:
+      return {
+        ...state,
+      }
+    case 'ADD_TODO_SUCCESS':
+      console.log(action);
       return {
         ...state,
         todos: state.todos.concat(action.todo)
