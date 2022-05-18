@@ -5,7 +5,8 @@ import { combineReducers } from "redux";
 import user from './user';
 import post from './post';
 // 3-3. 분리 한걸 일단 가지고 온다.
-import todo from './todo'
+import todo from './todo';
+import calc from './calc';
 
 const initialState = {
   name: 'raehan',
@@ -95,6 +96,7 @@ const rootReducer = combineReducers({
   user,
   post,
   todo,
+  calc,
 })
 // user와 post의 initialState는 combineReducers가 알아서 합처서 넣어준다.
 

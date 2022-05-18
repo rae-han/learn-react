@@ -24,8 +24,6 @@ export const toggleTodoAction = id => ({
 });
 
 const todoReducer = (state = initialState, action) => {
-  console.log(action);
-
   switch(action.type) {
     case ADD_TODO:
       return {

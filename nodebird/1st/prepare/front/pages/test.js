@@ -4,14 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import AppLayout from "../components/AppLayout";
 
 import { addTodoAction, toggleTodoAction } from '../reducers/todo';
+import { addNumberAction } from '../reducers/calc'
 
 function Test() {
   const dispatch = useDispatch();
   const todoItemStyle = useMemo(() => ({
     textDecoration: 'line-through'
   }), [])
-  const { todos } = useSelector(({ todo }) => ({
-    todos: todo.todos
+  const { todos, number, calculating } = useSelector(({ todo, calc }) => ({
+    todos: todo.todos,
+    number: calc.number,
+    calculating: calc.calculating,
   }))
   const [todoInput, setTodoInput] = useState('')
 
@@ -27,10 +30,17 @@ function Test() {
     console.log(id)
     dispatch(toggleTodoAction(id));
   }
+  const addNumber = () => {
+    dispatch(addNumberAction());
+  }
 
   return (
     <AppLayout>
-      <div>test page</div>
+      <h1>test page</h1>
+      <div>
+        <h2>{number}</h2>
+        <div><button onClick={addNumber}>++</button></div>
+      </div>
       <div>
         <form onSubmit={submitTodo}>
           <input type="text" value={todoInput} onChange={e => setTodoInput(e.target.value)} />
