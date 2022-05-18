@@ -16,7 +16,7 @@ function* addNumber(action) {
 }
 
 function* watchAddNumber() {
-  yield takeLatest(ADD_NUMBER_REQUEST, addNumber)
+  yield takeEvery(ADD_NUMBER_REQUEST, addNumber)
 }
 
 export default function* calcSaga() {
