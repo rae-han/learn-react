@@ -30,6 +30,11 @@ const todoReducer = (state = initialState, action) => {
     case ADD_TODO:
       return {
         ...state,
+      }
+    case 'ADD_TODO_SUCCESS':
+      console.log(action);
+      return {
+        ...state,
         todos: state.todos.concat(action.todo)
       }
     case TOGGLE_TODO:

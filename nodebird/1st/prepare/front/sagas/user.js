@@ -10,8 +10,9 @@ function logOutAPI(data, a, b) {
 }
 
 function* logIn(action) { 
+  console.log('4. saga/login logIn')
   try {
-    yield delay(2000);
+    yield delay(1000);
     yield put({
       type: 'LOG_IN_SUCCESS',
       data: action.data,
@@ -27,7 +28,7 @@ function* logIn(action) {
 
 function* logOut(action) { 
   try {
-    yield delay(2000);
+    yield delay(1000);
     yield put({
       type: 'LOG_OUT_SUCCESS',
     })
@@ -40,6 +41,7 @@ function* logOut(action) {
 }
 
 function* watchLogIn() {
+  console.log('1. saga/login watchLogIn')
   yield takeLatest('LOG_IN_REQUEST', logIn);
 }
 

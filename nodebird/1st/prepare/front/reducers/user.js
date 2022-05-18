@@ -19,6 +19,7 @@ export const initialState = {
 // 보통은 login 을 바로 하는게 아닌 서버에 요청을 한 후 응답을 받을 값을 이용하여 한다.
 // 보통 Request, Success, Failure 가 묶어서 움직인다.
 export const loginRequestAction = data => {
+  console.log('2. reducer/login login request action')
   return {
     type: 'LOG_IN_REQUEST',
     data,
@@ -40,6 +41,7 @@ export const loginRequestAction = data => {
 // success 액션과 failure 액션은 사가가 호출해준다.
 
 export const loginAction = (data) => {
+  console.log('reducer/login login action')
   return (dispatch, getState) => {
     const state = getState();
     // 여기서 state는 initialState가 나오는데 이 페이지가 아닌 index.js에 있는 state가 나온다.
@@ -78,13 +80,14 @@ export const logoutRequestAction = () => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOG_IN_REQUEST': // 3-2. 이때 조심해야할 것이 user 객체에 있는 내용을 initialState에 바로 넣었기 때문에 뎁스가 1단계 줄었다.
+    console.log('3. reducer/login log in requrest')
       return {
         ...state,
         logInLoading: true,
         isLoggedIn: false,
       }
     case 'LOG_IN_SUCCESS': 
-      console.log('reducer login success')
+      console.log('5. reducer login success')
       return {
         ...state,
         logInLoading: false,
