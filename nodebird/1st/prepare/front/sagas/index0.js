@@ -1,5 +1,5 @@
 import axios from "axios";
-import { all, fork, call, take , put, takeEvery, takeLatest, takeLeading, throttle, delay, takeL } from 'redux-saga';
+import { all, fork, call, take , put, takeEvery, takeLatest, takeLeading, throttle, delay } from 'redux-saga';
 
 function logInAPI(data, a, b) { // 이건 제너레이터가 아니다.
   return axios.post('/api/login')

@@ -4,7 +4,6 @@ export const initialState = {
 };
 
 const createRequest = request => ([`${request}_REQUEST`, `${request}_SUCCESS`, `${request}_FAILURE`])
-
 export const [ADD_NUMBER_REQUEST, ADD_NUMBER_SUCCESS, ADD_NUMBER_FAILURE] = createRequest('calc/ADD_NUMBER');
 
 export const addNumberAction = () => ({

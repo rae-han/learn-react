@@ -26,7 +26,7 @@ const configureStore = () => {
     ? compose(applyMiddleware(...middleares))
     : composeWithDevTools(applyMiddleware(...middleares)); 
 
-    const store = createStore(rootReducer, enhancer);
+  const store = createStore(rootReducer, enhancer);
   // store.dispatch({
   //   type: 'CHANGE_NAME',
   //   name: 'hanrae'
