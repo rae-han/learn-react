@@ -13,10 +13,10 @@ export const initialState = {
   logInError: null,
   logOutLoading: false,
   logOutDone: false,
-  logOutFailure: null,
+  logOutError: null,
   signUpLoading: false,
   signUpDone: false,
-  signUpFailure: null,
+  signUpError: null,
   me: null,
   signUpData: {},
   loginData: {},
@@ -110,6 +110,15 @@ export const logoutRequestAction = () => {
 //   }
 // }
 
+const dummyUser = data => ({
+  ...data, 
+  nickname: 'temp_nickname',
+  id: 1,
+  Posts: [],
+  Followings: [],
+  Followers: [],
+})
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: // 3-2. 이때 조심해야할 것이 user 객체에 있는 내용을 initialState에 바로 넣었기 때문에 뎁스가 1단계 줄었다.
@@ -125,31 +134,53 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         logInLoading: false,
-        isLoggedIn: true,
-        me: { ...action.data, nickname: 'temp_nickname' }, // 지금 닉네임을 따로 안넣어주기 때문에.
+        logInDone: true,
+        me: dummyUser(action.data)
       }
     case LOG_IN_FAILURE:
       return {
         ...state,
         logInLoading: false,
-        isLoggedIn: false,
+        logInError: action.error,
       }
     case LOG_OUT_REQUEST:
       return {
         ...state,
         logOutLoading: true,
+        logOutDone: false,
+        logOutError: null,
       }
     case LOG_OUT_SUCCESS:
       return {
         ...state,
         logOutLoading: false,
-        isLoggedIn: false,
+        logOutDone: true,
         me: null
       }
     case LOG_OUT_FAILURE:
       return {
         ...state,
         logOutLoading: false,
+        logOutError: action.error
+      }
+    case SIGN_UP_REQUEST:
+      return {
+        ...state,
+        signUpLoading: true,
+        signUpDone: false,
+        signUpError: null,
+      }
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpDone: true,
+      }
+    case SIGN_UP_FAILURE:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpError: action.error
       }
     default:
       return state;
