@@ -93,16 +93,9 @@ const reducer = (state = initialState, action) => {
         addPostError: null,
       }
     case ADD_POST_SUCCESS:
-      console.log(action);
-      console.log({
-        ...state,
-        mainPosts: [dummyPost(action.data), ...state,mainPosts],
-        addPostLoading: false,
-        addPostDone: true,
-      })
       return {
         ...state,
-        mainPosts: [dummyPost(action.data), ...state,mainPosts],
+        mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
       }

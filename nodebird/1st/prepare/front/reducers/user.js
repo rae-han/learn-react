@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const initialState = {
   // isLoggedIn: false, // 로그인 돼 있는지
   // logInLoading: false, // 로그인 시도중
