@@ -19,6 +19,8 @@ const configureStore = () => {
   // const middleares = [sagaMiddleware, loggerMiddleware];
   const middleares = [sagaMiddleware];
 
+  console.log(process.env.NODE_ENV)
+
   // const enhancer = process.env.NODE_ENV === 'production'
   //   ? compose(applyMiddleware([]))
   //   : composeWithDevTools(applyMiddleware([])); 
@@ -31,7 +33,6 @@ const configureStore = () => {
   //   type: 'CHANGE_NAME',
   //   name: 'hanrae'
   // })
-
   store.sagaTask = sagaMiddleware.run(rootSaga)
 
   return store;

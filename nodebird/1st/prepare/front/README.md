@@ -198,3 +198,12 @@ thunk - 프로그래밍 용어
 그럼 레이아웃이 로그인 폼에서 유저 프로필로 바뀐다.
 
 
+# 새로운 eslint
+```
+npm i -D babel-eslint eslint-config-airbnb 
+eslint-plugin-import
+eslint-plugin-react-hooks
+eslint-plugin-jsx-a11y 
+# 접근성
+# 스프링 리더, 시각 장애인, 색맹을 위한.
+```

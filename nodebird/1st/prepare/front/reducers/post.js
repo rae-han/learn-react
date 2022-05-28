@@ -43,44 +43,93 @@ export const initialState = {
   // 합쳐주는 애들은 대문자가 돼서 나온다
   // 설정을 통해서 소문자로 바꿔줄수 있다.
   imagePaths: [],
-  postAdded: false,
+  // postAdded: false,
+  addPostLoading: false,
+  addPostDone: false,
+  addPostError: null,
+  addCommentLoading: false,
+  addCommentDone: false,
+  addCommentError: null,
 }
 
 
-const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
-const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
-const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
-let id = 2;
-const dummyPost = {
-  id: id++,
-  content: `더미데이터 ${id}`,
+export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
+export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+let id = 3;
+const dummyPost = (data) => ({
+  id: 3,
+  content: data,
   User: {
     id: 1,
     nickname: 'raehan',
   },
   Images: [],
   Comments: [],
-} 
+})
 
-export const addPost = () => ({
+export const addPost = (data) => ({
   type: ADD_POST_REQUEST,
-  data: dummyPost,
+  data,
+})
+
+export const addComment = (data) => ({
+  type: ADD_COMMENT_REQUEST,
+  data,
 })
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_REQUEST:
-    case ADD_POST_SUCCESS:
       return {
         ...state,
-        mainPosts: [action.data, ...state.mainPosts],
-        postAdded: true,
+        addPostLoading: true,
+        addPostDone: false,
+        addPostError: null,
+      }
+    case ADD_POST_SUCCESS:
+      console.log(action);
+      console.log({
+        ...state,
+        mainPosts: [dummyPost(action.data), ...state,mainPosts],
+        addPostLoading: false,
+        addPostDone: true,
+      })
+      return {
+        ...state,
+        mainPosts: [dummyPost(action.data), ...state,mainPosts],
+        addPostLoading: false,
+        addPostDone: true,
       }
     case ADD_POST_FAILURE:
       return {
         ...state,
-        
+        addPostLoading: false,
+        addPostError: action.error,
+      }
+    case ADD_COMMENT_REQUEST:
+      return {
+        ...state,
+        addCommentLoading: true,
+        addCommentDone: false,
+        addCommentError: null,
+      }
+    case ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        addCommentLoading: false,
+        addCommentDone: true,
+      }
+    case ADD_COMMENT_FAILURE:
+      return {
+        ...state,
+        addCommentLoading: false,
+        addCommentError: action.error,
       }
     default:
       return state;
