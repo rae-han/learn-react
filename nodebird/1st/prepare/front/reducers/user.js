@@ -117,7 +117,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         logInLoading: true,
-        isLoggedIn: false,
+        logInError: null,
+        logInDone: false,
       }
     case LOG_IN_SUCCESS: 
       console.log('5. reducer login success')

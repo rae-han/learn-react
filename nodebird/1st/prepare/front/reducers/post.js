@@ -71,9 +71,16 @@ export const addPost = () => ({
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_REQUEST:
+    case ADD_POST_SUCCESS:
       return {
         ...state,
         mainPosts: [action.data, ...state.mainPosts],
+        postAdded: true,
+      }
+    case ADD_POST_FAILURE:
+      return {
+        ...state,
+        
       }
     default:
       return state;
