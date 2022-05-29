@@ -16,16 +16,10 @@ function addCommentAPI(data) {
 }
 
 function* addPost(action) {
-  console.log(action)
   try {
     // const result = yield call(addPostAPI, action.data);
     yield delay(1000);
 
-    console.log(1111111)
-    console.log({
-      type: ADD_POST_SUCCESS,
-      data: action.data,
-    })
     yield put({
       type: ADD_POST_SUCCESS,
       data: action.data,
@@ -46,9 +40,11 @@ function* addComment(action) {
     yield delay(1000);
 
     yield put({
-      type: ADD_COMMENT_SUCCESS
+      type: ADD_COMMENT_SUCCESS,
+      data: action.data
     })
   } catch (error) {
+    console.log(error)
     yield put({
       type: ADD_COMMENT_FAILURE,
       error: error.response.data,

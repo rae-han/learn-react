@@ -10,12 +10,11 @@ import PostCardContent from "./PostCardContent";
 
 const PostCard = ({ post }) => {
   // console.log('post', post)
-  const { me } = useSelector(state => ({
-    me: state.user
+  const { me } = useSelector(({ user }) => ({
+    me: user.me
   }))
   const [liked, setLiked] = useState(false);
   const [commentFormOpenned, setCommentFormOpenned] = useState(false);
-
   const id = me?.id;
 
   const onToggleLike = useCallback(() => {
@@ -35,6 +34,7 @@ const PostCard = ({ post }) => {
             ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onToggleLike}></HeartTwoTone>
             : <HeartOutlined key="heart" onClick={onToggleLike}></HeartOutlined>,
           <MessageOutlined key="comment" onClick={onToggleComment}></MessageOutlined>,
+          <div>{ id } // { post.User.id }</div>,
           <Popover key="more" content={(
             <Button.Group>
               {id && post.User.id === id 

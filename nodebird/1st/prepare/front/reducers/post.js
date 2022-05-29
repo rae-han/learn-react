@@ -1,3 +1,4 @@
+import shortid from "shortid";
 
 export const initialState = {
   mainPosts: [
@@ -16,8 +17,8 @@ export const initialState = {
         src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
       }],
       Comments: [
-        { User: { nickname: 'man' }, content: 'hello!!' },
-        { User: { nickname: 'woman' }, content: 'wow hi!!' },
+        { User: { id: 1, nickname: 'man' }, content: 'hello!!' },
+        { User: { id: 2, nickname: 'woman' }, content: 'wow hi!!' },
       ],
     },
     { 
@@ -33,8 +34,8 @@ export const initialState = {
         src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
       }],
       Comments: [
-        { User: { nickname: 'man' }, content: 'hello!!' },
-        { User: { nickname: 'woman' }, content: 'wow hi!!' },
+        { User: { id: 1, nickname: 'man' }, content: 'hello!!' },
+        { User: { id: 2, nickname: 'woman' }, content: 'wow hi!!' },
       ],
     }
   ],
@@ -61,9 +62,8 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
-let id = 3;
 const dummyPost = (data) => ({
-  id: 3,
+  id: shortid.generate(),
   content: data,
   User: {
     id: 1,
@@ -71,6 +71,14 @@ const dummyPost = (data) => ({
   },
   Images: [],
   Comments: [],
+})
+
+const dummyComment = (data) => ({
+  User: {
+    id: data.userId,
+    nickname: 'raehan',
+  },
+  content: data.content
 })
 
 export const addPost = (data) => ({
@@ -113,8 +121,14 @@ const reducer = (state = initialState, action) => {
         addCommentError: null,
       }
     case ADD_COMMENT_SUCCESS:
+      console.log(action.data)
+      const postIndex = state.mainPosts.findIndex(post => post.id === action.data.postId);
+      console.log(postIndex)
       return {
         ...state,
+        mainPosts: state.mainPosts.map(post => post.id === action.data.postId ? (
+          { ...post, Comments: [ dummyComment(action.data), ...post.Comments ] }
+        )  : post),
         addCommentLoading: false,
         addCommentDone: true,
       }

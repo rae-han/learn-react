@@ -201,6 +201,7 @@ thunk - 프로그래밍 용어
 # 새로운 eslint
 ```
 npm i -D babel-eslint eslint-config-airbnb 
+@babel/eslint-parser
 eslint-plugin-import
 eslint-plugin-react-hooks
 eslint-plugin-jsx-a11y 
