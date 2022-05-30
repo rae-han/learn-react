@@ -56,6 +56,7 @@ function PostImages({ images }) {
 
 PostImages.propTypes = {
   images: PropTypes.array.isRequired,
+  fix: Proto
 }
 
 export default PostImages;

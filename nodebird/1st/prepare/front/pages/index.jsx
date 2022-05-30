@@ -8,7 +8,7 @@ import PostCard from "../components/PostCard";
 function Home() {
   const { me } = useSelector(state => state.user);
   const mainPosts = useSelector(state => state.post.mainPosts); // 취향이지만 최적화가 달라질 수 있다.
-
+  console.log(mainPosts)
   return (
     <AppLayout>
       {me && <PostForm />}
