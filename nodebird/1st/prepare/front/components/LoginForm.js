@@ -16,7 +16,7 @@ const FormWrapper = styled(Form)`
 `;
 
 const LoginForm = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { logInLoading } = useSelector(({ user }) => ({
     logInLoading: user.logInLoading
   }))
