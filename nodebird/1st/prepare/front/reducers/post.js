@@ -1,32 +1,33 @@
-import shortid from "shortid";
+import shortId from "shortid";
 import produce from "immer";
+import { faker } from "@faker-js/faker"
 
 export const initialState = {
   mainPosts: [
     { 
-      id: shortid.generate(), 
+      id: shortId.generate(),
       User: {
         id: 1,
         nickname: 'raehan',
       },
       content: '첫 번째 게시글 #해시태그 #익스프레스',
       Images: [{
-        id: shortid.generate(),
+        id: shortId.generate(),
         src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
       }, {
-        id: shortid.generate(),
+        id: shortId.generate(),
         src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
       }, {
-        id: shortid.generate(),
+        id: shortId.generate(),
         src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
       }],
       Comments: [
-        { User: { id: shortid.generate(), nickname: 'man' }, content: 'hello!!' },
-        { User: { id: shortid.generate(), nickname: 'woman' }, content: 'wow hi!!' },
+        { User: { id: shortId.generate(), nickname: 'man' }, content: 'hello!!' },
+        { User: { id: shortId.generate(), nickname: 'woman' }, content: 'wow hi!!' },
       ],
     },
     { 
-      id: shortid.generate(), 
+      id: shortId.generate(),
       User: {
         id: 2,
         nickname: 'raehan',
@@ -60,6 +61,27 @@ export const initialState = {
   addCommentError: null,
 }
 
+initialState.mainPosts = initialState.mainPosts.concat(
+  Array.from({ length: 20 }).fill().map((v, i) => ({
+    id: shortId.generate(),
+    User: {
+      id: shortId.generate(),
+      nickname: faker.name.findName()
+    },
+    content: faker.lorem.paragraph(),
+    Images: [{
+      src: faker.image.imageUrl(),
+    }],
+    Comments: [{
+      User: {
+        id: shortId.generate(),
+        nickname: faker.name.findName(),
+      },
+      content: faker.lorem.sentence(),
+    }],
+  }))
+)
+console.log(initialState)
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
