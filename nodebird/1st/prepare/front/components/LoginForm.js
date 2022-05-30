@@ -9,14 +9,14 @@ import { loginRequestAction } from '../reducers/user'
 
 const ButtonWrapper = styled.div`
   /* margin-top: 10px; */
-`
+`;
 
 const FormWrapper = styled(Form)`
   padding: 10px;
-`
+`;
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { logInLoading } = useSelector(({ user }) => ({
     logInLoading: user.logInLoading
   }))

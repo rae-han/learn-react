@@ -29,7 +29,6 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
     "@faker-js/faker": "^7.1.0",
-    "babel-eslint": "^10.1.0",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
