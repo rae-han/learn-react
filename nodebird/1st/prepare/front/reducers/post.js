@@ -4,45 +4,45 @@ import { faker } from "@faker-js/faker"
 
 export const initialState = {
   mainPosts: [
-    { 
-      id: shortId.generate(),
-      User: {
-        id: 1,
-        nickname: 'raehan',
-      },
-      content: '첫 번째 게시글 #해시태그 #익스프레스',
-      Images: [{
-        id: shortId.generate(),
-        src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-      }, {
-        id: shortId.generate(),
-        src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-      }, {
-        id: shortId.generate(),
-        src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-      }],
-      Comments: [
-        { User: { id: shortId.generate(), nickname: 'man' }, content: 'hello!!' },
-        { User: { id: shortId.generate(), nickname: 'woman' }, content: 'wow hi!!' },
-      ],
-    },
-    { 
-      id: shortId.generate(),
-      User: {
-        id: 2,
-        nickname: 'raehan',
-      },
-      content: '두 번째 게시글 #해시태그 #익스프레스',
-      Images: [{
-        src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-      }, {
-        src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-      }],
-      Comments: [
-        { User: { id: 1, nickname: 'man' }, content: 'hello!!' },
-        { User: { id: 2, nickname: 'woman' }, content: 'wow hi!!' },
-      ],
-    }
+    // {
+    //   id: shortId.generate(),
+    //   User: {
+    //     id: 1,
+    //     nickname: 'raehan',
+    //   },
+    //   content: '첫 번째 게시글 #해시태그 #익스프레스',
+    //   Images: [{
+    //     id: shortId.generate(),
+    //     src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
+    //   }, {
+    //     id: shortId.generate(),
+    //     src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
+    //   }, {
+    //     id: shortId.generate(),
+    //     src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
+    //   }],
+    //   Comments: [
+    //     { User: { id: shortId.generate(), nickname: 'man' }, content: 'hello!!' },
+    //     { User: { id: shortId.generate(), nickname: 'woman' }, content: 'wow hi!!' },
+    //   ],
+    // },
+    // {
+    //   id: shortId.generate(),
+    //   User: {
+    //     id: 2,
+    //     nickname: 'raehan',
+    //   },
+    //   content: '두 번째 게시글 #해시태그 #익스프레스',
+    //   Images: [{
+    //     src: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
+    //   }, {
+    //     src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
+    //   }],
+    //   Comments: [
+    //     { User: { id: 1, nickname: 'man' }, content: 'hello!!' },
+    //     { User: { id: 2, nickname: 'woman' }, content: 'wow hi!!' },
+    //   ],
+    // }
   ],
   // 소문자와 대문자가 혼용돼서 사용되는 이유.
   // 디비에서 사용하는 sequalize와 관계 있는데 어떤 정보와 다른 정보가 관계가 있으면 합쳐주는데
@@ -50,6 +50,10 @@ export const initialState = {
   // 설정을 통해서 소문자로 바꿔줄수 있다.
   imagePaths: [],
   // postAdded: false,
+  hasMorePost: true,
+  loadPostLoading: false,
+  loadPostDone: false,
+  loadPostError: null,
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
@@ -61,13 +65,22 @@ export const initialState = {
   addCommentError: null,
 }
 
-initialState.mainPosts = initialState.mainPosts.concat(
-  Array.from({ length: 20 }).fill().map((v, i) => ({
+export const generateDummyPost = (number) => Array.from({ length: number }).fill().map((v, i) => ({
+  id: shortId.generate(),
+  User: {
     id: shortId.generate(),
+    nickname: faker.name.findName()
+  },
+  content: faker.lorem.paragraph(),
+  Images: [{
+    src: faker.image.image(),
+  }],
+  Comments: [{
     User: {
       id: shortId.generate(),
-      nickname: faker.name.findName()
+      nickname: faker.name.findName(),
     },
+<<<<<<< HEAD
     content: faker.lorem.paragraph(),
     Images: [{
       src: faker.image.imageUrl(),
@@ -83,6 +96,15 @@ initialState.mainPosts = initialState.mainPosts.concat(
   }))
 )
 console.log(initialState)
+=======
+    content: faker.lorem.sentence(),
+  }],
+}))
+
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+>>>>>>> f67a8ef86852db9584de8bc299544fb2a9e87898
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -127,6 +149,22 @@ export const addComment = (data) => ({
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
+    case LOAD_POST_REQUEST:
+      draft.loadPostLoading = true;
+      draft.loadPostDone= false;
+      draft.loadPostError= null;
+      break;
+    case LOAD_POST_SUCCESS:
+      // draft.mainPosts.unshift(dummyPost(action.data));
+      draft.loadLoading = false;
+      draft.loadDone = true;
+      draft.mainPosts = action.data.concat(draft.mainPosts);
+      draft.hasMorePost = draft.mainPosts.length < 50;
+      break;
+    case LOAD_POST_FAILURE:
+      draft.loadPostLoading = false;
+      draft.loadPostError = action.error;
+      break;
     case ADD_POST_REQUEST:
       draft.addPostLoading = true;
       draft.addPostDone= false;
