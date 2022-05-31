@@ -80,23 +80,6 @@ export const generateDummyPost = (number) => Array.from({ length: number }).fill
       id: shortId.generate(),
       nickname: faker.name.findName(),
     },
-<<<<<<< HEAD
-    content: faker.lorem.paragraph(),
-    Images: [{
-      src: faker.image.imageUrl(),
-      // src: ``,
-    }],
-    Comments: [{
-      User: {
-        id: shortId.generate(),
-        nickname: faker.name.findName(),
-      },
-      content: faker.lorem.sentence(),
-    }],
-  }))
-)
-console.log(initialState)
-=======
     content: faker.lorem.sentence(),
   }],
 }))
@@ -104,7 +87,6 @@ console.log(initialState)
 export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
 export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
 export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
->>>>>>> f67a8ef86852db9584de8bc299544fb2a9e87898
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
