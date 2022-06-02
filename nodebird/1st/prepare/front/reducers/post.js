@@ -50,10 +50,10 @@ export const initialState = {
   // 설정을 통해서 소문자로 바꿔줄수 있다.
   imagePaths: [],
   // postAdded: false,
-  hasMorePost: true,
-  loadPostLoading: false,
-  loadPostDone: false,
-  loadPostError: null,
+  hasMorePosts: true,
+  loadPostsLoading: false,
+  loadPostsDone: false,
+  loadPostsError: null,
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
@@ -84,9 +84,9 @@ export const generateDummyPost = (number) => Array.from({ length: number }).fill
   }],
 }))
 
-export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
-export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
-export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -131,21 +131,24 @@ export const addComment = (data) => ({
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
-    case LOAD_POST_REQUEST:
-      draft.loadPostLoading = true;
-      draft.loadPostDone= false;
-      draft.loadPostError= null;
+    case LOAD_POSTS_REQUEST:
+      draft.loadPostsLoading = true;
+      draft.loadPostsDone= false;
+      draft.loadPostsError= null;
       break;
-    case LOAD_POST_SUCCESS:
-      // draft.mainPosts.unshift(dummyPost(action.data));
-      draft.loadLoading = false;
-      draft.loadDone = true;
+    case LOAD_POSTS_SUCCESS:
+      console.log('load post success')
+      draft.loadPostsLoading = false;
+      draft.loadPostsDone = true;
       draft.mainPosts = action.data.concat(draft.mainPosts);
-      draft.hasMorePost = draft.mainPosts.length < 50;
+      console.log(draft.mainPosts.length)
+      console.log(draft.mainPosts.length < 50)
+      draft.hasMorePosts = draft.mainPosts.length < 50;
       break;
-    case LOAD_POST_FAILURE:
-      draft.loadPostLoading = false;
-      draft.loadPostError = action.error;
+    case LOAD_POSTS_FAILURE:
+      console.log('load post failure')
+      draft.loadPostsLoading = false;
+      draft.loadPostsError = action.error;
       break;
     case ADD_POST_REQUEST:
       draft.addPostLoading = true;

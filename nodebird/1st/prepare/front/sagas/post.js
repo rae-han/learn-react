@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getOnDemandLazySlides } from "react-slick/lib/utils/innerSliderUtils";
-import { delay, put, takeLatest, all, fork, call } from 'redux-saga/effects'
+import { delay, put, takeLatest, all, fork, call, throttle } from 'redux-saga/effects'
 import shortId from "shortid";
 
 import {
@@ -13,9 +13,10 @@ import {
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
   REMOVE_POST_FAILURE,
-  LOAD_POST_REQUEST,
-  LOAD_POST_SUCCESS,
-  LOAD_POST_FAILURE, generateDummyPost,
+  LOAD_POSTS_REQUEST,
+  LOAD_POSTS_SUCCESS,
+  LOAD_POSTS_FAILURE,
+  generateDummyPost,
 } from '../reducers/post'
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from "../reducers/user";
 
@@ -36,13 +37,13 @@ function* loadComment(action) {
     yield delay(1000);
 
     yield put({
-      type: LOAD_POST_SUCCESS,
+      type: LOAD_POSTS_SUCCESS,
       data: generateDummyPost(10),
     })
   } catch (error) {
     console.log(error)
     yield put({
-      type: LOAD_POST_FAILURE,
+      type: LOAD_POSTS_FAILURE,
       error: error.response.data,
       // error: error,
     })
@@ -117,7 +118,8 @@ function* addComment(action) {
 }
 
 function* watchLoadPost() {
-  yield takeLatest(LOAD_POST_REQUEST, loadComment);
+  yield throttle(4*1000, LOAD_POSTS_REQUEST, loadComment);
+  // yield takeLatest(LOAD_POSTS_REQUEST, loadComment);
 }
 
 function* watchAddPost() {

@@ -12,7 +12,7 @@ const CommonComponent = ({ Component }) => {
     <div>
       <Head>
         {/* head 태그는 body 태그 밖에 있는데, 그걸 수정하기 위한 컴포넌트 */}
-        <meta charset="utf-8"></meta>
+        <meta charSet="utf-8"></meta>
         <title>내 프로필 | NordBird</title>
       </Head>
       <div>공통</div>
