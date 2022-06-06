@@ -12,3 +12,8 @@ delete 제거
 patch 부분 수정
 option 찔러보기 (나 요청 보내도 돼?)
 head 헤더만 가져오기 (헤더/바디)
+
+# 시퀄라이즈
+npm i sequelize sequelize-cli
+npm i mysql2
+npx sequelize init
