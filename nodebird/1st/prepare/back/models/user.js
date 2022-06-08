@@ -19,7 +19,15 @@ module.exports = (sequelize, DataTypes) => {
     collate: 'utf8_general_ci', // 한글 저장
   });
 
-  User.associate = (db) => {};
+  User.associate = (db) => {
+    db.User.hasMany(db.Post); // 사람이 포스트를 여러개 가지고 있다.
+    // 이거 다음에 Post에 db.Post.belongsTo(db.User);유
+    db.User.hasMany(db.Comment);
+    // Comment 파일에 적은대로 hasMany보다 belongsTo가 더 중요한 이유는 여기에 만약 id값이 들어오면 여러개의 정보가 들어오는데
+    // sql할때 엑셀 구조 짤때 원칙이 한칸에는 하나의 정보만.
+    // 다대다는 포스트에
+    // 일대일은 hasOne
+  };
 
   return User;
 }

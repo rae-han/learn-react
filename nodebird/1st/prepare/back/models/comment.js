@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     collate: 'utf8mb4_general_ci', // 이모티콘 저장
   });
 
-  Comment.associate = (db) => {};
+  Comment.associate = (db) => {
+    db.Comment.belongsTo(db.User);
+    db.Comment.belongsTo(db.Post); // belongTo가 hasMany보다 더 중요한데 이유는 UserId와  PostId를 content밑에 만들어 준다.
+  };
   return Comment;
 }
