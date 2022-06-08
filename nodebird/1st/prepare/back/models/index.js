@@ -32,7 +32,13 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 //     db[model.name] = model;
 //   });
 
-Object.keys(db).forEach(modelName => {
+db.Comment = require('./comment')(sequelize, Sequelize);
+db.Hashtag = require('./hashtag')(sequelize, Sequelize);
+db.Image = require('./image')(sequelize, Sequelize);
+db.Post = require('./post')(sequelize, Sequelize);
+db.User = require('./user')(sequelize, Sequelize);
+
+Object.keys(db).forEach(modelName => { // 각 파일의 associate에 있는걸 연결해주는 코드
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

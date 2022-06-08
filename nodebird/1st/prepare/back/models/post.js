@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     db.Post.hasMany(db.Image);
     // 해시태그가 골치 아픈게 하나의 해시태그에 게시글이 여러개 있을수도
     // 게시글에 해시태그가 여러개 있을수도 있다.
-    db.Post.belongsToMany(db.Hashtag);
+    db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
     db.Post.belongsToMany(db.User, { through: 'Like', as: 'Likers' }); // 좋아요.
     // User와 Post의 관계가 2개라서 헷갈릴수 있는데 이럴땐 as를 쓴다.
     // 나중에 as에 따라서 post.getLikers처럼 게시글 좋아요 누른 사람을 가져오게 된다.

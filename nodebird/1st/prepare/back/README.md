@@ -18,3 +18,22 @@ npm i sequelize sequelize-cli
 npm i mysql2
 npx sequelize init
 init 해서 나온 config/config.json 파일 개발자 환경으로 설정
+
+# mysql 시퀄라이즈 문서 다 적고 아래 에러 뜨면?
+```
+  code: 'ER_BAD_DB_ERROR',
+    errno: 1049,
+    sqlState: '42000',
+    sqlMessage: "Unknown database 'react-nodebird'",
+    sql: undefined
+  },
+  original: Error: Unknown database 'react-nodebird'
+```
+
+```
+    npx sequelize db:create
+```
+
+# ERD 만들어두면 좋다.
+젯브래인 데이터 그랩
+
