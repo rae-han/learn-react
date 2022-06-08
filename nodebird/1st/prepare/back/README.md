@@ -17,3 +17,4 @@ head 헤더만 가져오기 (헤더/바디)
 npm i sequelize sequelize-cli
 npm i mysql2
 npx sequelize init
+init 해서 나온 config/config.json 파일 개발자 환경으로 설정
