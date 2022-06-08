@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Hashtag.associate = (db) => {
-    db.Post.belongsToMany(db.Hashtag);
+    db.Hashtag.belongsToMany(db.Post);
+
   };
   return Hashtag;
 }
