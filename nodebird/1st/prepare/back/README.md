@@ -36,4 +36,3 @@ init 해서 나온 config/config.json 파일 개발자 환경으로 설정
 
 # ERD 만들어두면 좋다.
 젯브래인 데이터 그랩
-
