@@ -10,7 +10,7 @@ import {
 } from '../reducers/user'
 
 function logInAPI(data) {
-  return axios.post('/api/login')
+  return axios.post('/user/login')
 }
 
 function logOutAPI(data) {
@@ -18,16 +18,16 @@ function logOutAPI(data) {
 }
 
 function signUpAPI(data) {
-  return axios.post('http://localhost:3080/user', data)
+  return axios.post('/user', data)
 }
 
 function* logIn(action) { 
   console.log('4. saga/login logIn')
   try {
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: result.data,
     })
   } catch (err) {
     yield put({

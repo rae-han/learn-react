@@ -1,16 +1,23 @@
 const express = require('express');
 const cors = require('cors')
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+
 const app = express();
 
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post')
 
 const db = require('./models');
+const passportConfig = require('./passport')
+
 db.sequelize.sync()
     .then(() => {
       console.log('db 연결 성공')
     })
     .catch(console.error)
+passportConfig();
 
 // use는 express서버에 뭔가를 장착한다는 뜻.
 app.use(express.json()); // 이건 프론트에서 json형식으로 데이터를 보냈을때 req.body에 넣겠다.
@@ -20,6 +27,11 @@ app.use(cors({
   origin: true, // 위는 모든 주소, 이건 보낸 곳의 주소가 자동으로 들어간다.
   credentials: false,
 }))
+
+app.use(cookieParser());
+app.use(session());
+app.use(passport.initialize())
+app.use(passport.session());
 
 app.get('/', (req, res) => {
   res.send('hello express');

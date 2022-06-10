@@ -1,8 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
+const passport = require('passport');
 
 const { User } = require('../models'); // db.User에 접근
+
 
 router.post('/', async (req, res, next) => {
   try {
@@ -36,5 +38,31 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// router.post('/login', (req, res, next) => {})
+// router.post('/login', passport.authenticate('local', (err, user, info) => { // 차례대로 서버에러, 성곡객체, 인포
+//   if(err) { // 첫 번째는 서버 에러
+//     console.error(err);
+//     // next(err); // 여기는 next, res 가 없다.
+//   }
+// })); // ㅇㅣ렇게 하면 로컬 전략이 실행된다.
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => { // 차례대로 서버에러, 성곡객체, 클라이언트 에러
+    if(err) { // 첫 번째는 서버 에러
+      console.error(err);
+    }
+    if(info) {
+      return res.status(401).send(info.reason);
+    }
+
+    return req.login(user, async (loginErr) => { // 이게 진짜 로그인, passport에서 로그인 할수 있게 허락해준 것, 우리 서비스 로그인 다 끝나고 패스포트 한번 더
+      if(loginErr) {
+        console.error(loginErr);
+        return next(loginErr);
+      }
+      // 내부적으로 res.setHeader('Cookie', 'asdfg') 이런거 보내준다.
+      return res.status(200).json(user);
+    })
+  })(req, res, next); // 이렇게 하면 미들웨어가 확장된다.
+})
 
 module.exports = router;
