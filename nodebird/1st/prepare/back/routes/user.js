@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const passport = require('passport');
 
-const { User } = require('../models'); // db.User에 접근
+const { User, Post } = require('../models'); // db.User에 접근
 
 
 router.post('/', async (req, res, next) => {
@@ -46,11 +46,13 @@ router.post('/', async (req, res, next) => {
 //   }
 // })); // ㅇㅣ렇게 하면 로컬 전략이 실행된다.
 router.post('/login', (req, res, next) => {
+  console.log(req.body)
   passport.authenticate('local', (err, user, info) => { // 차례대로 서버에러, 성곡객체, 클라이언트 에러
     if(err) { // 첫 번째는 서버 에러
       console.error(err);
     }
     if(info) {
+      console.error(info)
       return res.status(401).send(info.reason);
     }
 
@@ -59,10 +61,36 @@ router.post('/login', (req, res, next) => {
         console.error(loginErr);
         return next(loginErr);
       }
+
+      const fullUserWithoutPassword = await User.findOne({
+        where: { id: user.id },
+        // attributes: [], // attributes 프로퍼티를 통해 받을 것을 정해줄수 있다.
+        attributes: { // exclude라는 특별한 키워드를 통해 뺄 것을 정해줄 수 있다.
+          exclude: ['password'],
+        },
+        include: [{
+          // associate에 적힌 그대로 적으면 된다.
+          model: Post, //  hasMany라 model: Post가 복수형이 되어 me.Posts가 된다.
+        }, { // as가 있는 것들은 as에 담겨있는 값을 적으면 된다.
+          model: User,
+          as: 'Followings',
+        }, {
+          model: User,
+          as: 'Followers',
+        }]
+      })
+
       // 내부적으로 res.setHeader('Cookie', 'asdfg') 이런거 보내준다.
-      return res.status(200).json(user);
+      return res.status(200).json(fullUserWithoutPassword);
     })
   })(req, res, next); // 이렇게 하면 미들웨어가 확장된다.
+});
+
+router.post('/logout', (req, res, next) => {
+  console.log('/user/logout')
+  req.logout();
+  req.session.destroy();
+  res.status(200).send('ok');
 })
 
 module.exports = router;

@@ -10,11 +10,11 @@ import {
 } from '../reducers/user'
 
 function logInAPI(data) {
-  return axios.post('/user/login')
+  return axios.post('/user/login', data)
 }
 
 function logOutAPI(data) {
-  return axios.post('/api/logout')
+  return axios.post('/user/logout')
 }
 
 function signUpAPI(data) {
@@ -39,7 +39,7 @@ function* logIn(action) {
 
 function* logOut(action) { 
   try {
-    yield delay(1000);
+    const result = yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
     })
