@@ -4,9 +4,9 @@ const router = express.Router();
 const passport = require('passport');
 
 const { User, Post } = require('../models'); // db.User에 접근
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares')
 
-
-router.post('/', async (req, res, next) => {
+router.post('/', isNotLoggedIn, async (req, res, next) => {
   try {
     const exUser = await User.findOne({
       where: { // where가 조건
@@ -45,8 +45,7 @@ router.post('/', async (req, res, next) => {
 //     // next(err); // 여기는 next, res 가 없다.
 //   }
 // })); // ㅇㅣ렇게 하면 로컬 전략이 실행된다.
-router.post('/login', (req, res, next) => {
-  console.log(req.body)
+router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => { // 차례대로 서버에러, 성곡객체, 클라이언트 에러
     if(err) { // 첫 번째는 서버 에러
       console.error(err);
