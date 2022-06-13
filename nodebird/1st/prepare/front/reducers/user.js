@@ -9,6 +9,9 @@ export const initialState = {
   // me: null,
   // signUpDate: {},
   // loginData: {},
+  loadMyInfoLoading: false, // 유저 정보 가져오기 시도 중
+  loadMyInfoDone: false,
+  loadMyInfoError: null,
   logInLoading: false, // 로그인 시도 중
   logInDone: false,
   logInError: null,
@@ -36,6 +39,10 @@ export const initialState = {
   unfollowDone: false,
   unfollowError: null,
 }
+
+export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST_REQUEST';
+export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_REQUEST_SUCCESS';
+export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_REQUEST_FAILURE';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
@@ -147,10 +154,24 @@ const dummyUser = data => ({
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
+    case LOAD_MY_INFO_REQUEST: // 3-2. 이때 조심해야할 것이 user 객체에 있는 내용을 initialState에 바로 넣었기 때문에 뎁스가 1단계 줄었다.
+      draft.loadMyInfoLoading = true;
+      draft.loadMyInfoError = null;
+      draft.loadMyInfoDone = false;
+      break;
+    case LOAD_MY_INFO_SUCCESS:
+      draft.loadMyInfoLoading = false;
+      draft.loadMyInfoDone = true;
+      draft.me = action.data;
+      break;
+    case LOAD_MY_INFO_FAILURE:
+      draft.loadMyInfoLoading = false;
+      draft.loadMyInfoError = action.error;
+      break;
     case LOG_IN_REQUEST: // 3-2. 이때 조심해야할 것이 user 객체에 있는 내용을 initialState에 바로 넣었기 때문에 뎁스가 1단계 줄었다.
-      draft.logInLoading = true;
-      draft.logInError = null;
-      draft.logInDone = false;
+      draft.loadMyInfoLoading = true;
+      draft.loadMyInfoError = null;
+      draft.loadMyInfoDone = false;
       break;
     case LOG_IN_SUCCESS: 
       draft.logInLoading = false;
