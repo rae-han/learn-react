@@ -27,11 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     // sql할때 엑셀 구조 짤때 원칙이 한칸에는 하나의 정보만.
     // 다대다는 포스트에
     // 일대일은 hasOne
-    db.User.belongsToMany(db.Post, { through: 'Like', as: 'Liked' }); // 좋아요. 중간 테이블 이름을 through로 바꿀수도 있다. 양쪽 다 반드시 명시해줘야한다.
+    db.User.belongsToMany(db.Post, {through: 'Like', as: 'Liked'}); // 좋아요. 중간 테이블 이름을 through로 바꿀수도 있다. 양쪽 다 반드시 명시해줘야한다.
     // Liked에 대한 설명은 포스트에
     // 같은거 할때도 헷갈리니 as를 써준다.
-    db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followers', foreignKey: 'FollowingId' });
-    db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followings', foreignKey: 'FollowerId' });
+    db.User.belongsToMany(db.User, {through: 'Follow', as: 'Followers', foreignKey: 'FollowingId'});
+    db.User.belongsToMany(db.User, {through: 'Follow', as: 'Followings', foreignKey: 'FollowerId'});
     // 같은거 할땐 foreignKey를 적어줘야 한다. 내가 팔로윙 하는 사람을 찾으려면 나를 먼저 찾아야한다. 반대로 생각해서 외래키를 적는다.
     // 같은 테이블이면 똑같이 UserId를 쓰기 때문에 명시해줘야한다.
   };
