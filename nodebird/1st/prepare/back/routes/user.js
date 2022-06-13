@@ -88,7 +88,9 @@ router.post('/login', (req, res, next) => {
 
 router.post('/logout', (req, res, next) => {
   console.log('/user/logout')
-  req.logout();
+  return req.logout(() => res.redirect('/'));
+  // 이런 식으로 콜백 함수를 제공하고 그 안에서 응답해야한다.
+  // passport@0.6이 되면서 로그인할 때마다 세션 쿠키가 변경되고 로그아웃할 때에도 세션 쿠키가 정리되는 것 같다.
   req.session.destroy();
   res.status(200).send('ok');
 })
