@@ -85,7 +85,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
   })(req, res, next); // 이렇게 하면 미들웨어가 확장된다.
 });
 
-router.post('/logout', (req, res, next) => {
+router.post('/logout', isLoggedIn, (req, res, next) => {
   console.log('/user/logout')
   req.logout();
   req.session.destroy();

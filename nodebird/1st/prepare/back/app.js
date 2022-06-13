@@ -52,6 +52,11 @@ app.use('/user', userRouter);
 // app.use(postRouter); // post를 프리픽스 해주고 싶다면
 app.use('/post', postRouter);
 
+// 에러처리 미들웨어가 이 부분에 내부적으로 존재하고 있다. 하지만 아래와 같이 정의할 수 있다.
+// app.use((err, req, res, next) => {
+//   console.error(err)
+// })
+
 app.listen(3080, () => {
   console.log('running server');
 })
