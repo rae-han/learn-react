@@ -15,10 +15,11 @@ const ErrorMessage = styled.div`
 
 function Signup() {
   const dispatch = useDispatch();
-  const { signUpLoading, signUpDone, signUpError } = useSelector(({ user }) => ({
+  const { signUpLoading, signUpDone, signUpError, me } = useSelector(({ user }) => ({
     signUpLoading: user.signUpLoading,
     signUpDone: user.signUpDone,
-    signUpError: user.signUpError
+    signUpError: user.signUpError,
+    me: user.me,
   }))
 
   const [email, onChangeEmail] = useInput('');
@@ -67,7 +68,13 @@ function Signup() {
     if(signUpError) {
       alert(signUpError);
     }
-  }, [signUpError])
+  }, [signUpError]);
+
+  useEffect(() => { // loginDone으로 해도 된다.
+    if(!(me && me.id)) {
+      Router.replace('/')
+    }
+  }, [me && me.id])
 
   return (
     <AppLayout>

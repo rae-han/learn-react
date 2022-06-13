@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, Input } from 'antd';
 import Link from 'next/link';
@@ -17,10 +17,11 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { logInLoading } = useSelector(({ user }) => ({
-    logInLoading: user.logInLoading
+  const { logInLoading, logInError } = useSelector(({ user }) => ({
+    logInLoading: user.logInLoading,
+    logInError: user.logInError,
   }))
-  const [email, onChangeEmail] = useInput('This_is_ID');
+  const [email, onChangeEmail] = useInput('asdf@asdf.asdf');
   const [password, onChangePassword] = useInput('asdf');
 
   const ButtonWrapperStyle = useMemo(() => ({ marginTop: 10 }), []);
@@ -31,6 +32,12 @@ const LoginForm = () => {
     });
     dispatch(loginRequestAction({ email, password }));
   }, [email, password]);
+
+  useEffect(() => {
+    if(logInError) {
+      alert(logInError)
+    }
+  }, [logInError])
 
   return (
     <FormWrapper onFinish={onSubmitForm} style={{ padding: '10px' }}>

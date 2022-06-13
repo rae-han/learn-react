@@ -75,3 +75,46 @@ passport.login 같은 곳에서 자동으로 키를 넣어준다?
 나중에 세션 저장용 DB로 Redis같은 걸 쓴다.
 
 req.login 이후 실행 되는 것이 passport.serializerUser
+
+# 로그인 과정
+1. 클라이언트에서 userLoginAPI를 통해서 데이터를 보내면
+2. 서버의 route /user/login 에서 passport 전략을 실행하고
+3. req.body에 있는 email, password 값이 전략을 정의한 대로 id, password로 들어가고
+4. 전략이 실행되면서 email, password가 옳다면 done(null, user)가 되고
+5. done 되는 순간 콜백이 실행되므로 passport.authenticate의 콜백 부분이 실행되고
+6. err, info(각각 서버, 클라이언트의 에러)가 없다면 req.login(passport가 심어준 passport 로그인?)이 실행되고
+7. passport 로그인 하면 passport.serializeUser가 실행되고 
+8. 쿠키랑 유저 아이디만 서버에서 들고 있고(유저 전체 정보 x)
+9. req.login안의 res.status(200).json(user)에 쿠키랑 사용자 정보를 프론트로 보내준다.
+10. 브라우저 network탭에 login 요청 response headers를 보면 쿠키에 connect.sid가 있는데 그게 바로 유저의 정보를 가리키고 있는 쿠키이디ㅏ. 이걸 바탕으로 유저가 어떤 사람인지 판단한다.
+
+추가로 passport.deserializerUser는 로그인이 성공하고나서 부터 
+그 다음 요청부터 raehan으로 로그인 하면 특정 아이디(예를 들면 1번 아이디, serializer의 user.id)에 저장돼 있는데
+connect.sid란 쿠키와 함께 다음 요청에 보내지는데
+그때 그 요청(로그인 성공 후의 요청들)부터 deserializerUser가 매번 실행되면서
+아이디로부터 사용자 정보를 디비를 통해서 복구를 한다.
+그 다음 req.user 안에 넣어준다.
+그렇다면 로그인 후에 만약 로그아웃을 한다고하면 로그인 후부터는 라우터 실행되기전 deserializerUser가 매번 실행되기 때문에
+req.user에 정보가 들어가 있다.
+사실 로그아웃 할때는 필요 없고 주로 글을 쓴다던가..
+로그아웃은 req.logout()이나 req.session.destroy(); - 세션에 저장된 쿠키와 아이디 없애는 것
+
+# sequilize
+스퀄라이즈를 통해서 나오는 것은 정확히는 자바스크립트 객체로 클래스의 인스턴스라 내장 함수 같은게 있다.
+이걸 json으로 바꿔주는게 true json 같은게 있긴 한데...
+
+# passport
+다른 passport들은 카카오나 페이스북 개발자 페이지 같은데 들어가면 있다.
+로그인을 위한 앱을 만들고 세팅하면 된다.
+
+# 자동 로그인
+jwt같은걸 프론트에 영원히 보관하는 방법도 있고(보통 안전한 기기에서만 자동로그인을 하라 하기 때문)
+
+### passport는 back이 노드여야만 한다 / oauth는? oauth2.0을 찾아보자.
+
+localstorage로 자동 로그인 한다면 XSS 공격을 막아야한다.
+
+
+
+
+
