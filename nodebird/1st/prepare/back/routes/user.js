@@ -46,6 +46,7 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {
 //   }
 // })); // ㅇㅣ렇게 하면 로컬 전략이 실행된다.
 router.post('/login', isNotLoggedIn, (req, res, next) => {
+  console.log('/user/login')
   passport.authenticate('local', (err, user, info) => { // 차례대로 서버에러, 성곡객체, 클라이언트 에러
     if(err) { // 첫 번째는 서버 에러
       console.error(err);
@@ -87,7 +88,8 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 
 router.post('/logout', isLoggedIn, (req, res, next) => {
   console.log('/user/logout')
-  return req.logout(() => res.redirect('/'));
+  // return req.logout(() => res.redirect('/'));
+  req.logout();
   // 이런 식으로 콜백 함수를 제공하고 그 안에서 응답해야한다.
   // passport@0.6이 되면서 로그인할 때마다 세션 쿠키가 변경되고 로그아웃할 때에도 세션 쿠키가 정리되는 것 같다.
   req.session.destroy();

@@ -4,6 +4,7 @@ const { User }  = require('../models')
 
 module.exports = () => {
   passport.serializeUser((user, done) => {
+    console.log(user.id)
     done(null, user.id)
   });
   // req.login의 user가 일로 들어온ㄷ.

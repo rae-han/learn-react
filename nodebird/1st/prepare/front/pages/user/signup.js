@@ -60,6 +60,7 @@ function Signup() {
 
   useEffect(() => {
     if (signUpDone) {
+      console.log(1)
       Router.push('/');
     }
   }, [signUpDone]);
@@ -71,7 +72,8 @@ function Signup() {
   }, [signUpError]);
 
   useEffect(() => { // loginDone으로 해도 된다.
-    if(!(me && me.id)) {
+    if(me && me.id) {
+      console.log(2)
       Router.replace('/')
     }
   }, [me && me.id])
