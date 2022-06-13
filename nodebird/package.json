@@ -3,6 +3,8 @@
     "@redux-devtools/extension": "^3.2.2",
     "next-redux-wrapper": "^7.0.5",
     "redux": "^4.2.0",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "sequelize": "^6.20.1",
+    "sequelize-cli": "^6.4.1"
   }
 }
