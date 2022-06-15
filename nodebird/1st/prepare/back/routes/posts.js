@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { Post, User } = require('../models')
+const { Post, User, Image, Comment } = require('../models')
 
 const router = express.Router();
 
@@ -14,11 +14,28 @@ router.get('/', async (req, res, next) => {
       // 또는 누군가 지우면 안들고 오는 게시글이 있을 수 있다.
       // 그래서 offset, lastId를 쓴다. lastId는 개발자가 구현한 것
       // where: { id: lastId },
-      order: [['createAt', 'DESC']],
+      order: [
+        ['createdAt', 'DESC'],
+        [Comment, 'createdAt', 'DESC'] // 댓글 정렬은 Commnet에서 해주는 것이 아니라 여기에서.
+      ],
       include: [{
         model: User,
+        attributes: ['id', 'nickname'],
+      }, {
+        model: Image
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname'],
+        }]
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id'],
       }]
     });
+    console.log(posts)
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);

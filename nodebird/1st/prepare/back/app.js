@@ -4,7 +4,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const dotenv = require('dotenv');
-
+const morgan = require('morgan');
 
 const app = express();
 
@@ -32,7 +32,6 @@ app.use(cors({
   credentials: true,
   secret: process.env.COOKIE_SECRET, // 서버에서 특정 정보에 해당하는 id를 암호화된 문자열로 바꿔서 클라이언트에 보내준다고 했는데 그때 암호화할 때 사용된다. 그래서 잘 숨겨야한다.
 }))
-
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   saveUninitialized: false,
@@ -40,6 +39,7 @@ app.use(session({
 }));
 app.use(passport.initialize())
 app.use(passport.session());
+app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
   res.send('hello express');

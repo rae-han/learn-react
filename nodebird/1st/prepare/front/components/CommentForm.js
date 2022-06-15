@@ -15,8 +15,8 @@ function CommentForm({ post }) {
   const onSubmitComment = useCallback(() => {
     dispatch({
       type: ADD_COMMENT_REQUEST,
-      data: { content: commentText, postId: post.id, userId: id }
-    })
+      data: { content: commentText, postId: post.id, userId: id },
+    });
   }, [commentText, id]);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ function CommentForm({ post }) {
   return (
     <Form onFinish={onSubmitComment} style={{ position: 'relative', margin: '0' }}>
       <Input.TextArea value={commentText} onChange={onChangeCommentText} rows={4}></Input.TextArea>
-      <Button 
+      <Button
         type="primary" htmlType="submit" style={{ zIndex: 1, position: 'absolute', right: 0, bottom: -40 }}
         loading={addCommentLoading}
-        onClick={onSubmitComment}
+        // onClick={onSubmitComment}
       >삐약</Button>
     </Form>
   );

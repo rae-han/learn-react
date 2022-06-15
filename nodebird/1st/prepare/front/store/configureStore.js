@@ -16,8 +16,8 @@ const loggerMiddleware = ({ dispatch, getState }) => next => action => {
 
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
-  // const middleares = [sagaMiddleware, loggerMiddleware];
-  const middleares = [sagaMiddleware];
+  const middleares = [sagaMiddleware, loggerMiddleware];
+  // const middleares = [sagaMiddleware];
 
   console.log(process.env.NODE_ENV)
 

@@ -139,19 +139,6 @@ export const logoutRequestAction = () => {
 //   }
 // }
 
-const dummyUser = data => ({
-  ...data, 
-  nickname: 'temp_nickname',
-  id: 1,
-  Posts: [ { id: 1 } ],
-  Followings: [
-    { id: 2, nickname: 'han2' }, { id: 3, nickname: 'han3' }, { id: 4, nickname: 'han4' }, 
-  ],
-  Followers: [
-    { id: 2, nickname: 'han2' }, { id: 3, nickname: 'han3' }, { id: 4, nickname: 'han4' }, 
-  ],
-})
-
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case LOAD_MY_INFO_REQUEST: // 3-2. 이때 조심해야할 것이 user 객체에 있는 내용을 initialState에 바로 넣었기 때문에 뎁스가 1단계 줄었다.
@@ -215,6 +202,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.changeNicknameError = null;
       break;
     case CHANGE_NICKNAME_SUCCESS:
+      draft.me.nickname = action.data.nickname;
       draft.changeNicknameLoading = false;
       draft.changeNicknameDone = true;
       break;
@@ -236,7 +224,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case FOLLOW_SUCCESS:
       draft.followLoading = false;
       draft.followDone = true;
-      draft.me.Followings.push({ id: action.data })
+      draft.me.Followings.push({ id: action.data.UserId })
       break;
     case FOLLOW_FAILURE:
       draft.followLoading = false;
@@ -250,7 +238,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case UNFOLLOW_SUCCESS:
       draft.unfollowLoading = false;
       draft.unfollowDone = true;
-      draft.me.Followings = draft.me.Followings.filter((v) => v.id !== action.data)
+      draft.me.Followings = draft.me.Followings.filter((v) => v.id !== action.data.UserId)
       break;
     case UNFOLLOW_FAILURE:
       draft.unfollowLoading = false;

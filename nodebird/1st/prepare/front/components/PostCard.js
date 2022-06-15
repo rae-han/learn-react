@@ -9,7 +9,7 @@ import CommentForm from "./CommentForm";
 import PostCardContent from "./PostCardContent";
 import FollowButton from "./FollowButton";
 
-import { REMOVE_POST_REQUEST } from "../reducers/post";
+import { REMOVE_POST_REQUEST, LIKE_POST_REQUEST, UNLIKE_POST_REQUEST } from "../reducers/post";
 
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
@@ -17,12 +17,22 @@ const PostCard = ({ post }) => {
     me: user.me
   }))
   const { removePostLoading } = useSelector(({ post }) => (post))
-  const [liked, setLiked] = useState(false);
   const [commentFormOpenned, setCommentFormOpenned] = useState(false);
   const id = me?.id;
 
-  const onToggleLike = useCallback(() => {
-    setLiked(prev => !prev);
+  const liked = post.Likers.find((liker) => liker.id === id)
+
+  const onLike = useCallback(() => {
+    dispatch({
+      type: LIKE_POST_REQUEST,
+      data: post.id
+    })
+  }, []);
+  const onUnlike = useCallback(() => {
+    dispatch({
+      type: UNLIKE_POST_REQUEST,
+      data: post.id
+    })
   }, []);
   const onToggleComment = useCallback(() => {
     setCommentFormOpenned(prev => !prev);
@@ -41,8 +51,8 @@ const PostCard = ({ post }) => {
         actions={[ // 배열 안에 jsx를 넣으면 항상 키를 넣어줘야한다.
           <RetweetOutlined key="retweet"></RetweetOutlined>,
           liked 
-            ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onToggleLike}></HeartTwoTone>
-            : <HeartOutlined key="heart" onClick={onToggleLike}></HeartOutlined>,
+            ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike}></HeartTwoTone>
+            : <HeartOutlined key="heart" onClick={onLike}></HeartOutlined>,
           <MessageOutlined key="comment" onClick={onToggleComment}></MessageOutlined>,
           <Popover key="more" content={(
             <Button.Group>
@@ -99,8 +109,10 @@ PostCard.propTypes = {
     id: PropTypes.number,
     User: PropTypes.object,
     content: PropTypes.string,
-    createAt: PropTypes.object,
-    Comments: PropTypes.arrayOf(PropTypes.object)
+    createdAt: PropTypes.string,
+    Comments: PropTypes.arrayOf(PropTypes.object),
+    Images: PropTypes.arrayOf(PropTypes.object),
+    Likers: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 }
 

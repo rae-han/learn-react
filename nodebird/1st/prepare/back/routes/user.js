@@ -134,6 +134,51 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
   // passport@0.6이 되면서 로그인할 때마다 세션 쿠키가 변경되고 로그아웃할 때에도 세션 쿠키가 정리되는 것 같다.
   req.session.destroy();
   res.status(200).send('ok');
+});
+
+router.patch('/nickname', isLoggedIn, async (req, res, next) => {
+  try {
+    await User.update({
+      nickname: req.body.nickname, // 무엇을 바꿀지
+    }, {
+      where: { id: req.user.id }, // 누구를 바꿀지
+    })
+
+    res.status(200).json({ nickname: req.body.nickname });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
+
+router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.params.userId }});
+    if(!user) {
+      res.status(403).send('없는 사람을 팔로우 하려고 합니다.')
+    }
+
+    await user.addFollowers(req.user.id);
+    res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.delete('/:userId/unfollow', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.params.userId }});
+    if(!user) {
+      res.status(403).send('없는 사람을 언팔로우 하려고 합니다.')
+    }
+
+    await user.removeFollowers(req.user.id);
+    res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 })
 
 module.exports = router;
