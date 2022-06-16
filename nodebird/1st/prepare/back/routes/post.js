@@ -1,9 +1,38 @@
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
 
 const { Post, Comment, Image, User } = require('../models');
 const { isLoggedIn } = require('./middlewares')
 
 const router = express.Router();
+
+try {
+  fs.accessSync('uploads');
+} catch (error) {
+  console.error(error);
+  console.log('uploads 폴더가 없어서 생성합니다.');
+  fs.mkdirSync('uploads');
+}
+
+const upload = multer({ // json, form data 와 다르게 전체에 적용하지 않고 부분부분 필요한 유형으로 넣어준다.
+  storage:multer.diskStorage({
+    destination(req, file, done) {
+      done(null, 'uploads');
+    },
+    filename(req, file, done) {
+      // 노드는 같은 파일 이름이 있을때 기본적으로 덮어씌운다.
+      // path는 노드 기본 모듈
+      const ext = path.extname(file.originalname); // 확장자(.ext)
+      const basename = path.basename(file.originalname, ext); // 파일 이름 꺼내오기
+      done(null, basename + new Date().getTime() + ext); // filename15184712345.ext
+    }
+  }),
+  limits: { fileSize: 20 * 1024 *1024 }, // 20MB
+})
+// 컴퓨터 하드디스크에 저장하면 스케일링 할 때 이미지도 같이 복사해줘야 해서 서버에 쓸데없는 공간을 잡아먹는다.
+// 나중에 aws s3 같은걸로 대체한다.
 
 router.post('/', isLoggedIn, async (req, res, next) => {
   try {
@@ -95,7 +124,7 @@ router.patch('/:postId/like', isLoggedIn, async (req, res, next) => {
     console.error(error)
     next(error)
   }
-});
+})
 
 router.delete('/:postId/like', isLoggedIn, async (req, res, next) => {
   try {
@@ -111,6 +140,14 @@ router.delete('/:postId/like', isLoggedIn, async (req, res, next) => {
     console.error(error)
     next(error)
   }
-})
+});
+
+router.post('/images', isLoggedIn, upload.array('image'), (req, res, next) => {
+  // image input으로 올린게 전달된다.
+  // array인 이유는 이미지를 여러장 올리기 위해, 한장은 single, 필요 없다면  none, fills는 인풋이 두개 이상 있을
+  // 미들웨어에서 이미 올려 준 후에 이 부분이 실행되므로 req.files를 통해 참조 가능하다.
+  console.log(req.files);
+  res.json(req.files.map((file) => file.filename))
+});
 
 module.exports = router;

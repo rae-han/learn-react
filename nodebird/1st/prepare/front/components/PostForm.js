@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button } from 'antd';
-import { addPost } from "../reducers/post";
+import { addPost, UPLOAD_IMAGES_REQUEST } from "../reducers/post";
 import useInput from "../hooks/useInput";
 
 const PostForm = () => {
@@ -25,7 +25,21 @@ const PostForm = () => {
   
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
-  }, [imageInput.current])
+  }, [imageInput.current]);
+
+  const onChangeImages = useCallback((e) => {
+    console.log('images', e.target.files); // forEach가 없다. 유사 배열?
+    const imageFormData = new FormData(); // 무조건 멀티파터 형식으로 보내야 multer가 처리한다.
+    // 배열의 forEach를 빌려쓴다.
+    [].forEach.call(e.target.files, (file) => {
+      imageFormData.append('image', file);
+    })
+
+    dispatch({
+      type: UPLOAD_IMAGES_REQUEST,
+      data: imageFormData,
+    })
+  }, [])
 
   return (
     <Form 
@@ -40,7 +54,7 @@ const PostForm = () => {
         placeholder="어떤 신기한 일이 있었나요?"
       />
       <div>
-        <input type="file" multiple hidden ref={imageInput}/>
+        <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages}/>
         <Button onClick={onClickImageUpload}>이미지 업로드</Button>
         <Button type="primary" style={{ float: 'right' }} htmlType="submit">짹짹</Button>
       </div>
