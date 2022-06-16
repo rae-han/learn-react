@@ -166,7 +166,7 @@ router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.delete('/:userId/unfollow', isLoggedIn, async (req, res, next) => {
+router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.params.userId }});
     if(!user) {
@@ -175,6 +175,60 @@ router.delete('/:userId/unfollow', isLoggedIn, async (req, res, next) => {
 
     await user.removeFollowers(req.user.id);
     res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
+
+router.delete('/follower/:userId', isLoggedIn, async (req, res, next) => {
+  try {
+    // const user = await User.findOne({ where: { id: req.user.id }});
+    // if(!user) {
+    //   res.status(403).send('존재하지 않는 유저');
+    // }
+    //
+    // await user.removeFollowers(req.params.userId)
+
+    // follower와 followering은 서로 대칭 관계이기 때문에 반대로 하면 아래와 같ㄷ.
+
+    const user = await User.findOne({ where: { id: req.params.userId }});
+    if(!user) {
+      res.status(403).send('존재하지 않는 유저');
+    }
+
+    await user.removeFollowings(req.user.id)
+    res.status(200).json({ UserId: parseInt(req.params.userId, 10)})
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
+
+router.get('/followers', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.user.id }});
+    if(!user) {
+      res.status(403).send('');
+    }
+
+    const followers = await user.getFollowers();
+    res.status(200).json(followers);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
+
+router.get('/followings', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.user.id }});
+    if(!user) {
+      res.status(403).send('');
+    }
+
+    const followings = await user.getFollowings();
+    res.status(200).json(followings);
   } catch (error) {
     console.error(error);
     next(error);

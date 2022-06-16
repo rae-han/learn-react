@@ -25,7 +25,9 @@ dotenv.config();
 
 // use는 express서버에 뭔가를 장착한다는 뜻.
 app.use(express.json()); // 이건 프론트에서 json형식으로 데이터를 보냈을때 req.body에 넣겠다.
+// 즉 axios로 보내면 여기로 온다.
 app.use(express.urlencoded({ extended: true })); // 폼서브밋으로 데이터를 보내면 urlencoded로 오는데 이걸 처리해서 req.body안에 넣어준다.
+// 일반 form 으로 보내면 여기로 온다.
 app.use(cors({
   // origin: '*',
   origin: true, // 위는 모든 주소, 이건 보낸 곳의 주소가 자동으로 들어간다.
