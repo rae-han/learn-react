@@ -129,6 +129,80 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post('/:postId/retweet', isLoggedIn, async (req, res, next) => {
+  // 주소에서 동적으로 바뀌는건 파라미터이다.
+  try {
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+      include:[{ // 이걸 써주는게 좋다.
+        model: Post,
+        as: 'Retweet',
+      }]
+    })
+
+    if(!post) {
+      return res.status(403).send('존재하지 않는 게시글입니다.')
+    }
+
+    if(req.user.id === post.UserId || (post.Retweet && post.Retweet.UserId === req.user.id)) { // 자기 글 리트윗 하는 것과 자기 글을 리트윗 한 글을 리트윗 하는 것을 막는다.
+      return res.status(403).send('자신의 글을 리트윗할 수 없습니다.');
+    }
+
+    const retweetTargetId = post.RetweetId || post.id;
+    // 어떤 아이디를 리트윗 할거냐
+    // 남의 글을 리트윗 한것을 또 리트윗 할 수 있는데 리트윗 했다면 그 아이디를 쓰고 그게 아니면 포스트 아이디를 리트윗한다.
+    const exPost = await Post.findOne({
+      where: {
+        UserId: req.user.id,
+        RetweetId: retweetTargetId,
+      },
+    });
+    if(exPost) {
+      return res.status(403).send('이미 리트윗했습니다.')
+    }
+
+    const retweet = await Post.create({
+      UserId: req.user.id,
+      RetweetId: retweetTargetId,
+      content: 'retweet',
+    })
+
+    const retweetWithPrevPost = await Post.findOne({
+      where: { id: retweet.id },
+      include: [{
+        model: Post,
+        as: 'Retweet',
+        include: [{
+          model:User,
+          attributes: ['id', 'nickname'],
+        }, {
+          model: Image,
+        }]
+      }, {
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: User, // 좋아요 누른 사람
+        as: 'Likers',
+        attributes: ['id'],
+      }, {
+        model: Image,
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname'],
+        }]
+      }]
+    })
+
+    return res.status(201).json(retweetWithPrevPost);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.patch('/:postId/like', isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.findOne({ where: { id: req.params.postId }})

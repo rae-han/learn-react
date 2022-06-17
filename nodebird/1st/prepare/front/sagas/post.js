@@ -23,6 +23,9 @@ import {
   UPLOAD_IMAGES_REQUEST,
   UPLOAD_IMAGES_SUCCESS,
   UPLOAD_IMAGES_FAILURE,
+  RETWEET_REQUEST,
+  RETWEET_SUCCESS,
+  RETWEET_FAILURE,
 } from '../reducers/post'
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from "../reducers/user";
 
@@ -179,11 +182,32 @@ function* uploadImages(action) {
   } catch (error) {
     console.error(error)
     yield put({
-      type: UPLOAD_IMAGES_SUCCESS,
+      type: UPLOAD_IMAGES_FAILURE,
       error: error.response.data,
     })
   }
 }
+
+function retweetAPI(data) {
+  return axios.post(`/post/${data}/retweet`, data); // form 데이터를 객체로 감싸면 json이 돼 버린다.
+}
+function* retweet(action) {
+  try {
+    const result = yield call(retweetAPI, action.data);
+
+    yield put({
+      type: RETWEET_SUCCESS,
+      data: result.data,
+    })
+  } catch (error) {
+    console.error(error)
+    yield put({
+      type: RETWEET_FAILURE,
+      error: error.response.data,
+    })
+  }
+}
+
 function* watchLoadPost() {
   yield throttle(4*1000, LOAD_POSTS_REQUEST, loadPosts);
   // yield takeLatest(LOAD_POSTS_REQUEST, loadComment);
@@ -211,6 +235,10 @@ function* watchUploadImages() {
   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
 
+function* watchRetweet() {
+  yield takeLatest(RETWEET_REQUEST, retweet);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchLoadPost),
@@ -220,5 +248,6 @@ export default function* postSaga() {
     fork(watchLikePost),
     fork(watchUnlikePost),
     fork(watchUploadImages),
+    fork(watchRetweet)
   ])
 }

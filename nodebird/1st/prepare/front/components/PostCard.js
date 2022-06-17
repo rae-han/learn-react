@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types'
 import { Avatar, Button, Card, Comment, List, Popover } from 'antd';
@@ -9,14 +9,14 @@ import CommentForm from "./CommentForm";
 import PostCardContent from "./PostCardContent";
 import FollowButton from "./FollowButton";
 
-import { REMOVE_POST_REQUEST, LIKE_POST_REQUEST, UNLIKE_POST_REQUEST } from "../reducers/post";
+import { REMOVE_POST_REQUEST, LIKE_POST_REQUEST, UNLIKE_POST_REQUEST, RETWEET_REQUEST, retweetError } from "../reducers/post";
 
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
   const { me } = useSelector(({ user }) => ({
     me: user.me
   }))
-  const { removePostLoading } = useSelector(({ post }) => (post))
+  const { removePostLoading, retweetError } = useSelector(({ post }) => (post))
   const [commentFormOpenned, setCommentFormOpenned] = useState(false);
   const id = me?.id;
 
@@ -44,12 +44,30 @@ const PostCard = ({ post }) => {
     })
   }, [])
 
+  const onRetweet = useCallback(() => {
+    if(!id) {
+      return alert('로그인이 필요합니다.');
+    }
+
+    return dispatch({
+      type: RETWEET_REQUEST,
+      data: post.id,
+    })
+  }, [id]);
+
+  // useEffect(() => {
+  // if(retweetError) {
+  //   console.log('retweet error!!!!')
+  //   alert(retweetError)
+  // }
+  // }, [retweetError])
+
   return (
     <div>
       <Card
         cover={post.Images[0] && <PostImages images={post.Images}></PostImages>}
         actions={[ // 배열 안에 jsx를 넣으면 항상 키를 넣어줘야한다.
-          <RetweetOutlined key="retweet"></RetweetOutlined>,
+          <RetweetOutlined key="retweet" onClick={onRetweet}></RetweetOutlined>,
           liked 
             ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike}></HeartTwoTone>
             : <HeartOutlined key="heart" onClick={onLike}></HeartOutlined>,
