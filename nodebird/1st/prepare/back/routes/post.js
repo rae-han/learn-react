@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 
-const { Post, Comment, Image, User } = require('../models');
+const { Post, Comment, Image, User, Hashtag } = require('../models');
 const { isLoggedIn } = require('./middlewares')
 
 const router = express.Router();
@@ -36,10 +36,19 @@ const upload = multer({ // json, form data 와 다르게 전체에 적용하지 
 
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   try {
+    const hashtags = req.body.content.match(/#[^\s#]+/g);
     const post = await Post.create({
       content: req.body.content,
       UserId: req.user.id, // 로그인 했기 때문에 정보가 들어가 있다. // deserializerUser
     })
+
+    if(hashtags) {
+      const result = await Promise.all(hashtags.map((tag) => Hashtag.findOrCreate({ // 있으면 찾고 없으면 등록 다만 where을 붙어야한다.
+        where: { name: tag.slice(1).toLowerCase() },
+      })));
+      // -> [[노드, true], [익스프레스, true]]
+      await post.addHashtags(result.map((v) => v[0]));
+    }
 
     if(req.body.image) {
       if(Array.isArray(req.body.image)) {
