@@ -34,12 +34,22 @@ const upload = multer({ // json, form data 와 다르게 전체에 적용하지 
 // 컴퓨터 하드디스크에 저장하면 스케일링 할 때 이미지도 같이 복사해줘야 해서 서버에 쓸데없는 공간을 잡아먹는다.
 // 나중에 aws s3 같은걸로 대체한다.
 
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
       content: req.body.content,
       UserId: req.user.id, // 로그인 했기 때문에 정보가 들어가 있다. // deserializerUser
     })
+
+    if(req.body.image) {
+      if(Array.isArray(req.body.image)) {
+        const images = await Promise.all(req.body.image.map((image) => Image.create({ src: image })));
+        await post.addImage(images);
+      } else {
+        const image = await Image.create({ src: req.body.image });
+        await post.addImages(image);
+      }
+    }
 
     const fullPost = await Post.findOne({
       where: { id: post.id },

@@ -35,7 +35,7 @@ router.get('/', async (req, res, next) => {
         attributes: ['id'],
       }]
     });
-    console.log(posts)
+
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);

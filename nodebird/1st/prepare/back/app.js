@@ -1,5 +1,6 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -42,6 +43,11 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session());
 app.use(morgan('dev'))
+// static
+app.use('/', express.static(path.join(__dirname, 'uploads')));
+// path.join 을 쓰는 이유가 윈도우와 맥 리눅스의 경로 구분자가 다르기 때문에.
+// 뒤에 경로를 /로 제공해주겠다.
+// 이렇게하면 프론트 쪽에서 서버쪽 폴더 구조가 가려져서 보안에 유리한 이점이 있다.
 
 app.get('/', (req, res) => {
   res.send('hello express');

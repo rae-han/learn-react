@@ -1,6 +1,4 @@
-import shortId from "shortid";
 import produce from "immer";
-import { faker } from "@faker-js/faker"
 
 export const initialState = {
   mainPosts: [
@@ -74,24 +72,24 @@ export const initialState = {
   uploadImagesError: null,
 }
 
-export const generateDummyPost = (number) => Array.from({ length: number }).fill().map((v, i) => ({
-  id: shortId.generate(),
-  User: {
-    id: shortId.generate(),
-    nickname: faker.name.findName()
-  },
-  content: faker.lorem.paragraph(),
-  Images: [{
-    src: faker.image.image(),
-  }],
-  Comments: [{
-    User: {
-      id: shortId.generate(),
-      nickname: faker.name.findName(),
-    },
-    content: faker.lorem.sentence(),
-  }],
-}))
+// export const generateDummyPost = (number) => Array.from({ length: number }).fill().map((v, i) => ({
+//   id: shortId.generate(),
+//   User: {
+//     id: shortId.generate(),
+//     nickname: faker.name.findName()
+//   },
+//   content: faker.lorem.paragraph(),
+//   Images: [{
+//     src: faker.image.image(),
+//   }],
+//   Comments: [{
+//     User: {
+//       id: shortId.generate(),
+//       nickname: faker.name.findName(),
+//     },
+//     content: faker.lorem.sentence(),
+//   }],
+// }))
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
@@ -120,6 +118,8 @@ export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE';
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
+
+export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
 export const addPost = (data) => ({
   type: ADD_POST_REQUEST,
@@ -233,7 +233,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.uploadImagesError = null;
       break;
     case UPLOAD_IMAGES_SUCCESS: {
-      draft.imagePath = action.data;
+      draft.imagePaths = action.data;
       draft.uploadImagesLoading = false;
       draft.uploadImagesDone = true;
       break;
@@ -241,6 +241,10 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case UPLOAD_IMAGES_FAILURE:
       draft.uploadImagesLoading = false;
       draft.uploadImagesError = action.error;
+      break;
+    case REMOVE_IMAGE:
+      console.log(action.data)
+      draft.imagePaths = draft.imagePaths.filter((v, i) => i !== action.data)
       break;
     default:
       break;
