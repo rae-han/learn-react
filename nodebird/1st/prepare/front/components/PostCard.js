@@ -56,11 +56,14 @@ const PostCard = ({ post }) => {
   }, [id]);
 
   // useEffect(() => {
-  // if(retweetError) {
-  //   console.log('retweet error!!!!')
-  //   alert(retweetError)
-  // }
-  // }, [retweetError])
+  //   console.log('rerendering.')
+  //   if(retweetError) {
+  //     alert(retweetError)
+  //   }
+  // }, [retweetError, ])
+  // 여기다 이걸 하면 안되는 이유는 포스트 카드 수(트윗 수)만큼 리랜더링을 해버린다.
+  // 상위로 올리면 괜찮을듯?
+  // 또는 리트윗 에러에 리트윗 게시글 아이디까지 넣어서 해결하는 방법도 있다.
 
   return (
     <div>
@@ -88,13 +91,28 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined></EllipsisOutlined>
           </Popover>
         ]}
+        title={post.RetweetId ? `${post.User.nickname}님의 리트윗` : null}
         extra={id && <FollowButton post={post} />}
       >
-        <Card.Meta
-          avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
-          title={post.User.nickname}
-          description={<PostCardContent postData={post.content}></PostCardContent>}
-        ></Card.Meta>
+        {post.RetweetId && post.Retweet
+          ? (
+            <Card
+              cover={post.Retweet.Images[0] && <PostImage images={post.Retweet.Images} />}
+            >
+              <Card.Meta
+                avatar={<Avatar>{post.Retweet.User.nickname[0]}</Avatar>}
+                title={post.Retweet.User.nickname}
+                description={<PostCardContent postData={post.Retweet.content}></PostCardContent>}
+              ></Card.Meta>
+            </Card>
+          ) : (
+            <Card.Meta
+              avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+              title={post.User.nickname}
+              description={<PostCardContent postData={post.content}></PostCardContent>}
+            ></Card.Meta>
+          )}
+
       </Card>
       { commentFormOpenned && (
         <>
@@ -131,6 +149,8 @@ PostCard.propTypes = {
     Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
+    RetweetId: PropTypes.number,
+    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 }
 

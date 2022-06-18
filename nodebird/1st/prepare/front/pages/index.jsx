@@ -10,7 +10,7 @@ import { LOAD_POSTS_REQUEST } from "../reducers/post";
 function Home() {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
-  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(state => state.post); // 취향이지만 최적화가 달라질 수 있다.
+  const { mainPosts, hasMorePosts, loadPostsLoading, retweetError } = useSelector(state => state.post); // 취향이지만 최적화가 달라질 수 있다.
 
   useEffect(() => {
     dispatch({
@@ -48,6 +48,12 @@ function Home() {
       window.removeEventListener('scroll', onScroll)
     }
   }, [hasMorePosts, loadPostsLoading])
+
+  useEffect(() => {
+    if(retweetError) {
+      alert(retweetError)
+    }
+  }, [retweetError])
 
   return (
     <AppLayout>
