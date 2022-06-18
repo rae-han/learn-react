@@ -139,48 +139,6 @@ localstorage로 자동 로그인 한다면 XSS 공격을 막아야한다.
 파일은 캐싱이 가능한데(cdn) 디비는 불가능하다. 속도 이점도 없다.
 파일은 s3같은 클라우드에 올려서 캐싱을 적용하고 디비는 파일 주소만.
 
-1. 락앤락 향균 도마 (s, m, l 사이즈, 네이버 최저가가 더 쌈)
-   - 폴리프로필렌
-   - s 9,100
-     - https://www.locknlockmall.com/goods/view?no=66792
-     - 284x200
-   - m 11,900
-     - https://www.locknlockmall.com/goods/view?no=66793
-     - 330x230
-   - l 14,700
-     - https://www.locknlockmall.com/goods/view?no=66794
-     - 395x280
-3. 락앤락 향균 도마 (손잡이 옆 버전) 21,900
-   - www.locknlockmall.com/goods/view?no=66794
-     - 350x260, 290x220 2사이즈
-4. 네오플램 도마 약 16,000
-   - 폴리프필렌
-   - http://neoflamshop.co.kr/product/%EB%8F%84%EB%A7%88-%EB%A7%88%EB%B8%94marble%ED%95%AD%EA%B7%A0%EB%8F%84%EB%A7%88%ED%83%9D1/1021/category/60/display/1/
-5. 실리트 도마 약 20,000원 전후
-   - https://search.shopping.naver.com/search/all?frm=NVSHMDL&origQuery=%EC%8B%A4%EB%A6%AC%ED%8A%B8%20%EB%8F%84%EB%A7%88&pagingIndex=1&pagingSize=40&productSet=model&query=%EC%8B%A4%EB%A6%AC%ED%8A%B8%20%EB%8F%84%EB%A7%88&sort=rel&timestamp=&viewType=list
-   - 320x200, 385x250, 450x300, 250x160(미니)
-   - 폴리프로필렌
-   - 우리가 봤던게 소중대 인지 미니소중 인지 잘 모르겠음. 미니는 손잡이가 막힌 형태
-   - 여보는 중간 크기가 좋다 했는데 그게 중인지 소인지 모름.
-6. 헹켈 즈월링 도마 약 25,000원
-   - https://display.cjonstyle.com/p/item/73683632?utm_medium=pcs&utm_source=naver&NaPm=ct%3Dl4k37wxk%7Cci%3D6ba0dc24de7258c1a9b640fb64c93cabcc4be03d%7Ctr%3Dslct%7Csn%3D13%7Chk%3Dd82763b9764548b6db81638e614f701bb622679f&__ref=https%3A%2F%2Fcr.shopping.naver.com%2Fadcr.nhn%3Fx%3DmH%252FYUzzfcvRRL5qxWF0BSP%252F%252F%252Fw%253D%253DsMUYCrfgBtqczmi%252Fs4WmVWJrgPur6PjI%252BCsNm6CL%252FwHI3IgJ%252Bv8GIQploZS%252Fh8zWjxXrtvA8FAg3Y8OPZQqNrSzSE5sdbEXeJlODbS2yFprdVXemfpmeX70wC2wQT5nyiBte2Da%252BcRSMmzTx7XU%252B5wPjGM579lD%252FXvDsUjCgh0ESinkCTDlgrQdDWwjZYFL4KsXZZK2GxWK86R2YUMSdV6CQ%252Bu32aV4cJnu%252FZOjzZX9nlxalg9kVTGGdiRGKWPpu4wK5x98RE3wwOje3Y0chQgsjYas%252FvpZB%252FO2QF5HSTOxgRyKkuSAdEc19YdWBmGr32TZQmTrdA11cz1VIuHwXje6uKWQN4b7WstTXVRp4V%252Fd2Kx7G3krbJiQXzryuwwOqJnZwfzp0jhYWlgYnUYBqo6InTd1vanyRXYKwQ4qPEaJF8TCSKCjgfr0PpQKkvzBybxNTMIHzKXV1brAgalrFLFZ2Kmg%252Byt5txXDdu9MjAC7o%252Flqu%252FXXzyFru699TI7%252FMM1ll1Afz%252FUMDQaCXnV%252Fg5%252FE%252Be6J5OXhhqwHblEe6osVsOC9Ivv0Db7dTmqVBDkY3f5H%252FDXcqGPEKbug%252Fba2KnJs9DPlE%252BpgWwnMe8lcBPxx3QAW3E2lMpPjmEPn53xbc0lqVcjl5x820crkzklueFAl2WBXTAV0a1Krf0VCqh7Voe2CfdExJAQOX0aNhG2VRtXzOZgrSsOHk%252FR5qPBx7i%252BZPJM%252BTbzjn%252F3yhvBT6ScuQ%253D%26nvMid%3D32645803739%26catId%3D50000216
-   - 370x270
-   - 잘 찾아보면 소 중 대 도 있음 위는 중
-   - 폴리에틸렌
-   - https://smartstore.naver.com/officedc/products/5376328996?NaPm=ct%3Dl4k3ce74%7Cci%3D265a87c222bf5c84848b91fdfd7f4a2aca272e65%7Ctr%3Dslsl%7Csn%3D536920%7Chk%3D31b05f0232b0af8073a2d768ad7eae581aa9fa05
-   - 304x215, 375x254, 419x292
-   - 헹켈 질리스도 괜찮음
-7. am 에코그린 도마 (이탈리아), 3세트 약 33,000
-   - http://gmkt.kr/gCEPmjh
-   - 폴리프로필렌
-   - 10년째 쓰는중 락스로 한번 소독 하긴 했음. 근데 곧 바꿔야 할거 같긴 함.
-8. 모던하우스 뉴블랙 마블 향균 도마 약 10,000
-   - 400x280
-   - https://www.modernhousemall.com/goods/goods_view.php?goodsNo=1000003293
-기타. 코맥스 업소용 도마
-
-나의 추천: 락앤락, am, 실리트, 네오플램
-
 
 
 
