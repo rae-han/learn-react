@@ -35,8 +35,13 @@ function Home() {
         console.log(hasMorePosts, !loadPostsLoading);
         console.log(hasMorePosts && !loadPostsLoading);
         if(hasMorePosts && !loadPostsLoading) {
+          // const lastId = mainPosts[mainPosts.length-1].id;
+          // mainPosts 갯수가 0이면 에러가 난다.
+          const lastId = mainPosts[mainPosts.length-1]?.id;
+
           dispatch({
             type: LOAD_POSTS_REQUEST,
+            lastId,
           })
         }
       }
@@ -47,7 +52,7 @@ function Home() {
     return () => {
       window.removeEventListener('scroll', onScroll)
     }
-  }, [hasMorePosts, loadPostsLoading])
+  }, [hasMorePosts, loadPostsLoading, mainPosts])
 
   useEffect(() => {
     if(retweetError) {

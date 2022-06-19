@@ -1,4 +1,5 @@
 const express = require('express');
+const { Op } = require('sequelize')
 
 const { Post, User, Image, Comment } = require('../models')
 
@@ -6,7 +7,15 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
+    const { lastId, limit } = req.query;
+    const where = {};
+
+    if(parseInt(lastId, 10)) { // 초기 로딩이 아닐 때
+      where.id = { [Op.lt]: parseInt(lastId, 10) }; // id가 lastId보다 작은 10개
+    }
+
     const posts = await Post.findAll({
+      where,
       limit: 10, // 최대 10개씩 들고 와라.
       // offset: 0,  // 0번 부터 게시글을 가져와라.
       // limit offset은 실무에서 잘 안쓴다.

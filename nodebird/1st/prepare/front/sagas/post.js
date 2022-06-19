@@ -33,8 +33,8 @@ function addPostAPI(data) {
   console.log(data)
   return axios.post('/post', data);
 }
-function loadPostAPI(data) {
-  return axios.get('/posts', data)
+function loadPostAPI(lastId) {
+  return axios.get(`/posts?lastId=${lastId || 0}&limit=10`)
 }
 function removePostAPI(data) {
   return axios.delete(`/post/${data}`);
@@ -53,7 +53,7 @@ function unlikePostAPI(data) {
 
 function* loadPosts(action) {
   try {
-    const result = yield call(loadPostAPI, action.data);
+    const result = yield call(loadPostAPI, action.lastId);
 
     yield put({
       type: LOAD_POSTS_SUCCESS,
