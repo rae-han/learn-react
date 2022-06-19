@@ -83,37 +83,42 @@ const changName = name => {
 // }
 // (이전 상태와 액션)을 통해서 다음 상태를 만드는 함수
 // reducer가 축소라는 뜻이 있는데 2가지를 받아서 1개를 만들기 때문이다.
-const rootReducer = combineReducers({
-  index: (state = {}, action) => { // HYDRATE를 위해서 index 리듀서를 하나 추가 서버사이드 랜더링을 위해서.
-    switch (action.type) {
-      case HYDRATE:
-        console.log('HYDRATE', action);
-        return { ...state, ...action.payload };
-      default:
-        return state;
-    }
-  },
-  user,
-  post,
-  todo,
-  calc,
-})
+// const rootReducer = combineReducers({
+//   index: (state = {}, action) => { // HYDRATE를 위해서 index 리듀서를 하나 추가 서버사이드 랜더링을 위해서.
+//     switch (action.type) {
+//       case HYDRATE:
+//         console.log('HYDRATE', action);
+//         return { ...state, ...action.payload };
+//       default:
+//         return state;
+//     }
+//   },
+//   user,
+//   post,
+//   todo,
+//   calc,
+// })
 // user와 post의 initialState는 combineReducers가 알아서 합처서 넣어준다.
 
-// const rootReducer = (state, action) => {
-//   switch (action.type) {
-//     case HYDRATE:
-//       console.log('HYDRATE', action);
-//       return action.payload;
-//     default:
-//       // 이게 const rootReducer = combineReducers({ post, user }) 와 같다.
-//       // 이렇게 해야 루트 리듀서의 상태를 전체를 다 덮어 씌울수 있다.
-//       const combinedReducer = combineReducers({
-//         user,
-//         post,
-//       }) // user, post를 합친 리듀서 함수가 생긴다.
-//       return combinedReducer(state, action)
-//   }
-// }
+const rootReducer = (state, action) => {
+  switch (action.type) {
+    case HYDRATE:
+      console.log('HYDRATE', action);
+      return action.payload;
+    default:
+      // 이게 const rootReducer = combineReducers({ post, user }) 와 같다.
+      // 이렇게 해야 루트 리듀서의 상태를 전체를 다 덮어 씌울수 있다.
+      const combinedReducer = combineReducers({
+        user,
+        post,
+        todo,
+        calc,
+      }) // user, post를 합친 리듀서 함수가 생긴다.
+      return combinedReducer(state, action)
+  }
+}
+// 근데 이 까지하면 요청만 같이 보낼뿐이다.
+// 우리는 Request 뿐 아니라 Success까지 끝난 페이지를 불러와야 한다.
+// 그때 써야하는게 END인데 자세한건 다시 index page로
 
 export default rootReducer;

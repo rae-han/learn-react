@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux'
+import { END } from 'redux-saga'
 
 import AppLayout from "../components/AppLayout";
 import PostForm from "../components/PostForm";
@@ -13,17 +14,17 @@ function Home() {
   const { me } = useSelector(state => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading, retweetError } = useSelector(state => state.post); // 취향이지만 최적화가 달라질 수 있다.
 
-  useEffect(() => {
-    dispatch({
-      type: LOAD_MY_INFO_REQUEST
-    })
-  }, [])
-
-  useEffect(() => {
-    dispatch({
-      type: LOAD_POSTS_REQUEST,
-    })
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: LOAD_MY_INFO_REQUEST
+  //   })
+  // }, [])
+  //
+  // useEffect(() => {
+  //   dispatch({
+  //     type: LOAD_POSTS_REQUEST,
+  //   })
+  // }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -69,18 +70,21 @@ function Home() {
   );
 }
 
-// export const getServerSideProps = wrapper.getServerSideProps((context) => {
-//   // 이 부분이 home보다 먼저 실행된다.
-//   // context 안에 store가 들어있다.
-//   console.log('context', context)
-//
-//   context.store.dispatch({
-//     type: LOAD_POSTS_REQUEST,
-//   })
-//   context.store.dispatch({
-//     type: LOAD_MY_INFO_REQUEST
-//   })
-// });
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  // 이 부분이 home보다 먼저 실행된다.
+  // context 안에 store가 들어있다.
+  console.log('context', context)
+
+  context.store.dispatch({
+    type: LOAD_POSTS_REQUEST,
+  })
+  context.store.dispatch({
+    type: LOAD_MY_INFO_REQUEST
+  })
+  context.store.dispatch(END) // // 이건 사용 방법이 그냥 이렇다.
+  await context.store.sagaTask.toPromise(); // 이건 사용 방법이 그냥 이렇다.
+  // sagaTask는 store에 등록해둔 sagaTask이다.
+});
 // 단순히 이렇게 한다고해서 되는건 아니다
 // 이때 나오는게 하이드레이트
 // 근데 처음 적용할 때 me post가 안들어 가 있고.
