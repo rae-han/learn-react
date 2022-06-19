@@ -100,4 +100,20 @@ const rootReducer = combineReducers({
 })
 // user와 post의 initialState는 combineReducers가 알아서 합처서 넣어준다.
 
+// const rootReducer = (state, action) => {
+//   switch (action.type) {
+//     case HYDRATE:
+//       console.log('HYDRATE', action);
+//       return action.payload;
+//     default:
+//       // 이게 const rootReducer = combineReducers({ post, user }) 와 같다.
+//       // 이렇게 해야 루트 리듀서의 상태를 전체를 다 덮어 씌울수 있다.
+//       const combinedReducer = combineReducers({
+//         user,
+//         post,
+//       }) // user, post를 합친 리듀서 함수가 생긴다.
+//       return combinedReducer(state, action)
+//   }
+// }
+
 export default rootReducer;
