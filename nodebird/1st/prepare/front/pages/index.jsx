@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { END } from 'redux-saga'
+import axios from 'axios';
 
 import AppLayout from "../components/AppLayout";
 import PostForm from "../components/PostForm";
@@ -71,6 +72,19 @@ function Home() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  // axios.defaults.headers.Cookie = cookie;
+  // 이 부분이 서버 쪽으로 쿠키를 전달해주는 코드이다.
+  // 서버사이드 랜더링할때 쿠키가 전달된다.
+  // 이 부분은 서버쪽에서 실행되는 코드이므로 쿠키를 공유한다.
+  // 이 문제를 막으려면?
+  axios.defaults.headers.Cookie = '';
+  if(context.req && cookie) { // 서버 일대랑 쿠키가 있을때 라는 뜻.
+    axios.defaults.headers.Cookie = cookie;
+  }
+  //
+
+
   // 이 부분이 home보다 먼저 실행된다.
   // context 안에 store가 들어있다.
   console.log('context', context)

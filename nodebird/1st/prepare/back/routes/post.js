@@ -239,7 +239,7 @@ router.post('/images', isLoggedIn, upload.array('image'), (req, res, next) => {
   // image input으로 올린게 전달된다.
   // array인 이유는 이미지를 여러장 올리기 위해, 한장은 single, 필요 없다면  none, fills는 인풋이 두개 이상 있을
   // 미들웨어에서 이미 올려 준 후에 이 부분이 실행되므로 req.files를 통해 참조 가능하다.
-  console.log(req.files);
+  // console.log(req.files);
   res.json(req.files.map((file) => file.filename))
 });
 
