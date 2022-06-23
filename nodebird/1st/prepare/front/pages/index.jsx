@@ -82,7 +82,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   if(context.req && cookie) { // 서버 일대랑 쿠키가 있을때 라는 뜻.
     axios.defaults.headers.Cookie = cookie;
   }
-  //
+  // 서버 일때랑 쿠키가 있을때 쿠키를 넣어주고 그런게 아니면 지워준단 뜻.
 
 
   // 이 부분이 home보다 먼저 실행된다.
