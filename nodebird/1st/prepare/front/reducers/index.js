@@ -103,7 +103,7 @@ const changName = name => {
 const rootReducer = (state, action) => {
   switch (action.type) {
     case HYDRATE:
-      console.log('HYDRATE', action);
+      // console.log('HYDRATE', action);
       return action.payload;
     default:
       // 이게 const rootReducer = combineReducers({ post, user }) 와 같다.

@@ -35,8 +35,8 @@ function Home() {
       const scrollHeight = document.documentElement.scrollHeight;
 
       if(scrollY + clientHeight + 300 >= scrollHeight) {
-        console.log(hasMorePosts, !loadPostsLoading);
-        console.log(hasMorePosts && !loadPostsLoading);
+        // console.log(hasMorePosts, !loadPostsLoading);
+        // console.log(hasMorePosts && !loadPostsLoading);
         if(hasMorePosts && !loadPostsLoading) {
           // const lastId = mainPosts[mainPosts.length-1].id;
           // mainPosts 갯수가 0이면 에러가 난다.
@@ -87,7 +87,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 
   // 이 부분이 home보다 먼저 실행된다.
   // context 안에 store가 들어있다.
-  console.log('context', context)
+  // console.log('context', context)
 
   context.store.dispatch({
     type: LOAD_POSTS_REQUEST,

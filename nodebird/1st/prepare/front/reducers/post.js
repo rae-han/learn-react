@@ -146,7 +146,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.loadPostsError= null;
       break;
     case LOAD_POSTS_SUCCESS:
-      console.log('load post success')
       draft.loadPostsLoading = false;
       draft.loadPostsDone = true;
       // draft.mainPosts = action.data.concat(draft.mainPosts);
@@ -154,7 +153,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.hasMorePosts = action.data.length === 10;
       break;
     case LOAD_POSTS_FAILURE:
-      console.log('load post failure')
       draft.loadPostsLoading = false;
       draft.loadPostsError = action.error;
       break;
@@ -265,7 +263,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.retweetError = action.error;
       break;
     case REMOVE_IMAGE:
-      console.log(action.data)
       draft.imagePaths = draft.imagePaths.filter((v, i) => i !== action.data)
       break;
     default:

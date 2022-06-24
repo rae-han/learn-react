@@ -5,6 +5,7 @@ import {
   LOAD_MY_INFO_REQUEST,
   LOAD_MY_INFO_SUCCESS,
   LOAD_MY_INFO_FAILURE,
+  LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOAD_USER_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
@@ -33,10 +34,6 @@ import {
   REMOVE_FOLLOWER_SUCCESS,
   REMOVE_FOLLOWER_FAILURE,
 } from '../reducers/user'
-
-function loadMyInfoAPI(data) {
-  return axios.get('/user')
-}
 
 function logInAPI(data) {
   return axios.post('/user/login', data)
@@ -77,7 +74,9 @@ function* logIn(action) {
     })
   }
 }
-
+function loadMyInfoAPI(data) {
+  return axios.get('/user')
+}
 function* loadMyInfo(action) {
   try {
     const result = yield call(loadMyInfoAPI, action.data);
@@ -88,6 +87,24 @@ function* loadMyInfo(action) {
   } catch (err) {
     yield put({
       type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data
+    })
+  }
+}
+
+function loadUserAPI(data) {
+  return axios.get('/user')
+}
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI, action.data);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,
+    })
+  } catch (err) {
+    yield put({
+      type: LOAD_USER_FAILURE,
       error: err.response.data
     })
   }
@@ -230,6 +247,9 @@ function* loadFollowings(action) {
 function* watchLoadMyInfo() {
   yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
 }
+function* watchLoadUser() {
+  yield takeLatest(LOAD_USER_REQUEST, loadUser);
+}
 
 function* watchLogIn() {
   console.log('1. saga/login watchLogIn')
@@ -272,6 +292,7 @@ function* watchFollowings() {
 export default function* userSaga() {
   yield all([
     fork(watchLoadMyInfo),
+    fork(watchLoadUser),
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watchSignUp),
