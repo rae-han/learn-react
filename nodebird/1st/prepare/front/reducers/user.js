@@ -15,6 +15,7 @@ export const initialState = {
   loadUserLoading: false, // 유저 정보 가져오기 시도 중
   loadUserDone: false,
   loadUserError: null,
+  userInfo: null,
   logInLoading: false, // 로그인 시도 중
   logInDone: false,
   logInError: null,
@@ -189,7 +190,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case LOAD_USER_SUCCESS:
       draft.loadUserLoading = false;
       draft.loadUserDone = true;
-      draft.me = action.data;
+      draft.userInfo = action.data;
       break;
     case LOAD_USER_FAILURE:
       draft.loadUserLoading = false;

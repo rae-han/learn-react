@@ -14,10 +14,6 @@ const UserProfile = () => {
     dispatch(logoutRequestAction());
   }, []);
 
-  useEffect(() => {
-    console.log(me)
-  }, [me])
-
   return (
     <Card
       actions={[

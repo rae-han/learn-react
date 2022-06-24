@@ -74,7 +74,7 @@ function* logIn(action) {
     })
   }
 }
-function loadMyInfoAPI(data) {
+function loadMyInfoAPI() {
   return axios.get('/user')
 }
 function* loadMyInfo(action) {
@@ -93,7 +93,7 @@ function* loadMyInfo(action) {
 }
 
 function loadUserAPI(data) {
-  return axios.get('/user')
+  return axios.get(`/user/${data}`)
 }
 function* loadUser(action) {
   try {

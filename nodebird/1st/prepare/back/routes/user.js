@@ -7,7 +7,7 @@ const { User, Post } = require('../models'); // db.User에 접근
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares')
 
 router.get('/', async (req, res, next) => {
-  console.log(req.headers)
+  // console.log(req.headers)
   try {
     if(req.user) {
       const fullUserWithoutPassword = await User.findOne({
@@ -42,9 +42,43 @@ router.get('/', async (req, res, next) => {
     console.error(error);
     next(error);
   }
+});
+
+router.get('/:userId', async (req, res, next) => {
+  console.log(req.headers)
+  try {
+    const fullUserWithoutPassword = await User.findOne({
+      where: { id: req.params.userId },
+      // attributes: [], // attributes 프로퍼티를 통해 받을 것을 정해줄수 있다.
+      attributes: { // exclude라는 특별한 키워드를 통해 뺄 것을 정해줄 수 있다.
+        exclude: ['password'],
+      },
+      include: [{
+        // associate에 적힌 그대로 적으면 된다.
+        model: Post, //  hasMany라 model: Post가 복수형이 되어 me.Posts가 된다.
+        attributes: ['id'], // id만 알아도 몇개인지 셀 수 있다.
+      }, { // as가 있는 것들은 as에 담겨있는 값을 적으면 된다.
+        model: User,
+        as: 'Followings',
+        attributes: ['id'],
+      }, {
+        model: User,
+        as: 'Followers',
+        attributes: ['id'],
+      }]
+    })
+
+    if (fullUserWithoutPassword) {
+      res.status(200).json(fullUserWithoutPassword)
+    } else {
+      res.status(404).send('존재하지 않는 사용자입니다.')
+    }
 
 
-
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 });
 
 router.post('/', isNotLoggedIn, async (req, res, next) => {
