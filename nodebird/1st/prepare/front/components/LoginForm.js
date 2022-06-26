@@ -21,8 +21,8 @@ const LoginForm = () => {
     logInLoading: user.logInLoading,
     logInError: user.logInError,
   }))
-  const [email, onChangeEmail] = useInput('asdf@asdf.asdf');
-  const [password, onChangePassword] = useInput('asdf');
+  const [email, onChangeEmail] = useInput('qwer@qwer.qwer');
+  const [password, onChangePassword] = useInput('qwer');
 
   const ButtonWrapperStyle = useMemo(() => ({ marginTop: 10 }), []);
 

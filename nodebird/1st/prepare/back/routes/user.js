@@ -69,7 +69,11 @@ router.get('/:userId', async (req, res, next) => {
     })
 
     if (fullUserWithoutPassword) {
-      res.status(200).json(fullUserWithoutPassword)
+      const data = fullUserWithoutPassword.toJSON(); // 시퀄라이저에서 온 데이터는 JSON이 아니라 우리가 쓸수 있는 JSON으로 바꿔줘야 한다.
+      data.Posts = data.Posts.length;
+      data.Followers = data.Followers.length;
+      data.Followings = data.Followings.length;
+      res.status(200).json(data)
     } else {
       res.status(404).send('존재하지 않는 사용자입니다.')
     }

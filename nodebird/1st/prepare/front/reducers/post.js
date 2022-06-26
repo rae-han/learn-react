@@ -55,6 +55,10 @@ export const initialState = {
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+  singlePost: null,
+  loadPostLoading: false,
+  loadPostDone: false,
+  loadPostError: null,
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
@@ -101,6 +105,10 @@ export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
@@ -168,8 +176,23 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.imagePaths = [];
       break;
     case ADD_POST_FAILURE:
-      draft.draddPostLoading = false;
-      draft.draddPostError = action.error;
+      draft.addPostLoading = false;
+      draft.addPostError = action.error;
+      break;
+    case LOAD_POST_REQUEST:
+      draft.loadPostLoading = true;
+      draft.loadPostDone= false;
+      draft.loadPostError= null;
+      break;
+    case LOAD_POST_SUCCESS:
+      console.log('action.data', action.data);
+      draft.loadPostLoading = false;
+      draft.loadPostDone = true;
+      draft.singlePost = action.data;
+      break;
+    case LOAD_POST_FAILURE:
+      draft.loadPostLoading = false;
+      draft.loadPostError = action.error;
       break;
     case REMOVE_POST_REQUEST:
       draft.removePostLoading = true;

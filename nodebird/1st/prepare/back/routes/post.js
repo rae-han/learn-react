@@ -83,14 +83,47 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   }
 });
 
-router.delete('/:postId', isLoggedIn, async (req, res, next) => {
+// router.get('/:postId', isLoggedIn, async (req, res, next) => {
+router.get('/:postId', async (req, res, next) => {
   try {
-    await Post.destroy({
+    const post = await Post.findOne({
       where: { id: req.params.postId },
-      UserId: req.user.id,
     });
 
-    res.json({ PostId: parseInt(req.params.postId, 10) });
+    if (!post) {
+      return res.status(404).send('존재하지 않는 게시글 입니다.');
+    }
+
+    const fullPost = await Post.findOne({
+      where: { id: post.id },
+      include: [{
+        model: Post,
+        as: 'Retweet',
+        include: [{
+          model:User,
+          attributes: ['id', 'nickname'],
+        }, {
+          model: Image,
+        }]
+      }, {
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: User, // 좋아요 누른 사람
+        as: 'Likers',
+        attributes: ['id'],
+      }, {
+        model: Image,
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname'],
+        }]
+      }]
+    })
+
+    res.status(200).json(fullPost);
   } catch (error) {
     console.error(error);
     next(error);
