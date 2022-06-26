@@ -6,6 +6,7 @@ import AppLayout from "../../components/AppLayout";
 import PostCard from "../../components/PostCard";
 import {useSelector} from "react-redux";
 import { END } from 'redux-saga';
+import Head from "next/head";
 
 const Post = () => {
   const router = useRouter();
@@ -14,6 +15,26 @@ const Post = () => {
 
   return (
     <AppLayout>
+      <Head>
+        <title>
+          {singlePost.User.nickname}
+          님의 글
+        </title>
+        <meta name="description" content={singlePost.content} />
+        <meta property="og:title" content={`${singlePost.User.nickname}님의 게시글`} />
+        <meta property="og:description" content={singlePost.content} />
+        <meta property="og:image" content={singlePost.Images[0] ? singlePost.Images[0].src : 'https://nodebird.com/favicon.ico'} />
+        <meta property="og:url" content={`https://nodebird.com/post/${id}`} />
+      {/*
+        title = 탭
+        description = 게시글 설명
+        og - 카톡, 페북 공유했을때 미리보기 뜨는 것
+        og:title
+        og:description 설명
+        og:image 이미지
+        og:url 링크 눌렸을때 가는 주소
+      */}
+      </Head>
       {singlePost && <PostCard post={singlePost}></PostCard>}
     </AppLayout>
   )
