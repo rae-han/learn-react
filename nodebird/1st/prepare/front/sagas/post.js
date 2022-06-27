@@ -14,6 +14,8 @@ import {
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
   LOAD_POSTS_FAILURE,
+  LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_USER_POSTS_FAILURE,
+  LOAD_HASHTAG_POSTS_REQUEST, LOAD_HASHTAG_POSTS_SUCCESS, LOAD_HASHTAG_POSTS_FAILURE,
   LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
   LIKE_POST_REQUEST,
   LIKE_POST_SUCCESS,
@@ -216,6 +218,7 @@ function* uploadImages(action) {
   }
 }
 
+// 리트윗
 function retweetAPI(data) {
   return axios.post(`/post/${data}/retweet`, data); // form 데이터를 객체로 감싸면 json이 돼 버린다.
 }
@@ -234,6 +237,53 @@ function* retweet(action) {
       error: error.response.data,
     })
   }
+}
+
+function loadUserPostsAPI(data, lastId) {
+  return axios.get(`/user/${data}/posts?lastId=${lastId || 0}`);
+}
+
+function* loadUserPosts(action) {
+  try {
+    const result = yield call(loadUserPostsAPI, action.data, action.lastId);
+    yield put({
+      type: LOAD_USER_POSTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_USER_POSTS_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+function* watchLoadUserPosts() {
+  yield throttle(4*1000, LOAD_USER_POSTS_REQUEST, loadUserPosts);
+  // yield takeLatest(LOAD_POSTS_REQUEST, loadComment);
+}
+
+function loadHashtagPostsAPI(data, lastId) {
+  return axios.get(`/hashtag/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
+}
+function* loadHashtagPosts(action) {
+  try {
+    const result = yield call(loadHashtagPostsAPI, action.data, action.lastId);
+    yield put({
+      type: LOAD_HASHTAG_POSTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_HASHTAG_POSTS_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+function* watchLoadHashtagPosts() {
+  yield throttle(4*1000, LOAD_HASHTAG_POSTS_REQUEST, loadHashtagPosts);
+  // yield takeLatest(LOAD_POSTS_REQUEST, loadComment);
 }
 
 function* watchLoadPosts() {
@@ -270,6 +320,8 @@ function* watchRetweet() {
 export default function* postSaga() {
   yield all([
     fork(watchLoadPosts),
+    fork(watchLoadUserPosts),
+    fork(watchLoadHashtagPosts),
     fork(watchLoadPost),
     fork(watchAddPost),
     fork(watchRemovePost),
