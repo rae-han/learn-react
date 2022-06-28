@@ -63,3 +63,45 @@ export default class MyDocument extends Document {
 default와 es 체크한 걸 스크립트로 넣어주면 바벨보다 좀 더 가볍고 좋다.
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces2020%2Ces2021%2Ces2022" />
 이건 body start 태그와 Main 컴포넌트 사이에 넣어주면 된다.
+
+# get static path
+는 다이나믹 라우팅일때 사용한다.
+다이나믹라우팅일때 겟 스테틱 프롭스를 사용하면 무조건 같이 사용해야한다.
+이때 다이나믹 페이지는 미리 뭘 만들어야할지 모른다.
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { id: '1' } },
+      { params: { id: '2' } },
+      { params: { id: '3' } }, 
+    ]
+  }
+}
+// id가 1, 2, 3인 post/1~3 을 미리 만들어주고 4번부턴 에러난다.
+// 그렇다면 axios같이 비동기 이용하여 미리 만들어야 할 모든 페이지를 다 불러와서 paths값에 넣어준다.
+// 사실 말도 안된다. 이렇게 할거면 그냥 getSSP 쓰자.
+// 개인 블로그 같은 곳에서는 유용할지도/?
+
+export const getStaticProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  context.store.dispatch({
+    type: LOAD_USER_POSTS_REQUEST,
+    data: context.params.id,
+  });
+  context.store.dispatch({
+    type: LOAD_MY_INFO_REQUEST,
+  });
+  context.store.dispatch({
+    type: LOAD_USER_REQUEST,
+    data: context.params.id,
+  });
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+  console.log('getState', context.store.getState().post.mainPosts);
+  return { props: {} };
+});
