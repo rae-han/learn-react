@@ -75,14 +75,24 @@ export async function getStaticPaths() {
       { params: { id: '1' } },
       { params: { id: '2' } },
       { params: { id: '3' } }, 
-    ]
+    ],
+    fallback: true,
   }
 }
 // id가 1, 2, 3인 post/1~3 을 미리 만들어주고 4번부턴 에러난다.
 // 그렇다면 axios같이 비동기 이용하여 미리 만들어야 할 모든 페이지를 다 불러와서 paths값에 넣어준다.
 // 사실 말도 안된다. 이렇게 할거면 그냥 getSSP 쓰자.
 // 개인 블로그 같은 곳에서는 유용할지도/?
+// ----
+// fallback을 트루로하면 저기 적혀있지 않은게 있어도 에러가 안뜬다.
+// 대신 서버사이드 렌더링이 안되는데 이걸 아래 코드로 클라이언트 랜더링을 할수 있게 잠깐 기다려주는 코드가 있다.
+if (router.isFallback) {
+  return <div>loading...</div>
+}
 
+
+
+```
 export const getStaticProps = wrapper.getServerSideProps(async (context) => {
   const cookie = context.req ? context.req.headers.cookie : '';
   axios.defaults.headers.Cookie = '';
