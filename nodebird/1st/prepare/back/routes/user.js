@@ -44,47 +44,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:userId', async (req, res, next) => {
-  console.log(req.headers)
-  try {
-    const fullUserWithoutPassword = await User.findOne({
-      where: { id: req.params.userId },
-      // attributes: [], // attributes 프로퍼티를 통해 받을 것을 정해줄수 있다.
-      attributes: { // exclude라는 특별한 키워드를 통해 뺄 것을 정해줄 수 있다.
-        exclude: ['password'],
-      },
-      include: [{
-        // associate에 적힌 그대로 적으면 된다.
-        model: Post, //  hasMany라 model: Post가 복수형이 되어 me.Posts가 된다.
-        attributes: ['id'], // id만 알아도 몇개인지 셀 수 있다.
-      }, { // as가 있는 것들은 as에 담겨있는 값을 적으면 된다.
-        model: User,
-        as: 'Followings',
-        attributes: ['id'],
-      }, {
-        model: User,
-        as: 'Followers',
-        attributes: ['id'],
-      }]
-    })
-
-    if (fullUserWithoutPassword) {
-      const data = fullUserWithoutPassword.toJSON(); // 시퀄라이저에서 온 데이터는 JSON이 아니라 우리가 쓸수 있는 JSON으로 바꿔줘야 한다.
-      data.Posts = data.Posts.length;
-      data.Followers = data.Followers.length;
-      data.Followings = data.Followings.length;
-      res.status(200).json(data)
-    } else {
-      res.status(404).send('존재하지 않는 사용자입니다.')
-    }
-
-
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
 router.get('/:id/posts', async (req, res, next) => { // GET /user/1/posts
   console.log('/user/:id/posts')
   try {
@@ -240,6 +199,40 @@ router.patch('/nickname', isLoggedIn, async (req, res, next) => {
   }
 })
 
+router.get('/followers', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.user.id }});
+    if(!user) {
+      res.status(403).send('');
+    }
+
+    const followers = await user.getFollowers({
+      limit: parseInt(req.query.limit, 10),
+    });
+    res.status(200).json(followers);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
+
+router.get('/followings', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.user.id }});
+    if(!user) {
+      res.status(403).send('');
+    }
+
+    const followings = await user.getFollowings({
+      limit: parseInt(req.query.limit, 10),
+    });
+    res.status(200).json(followings);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
+
 router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.params.userId }});
@@ -294,34 +287,45 @@ router.delete('/follower/:userId', isLoggedIn, async (req, res, next) => {
   }
 })
 
-router.get('/followers', isLoggedIn, async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
+  console.log(req.headers)
   try {
-    const user = await User.findOne({ where: { id: req.user.id }});
-    if(!user) {
-      res.status(403).send('');
+    const fullUserWithoutPassword = await User.findOne({
+      where: { id: req.params.userId },
+      // attributes: [], // attributes 프로퍼티를 통해 받을 것을 정해줄수 있다.
+      attributes: { // exclude라는 특별한 키워드를 통해 뺄 것을 정해줄 수 있다.
+        exclude: ['password'],
+      },
+      include: [{
+        // associate에 적힌 그대로 적으면 된다.
+        model: Post, //  hasMany라 model: Post가 복수형이 되어 me.Posts가 된다.
+        attributes: ['id'], // id만 알아도 몇개인지 셀 수 있다.
+      }, { // as가 있는 것들은 as에 담겨있는 값을 적으면 된다.
+        model: User,
+        as: 'Followings',
+        attributes: ['id'],
+      }, {
+        model: User,
+        as: 'Followers',
+        attributes: ['id'],
+      }]
+    })
+
+    if (fullUserWithoutPassword) {
+      const data = fullUserWithoutPassword.toJSON(); // 시퀄라이저에서 온 데이터는 JSON이 아니라 우리가 쓸수 있는 JSON으로 바꿔줘야 한다.
+      data.Posts = data.Posts.length;
+      data.Followers = data.Followers.length;
+      data.Followings = data.Followings.length;
+      res.status(200).json(data)
+    } else {
+      res.status(404).send('존재하지 않는 사용자입니다.')
     }
 
-    const followers = await user.getFollowers();
-    res.status(200).json(followers);
+
   } catch (error) {
     console.error(error);
     next(error);
   }
-})
-
-router.get('/followings', isLoggedIn, async (req, res, next) => {
-  try {
-    const user = await User.findOne({ where: { id: req.user.id }});
-    if(!user) {
-      res.status(403).send('');
-    }
-
-    const followings = await user.getFollowings();
-    res.status(200).json(followings);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-})
+});
 
 module.exports = router;

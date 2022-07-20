@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 import { UNFOLLOW_REQUEST, REMOVE_FOLLOWER_REQUEST } from "../reducers/user";
 
-function FollowList({ header, data }) {
+function FollowList({ header, data, loading, onClickMore }) {
   const dispatch = useDispatch();
 
   const onCancel = useCallback((id) => () => {
@@ -29,7 +29,11 @@ function FollowList({ header, data }) {
       grid={{ gutter: 4, xs: 2, md: 3 }}
       size="small"
       header={<div>{header}</div>}
-      loadMore={<div style={{ textAlign: 'center', margin: '10px 0' }}><Button>더 보기</Button></div>}
+      loadMore={(
+        <div style={{ textAlign: 'center', margin: '10px 0' }}>
+          <Button loading={loading} onClick={onClickMore} >더 보기</Button>
+      </div>
+      )}
       bordered
       dataSource={data}
       renderItem={(item) => (
@@ -47,6 +51,8 @@ function FollowList({ header, data }) {
 FollowList.propTypes = {
   header: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  onClickMore: PropTypes.func.isRequired,
 }
 
 export default FollowList;

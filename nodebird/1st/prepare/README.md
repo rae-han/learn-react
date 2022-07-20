@@ -57,7 +57,8 @@ export default class MyDocument extends Document {
       </Html>
     );
   }
-}
+
+
 ```
 추가로 polyfill.io 에서 
 default와 es 체크한 걸 스크립트로 넣어주면 바벨보다 좀 더 가볍고 좋다.
