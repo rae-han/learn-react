@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, {useCallback, useMemo} from 'react';
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import styled from '@emotion/styled'
 import { Menu, Input, Row, Col } from 'antd'
+import useInput from "../hooks/useInput";
 
 import LoginForm from "./LoginForm";
 import UserProfile from "./UserProfile";
@@ -17,8 +18,13 @@ function AppLayout({ children }) {
   const router = useRouter();
   // const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const { me } = useSelector((state) => state.user)
-
   const SearchInputStyle = useMemo(() => ({ verticalAlign: 'middle' }), [])
+
+  const [searchInput, onChangeSearchInput] = useInput('');
+
+  const onSearch = useCallback(() => {
+    Router.push(`/hashtag/${searchInput}`);
+  }, [searchInput])
 
   return (
     <div>
@@ -33,9 +39,9 @@ function AppLayout({ children }) {
             label: <SearchInput
               enterButton
               style={SearchInputStyle}
-              // value={searchInput}
-              // onChange={onChangeSearchInput}
-              // onSearch={onSearch}
+              value={searchInput}
+              onChange={onChangeSearchInput}
+              onSearch={onSearch}
             />, 
             key: '/search' 
           },
