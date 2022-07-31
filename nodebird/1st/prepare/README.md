@@ -121,3 +121,19 @@ export const getStaticProps = wrapper.getServerSideProps(async (context) => {
 moment에서 넘어가는 이유
 date-fns - 불변성
 dayjs - 데이터 용량
+
+# npm run build in front
+ci/cd
+ㅂㅗ통 코드를 바꾸면 깃헙에 푸쉬를 하고 거기다 ci/cd 도구가 있는데 코드 테스트나 빌드 같은 것도 해준다.
+중간에 에러 있으면 배포 실패했다고 알림을 보낸다.
+ci/cd툴을 깃헙에 연결해두고 빌드 다 통과하면 중간에 아마존에 보내준다.
+젠킨스, 트레디스ci, ?
+
+# 파일 용량
+빌드 했을때 페이지당 용량이 1메가 이하면 괜찮은데 넘어가면 코드 스플릿팅 적용 해야한다
+리액트.레이지 서스펜스
+람다는 서버사이드(겟 서버사이드)
+검정 동그라이미는 스테틱 프롭스
+
+# 파일 용량이랑 어떤 공통 분모가 있는지 알고 싶다?
+npm i @next/bundle-analyzer
