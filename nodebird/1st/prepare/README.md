@@ -116,3 +116,8 @@ export const getStaticProps = wrapper.getServerSideProps(async (context) => {
   console.log('getState', context.store.getState().post.mainPosts);
   return { props: {} };
 });
+
+# date lib
+moment에서 넘어가는 이유
+date-fns - 불변성
+dayjs - 데이터 용량
