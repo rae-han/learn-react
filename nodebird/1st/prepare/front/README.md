@@ -213,4 +213,5 @@ eslint-plugin-jsx-a11y
 
 
 
-# 
+# 커스텀 웹팩을 쓰려면
+next.config.js
