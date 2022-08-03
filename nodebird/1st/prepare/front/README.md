@@ -215,3 +215,14 @@ eslint-plugin-jsx-a11y
 
 # 커스텀 웹팩을 쓰려면
 next.config.js
+
+# 파일 용량이랑 어떤 공통 분모가 있는지 알고 싶다?
+npm i @next/bundle-analyzer
+
+# front 환경 변수 설정
+"build": "ANALYZE=true NODE_ENV=production next build"
+하면 된다. 다만 윈도우에서 안되니...
+npm i cross-env
+
+# moment
+moment locale tree shaking
