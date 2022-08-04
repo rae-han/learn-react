@@ -4,9 +4,10 @@ import Head from 'next/head';
 import Router from 'next/router';
 import useSWR from 'swr';
 import axios from "axios";
+import {END} from "redux-saga";
 
 import wrapper from '../store/configureStore';
-import { LOAD_FOLLOWERS_REQUEST, LOAD_FOLLOWINGS_REQUEST} from '../reducers/user'
+import {LOAD_FOLLOWERS_REQUEST, LOAD_FOLLOWINGS_REQUEST, LOAD_MY_INFO_REQUEST} from '../reducers/user'
 
 import AppLayout from '../components/AppLayout';
 import NicknameEditForm from '../components/NicknameEditForm';
