@@ -10,11 +10,11 @@ import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import { LOAD_POSTS_REQUEST } from "../reducers/post";
 import wrapper from "../store/configureStore";
 
-function Home() {
+function Home(props) {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading, retweetError } = useSelector(state => state.post); // 취향이지만 최적화가 달라질 수 있다.
-
+  console.log(props);
   // useEffect(() => {
   //   dispatch({
   //     type: LOAD_MY_INFO_REQUEST
@@ -98,6 +98,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   context.store.dispatch(END) // // 이건 사용 방법이 그냥 이렇다.
   await context.store.sagaTask.toPromise(); // 이건 사용 방법이 그냥 이렇다.
   // sagaTask는 store에 등록해둔 sagaTask이다.
+
+  return {
+    props: { message: `Next.js is awesome` }, // will be passed to the page component as props
+  }
 });
 // 단순히 이렇게 한다고해서 되는건 아니다
 // 이때 나오는게 하이드레이트

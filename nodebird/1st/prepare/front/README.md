@@ -211,7 +211,8 @@ eslint-plugin-jsx-a11y
 
 # 불변성을 안지키려면 filter대신 splice를 사용하는 것이 맞다.
 
-
+# getServersideProps 변경 사항
+https://www.inflearn.com/questions/230014
 
 # 커스텀 웹팩을 쓰려면
 next.config.js
