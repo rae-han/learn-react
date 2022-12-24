@@ -162,3 +162,141 @@ HTTP HTTPs 허용
 난 없어서 작업 누르고 이미지 및 템플릿 누른 후 더 많은 뭐시기 함
 그리고 이름 바꿔줌
 
+# 깃헙
+뉴 레포지토리
+주소가 생긴다. - https://github.com/rae-han/react-next-nodebird
+prepare 폴더에서 git init
+git remote add origin https://github.com/rae-han/react-next-nodebird
+
+git add .
+git commit -m ""
+위 두개를 합친게
+git commit -am "create: prepare for aws"
+
+git push origin main
+
+# 소스코드 git 에 올린 이유
+aws에 소스 코드를 보낼건데 aws에서 제공하는 툴로 ftp처럼 보낼수도 있고
+깃을 통해서 소스코드 레포지토리를 통해서 다운을
+보통은 후자로 하는 경우가 많다.
+
+aws ec2로 돌아와서 인스턴스를 선택하고 연결을 누른다.
+
+ssh 클라이언트 탭에 맨 아래 명령어를 복사한다.
+키가 있는 곳(prepare 폴더(front, back의 상위 폴더))에서 명령어를 입력하고 yes를 입력한다.
+그럼 우분투가 뜬다.
+
+거기서 git clone 깃주소 를 한다.
+
+# unutu에 노드 설치해야 한다.
+ssh -i "react-nodebird.pem" ubuntu@ec2-3-37-86-6.ap-northeast-2.compute.amazonaws.com
+
+리눅스 명령어
+// 위에 3개는 혹시 모를 에러를 대비하기 위해 마지막 두개는 필수.
+sudo apt-get update
+sudo apt-get install -y build-essential
+sudo apt-get install curl
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash --
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash --
+sudo apt-get install -y nodejs
+
+그 후 front 폴더 가서 npm i
+
+# back 은 서버를 따로 띄워야해서 따로 해준다.
+// front 와 주소가 미묘하게 다르다 
+ssh -i "react-nodebird.pem" ubuntu@ec2-3-39-23-26.ap-northeast-2.compute.amazonaws.com
+
+똑같이 해준다.
+git clone https://github.com/rae-han/react-next-nodebird
+sudo apt-get update
+sudo apt-get install -y build-essential
+sudo apt-get install curl
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash --
+sudo apt-get install -y nodejs
+
+그리고 back폴더에서 npm i
+
+#
+ec2에 IPv4 퍼블릭 IP가 만든 서버의 주소다
+처음에 ec2에서 ssh https http 허용을 해줬는데 ssh허용을 해줬기에 위 작업을 할수 있는 것이다.
+
+#
+다시 프론트로 가서 npm run build 를 해준다.
+
+ci/cd 귀찮다 젠킨스
+
+스케일링 할때 명령어 다 적기 귀찮다 => 도커
+
+# 서버에 mysql 설치
+sudo apt-get install -y mysql-server - 8버전
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'fogkswjd';
+
+sudo su = root 계정으로 전환
+
+mysql_secure_installation // 반드시 이거 하기 전에 sudo su
+
+위에서 적은 비밀번호 입력하고
+y
+0 (실제는 2?)
+
+mysql -uroot -p
+비밀번호 설정한대로 됐는지 확인
+
+나중에 비밀번호 한 번 더 바꿔줘야 한다.
+
+#
+
+package.json에
+"start": "node app.js" 추가한다.
+그 후 다시 서버에서 npm start 해준다.
+
+sqlMessage: "Access denied for user 'root'@'localhost' (using password: YES)",
+
+.env 가 안올라갔기 때문에 만들어줘야 한다.
+vim .env
+a나 i를 누르면 글자 입력 가능
+a누르면 아래가 insert로 바뀐다.
+
+다 입력하고 esc누르고
+:wq ( 저장 후 종료 )
+
+cat .env 로 파일 확인
+
+root에서( sudo mysql_secure_installation 를 실행한 이후 해야할 것들 )
+mysql -uroot -p
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'fogkswjd';
+
+npx sequelize db:create
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'fogkswjd';
+FLUSH PRIVILEGES;
+
+# back
+app.js 포트번호 3065로는 외부에서 접근이 안된다
+80은 허용돼 있으니까 80으로 바꿔주자.
+
+# pm2
+foreground process
+터미널 끄면 같이 꺼짐
+background process
+터미널 꺼도 안 꺼짐
+
+sudo node app $ <- 달러 붙이면 백그라운드 실행 가능
+
+npm i pm2
+"start": "sudo node app.js",
+"start": "sudo pm2 start app.js",
+
+
+
+
+
+
+
+
+
+
+
+
+
