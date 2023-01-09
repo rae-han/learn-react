@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="6f3dc0d3-508a-43ae-9189-c316322c9b07" name="변경" comment="">
       <change afterPath="$PROJECT_DIR$/src/apis/giftcard.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/pages/about.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
     </list>
+=======
+    <list default="true" id="100c8e8f-2c30-4152-8507-fb6dc872512d" name="변경" comment="" />
+>>>>>>> 23b8f6b58c50482f19d7b7622ce12dc62d50d688
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +21,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="2FI8Vhgkhu7vBLg6vEi0W4mJKeK" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -42,12 +47,42 @@
       <option name="presentableId" value="Default" />
       <updated>1664168263193</updated>
       <workItem from="1664168264917" duration="9921000" />
+=======
+  <component name="ProjectId" id="2FHeEqHqdm6vdfdL9SqjZKsYuVN" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/raehan/Documents/develop/learn/react/react-query-rtk&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="100c8e8f-2c30-4152-8507-fb6dc872512d" name="변경" comment="" />
+      <created>1664153327898</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664153327898</updated>
+      <workItem from="1664153329260" duration="1324000" />
+      <workItem from="1664685102528" duration="874000" />
+      <workItem from="1664687260540" duration="1207000" />
+>>>>>>> 23b8f6b58c50482f19d7b7622ce12dc62d50d688
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -59,4 +94,6 @@
       </map>
     </option>
   </component>
+=======
+>>>>>>> 23b8f6b58c50482f19d7b7622ce12dc62d50d688
 </project>
