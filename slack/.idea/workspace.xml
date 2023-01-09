@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="57a0d46d-8048-4893-aba6-241094fe7927" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/back/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/back/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/back/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/back/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/back/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/back/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/back/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/back/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/back/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/back/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/1st/prepare/front/pages/about.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/1st/prepare/front/pages/about.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodebird/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nodebird/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2DQGlfnLaE9GKH9PJkAxOiFaDA6" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/raehan/Documents/develop/learn/react/slack&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="57a0d46d-8048-4893-aba6-241094fe7927" name="Changes" comment="" />
+      <created>1660624048104</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1660624048104</updated>
+      <workItem from="1660624049730" duration="2411000" />
+      <workItem from="1660645587484" duration="1340000" />
+      <workItem from="1660654339647" duration="1446000" />
+      <workItem from="1661133374376" duration="1213000" />
+      <workItem from="1661138084730" duration="598000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
